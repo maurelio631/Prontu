@@ -5,6 +5,7 @@ import { FormPersonalDetails } from "./formSteps/formPersonalDetails";
 import { FormUncomfortableAreas } from "./formSteps/formUncomfortableAreas";
 import { FormSymptoms } from "./formSteps/formSymptoms";
 import { FormMoreSymptoms } from "./formSteps/formMoreSymptoms";
+import Swal from "sweetalert2";
 
 export function Form() {
     const [step, setStep] = useState(1);
@@ -31,6 +32,31 @@ export function Form() {
         }
     }
 
+    const concluiStep = ()=>{
+        if (step !== 4) {
+            setStep(step + 1)
+        } else(
+            Swal.fire({
+                title: "Auto-avaliação preenchida com sucesso!",
+                confirmButtonText: "Concluir",
+                showDenyButton: true,
+                denyButtonText: `Editar auto-avaliação`,
+
+            }).then((result) => {
+                /* Read more about isConfirmed, isDenied below */
+                if (result.isConfirmed) {
+                    Swal.fire("Saved!", "", "success");
+                } else if (result.isDenied) {
+                   setStep(1)
+                }
+            })
+        )
+    }
+
+    const retornaStep = () => {
+        setStep(step - 1)
+    }
+
     const handleDataChange = (step, data) => {
         setFormData(prevFormData => ({
             ...prevFormData,
@@ -47,8 +73,8 @@ export function Form() {
 
             <div className="w-full flex flex-col justify-between pt-3 md:flex-row">
                 <button
-                    className={`text-lg text-white py-2 w-full max-w-32 rounded-md ${step === 1 ? 'bg-gray-500/50 cursor-not-allowed' : 'bg-azul-principal'}`}
-                    onClick={() => setStep(step - 1)}
+                    className={`text-lg text-white py-2 w-full max-w-32 rounded-md ${step === 1  ? 'bg-gray-500/50 cursor-not-allowed' : 'bg-azul-principal'}`}
+                    onClick={() => retornaStep()}
                     disabled={step === 1}
                 >
                     Voltar
@@ -58,7 +84,7 @@ export function Form() {
 
                 <button
                     className={`text-lg text-white py-2 w-full max-w-32 rounded-md ${step === 4 ? 'bg-verde-claro' : 'bg-azul-principal'}`}
-                    onClick={() => step !== 4 && setStep(step + 1)}
+                    onClick={() => concluiStep()}
                 >
                     {step === 4 ? 'Concluir' : 'Próximo'}
                 </button>
