@@ -1,5 +1,3 @@
-import Clinica from "./assets/Clinica.png";
-import Funcionario from "./assets/Funcionario.png";
 import { Form } from "./components/Form";
 import { Header } from "./components/Header";
 
