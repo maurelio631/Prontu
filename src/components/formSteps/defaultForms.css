@@ -1,0 +1,47 @@
+.custom-input label{
+    display: flex;
+}
+
+.custom-input label input{
+    margin-left: 15px;
+    border: 1px solid #A3A3A3;
+    font-weight: 300;
+    padding:0 10px;
+    border-radius: 3px;
+}
+.custom-input label input:hover{
+    border: 1px solid hsl(0, 0%, 7%);
+}
+
+.custom-input label input:focus{
+    outline: none;
+}
+
+
+
+
+/*radios*/
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    border: 1px solid #A3A3A3;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.radio-label:hover {
+    border-color: #5A9CDA;
+    background-color: #deebf8;
+}
+
+.radio-input {
+    display: none;
+}
+
+.radio-input:checked + .radio-label {
+    border-color: #5A9CDA;
+    background-color: #deebf8;
+}
