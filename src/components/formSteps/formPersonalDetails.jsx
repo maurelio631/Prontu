@@ -20,9 +20,10 @@ export function FormPersonalDetails({ data, onDataChange }) {
 
     return (
         <div className="flex flex-col gap-5 text-base font-medium custom-input">
-            <label htmlFor="nome">
+            <label htmlFor="txt-nome">
                 Nome:
                 <input
+                    id="txt-nome"
                     type="text"
                     name="nome"
                     className="w-full"
@@ -34,6 +35,7 @@ export function FormPersonalDetails({ data, onDataChange }) {
             <label htmlFor="nasc">
                 Nascimento:
                 <input
+                    id="nasc"
                     type="date"
                     name="nasc"
                     className="rounded-lg mr-2"
@@ -47,6 +49,7 @@ export function FormPersonalDetails({ data, onDataChange }) {
             <label htmlFor="txt-profi">
                 Profissão:
                 <input
+                    id="txt-profi"
                     type="text"
                     name="txt-profi"
                     value={localData["txt-profi"] || ""}
@@ -58,6 +61,7 @@ export function FormPersonalDetails({ data, onDataChange }) {
                 <label htmlFor="txt-tel">
                     Tel. Contato:
                     <input
+                        id="txt-tel"
                         type="text"
                         name="txt-tel"
                         className="w-52"
@@ -69,6 +73,7 @@ export function FormPersonalDetails({ data, onDataChange }) {
                 <label htmlFor="txt-cpf">
                     CPF:
                     <input
+                        id="txt-cpf"
                         type="text"
                         name="txt-cpf"
                         className="w-52"
@@ -81,6 +86,7 @@ export function FormPersonalDetails({ data, onDataChange }) {
             <label htmlFor="txt-email">
                 E-mail:
                 <input
+                    id="txt-email"
                     type="text"
                     name="txt-email"
                     value={localData["txt-email"] || ""}
@@ -91,6 +97,7 @@ export function FormPersonalDetails({ data, onDataChange }) {
             <label htmlFor="txt-endr">
                 Endereço:
                 <input
+                    id="txt-endr"
                     type="text"
                     name="txt-endr"
                     className="w-full"
@@ -102,6 +109,7 @@ export function FormPersonalDetails({ data, onDataChange }) {
             <label htmlFor="txt-como">
                 Como você nos conheceu?
                 <input
+                    id="txt-como"
                     type="text"
                     name="txt-como"
                     value={localData["txt-como"] || ""}
