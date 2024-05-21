@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
 import './defaultForms.css';
+import { useState, useEffect } from "react";
+import { desconfortos, frequencias, sintomas } from "../../data/arraySintomas";
 
 export function FormSymptoms({ data, onDataChange }) {
     const [localData, setLocalData] = useState(data);
@@ -28,30 +29,6 @@ export function FormSymptoms({ data, onDataChange }) {
         onDataChange(updatedData);
     };
 
-    const sintomas = [
-        { id: 1, name: 'Queda ou trauma' },
-        { id: 2, name: 'Sem causa aparente' },
-        { id: 3, name: 'Má postura ou atividades diárias' },
-        { id: 4, name: 'Outros' }
-    ];
-
-    const desconfortos = [
-        { id: 5, name: 'Pontada' },
-        { id: 6, name: 'Queimação' },
-        { id: 7, name: 'Peso' },
-        { id: 8, name: 'Pressão' },
-        { id: 9, name: 'Latejante' },
-        { id: 10, name: 'Difusa' },
-        { id: 11, name: 'Formigamento' },
-        { id: 12, name: 'Inflamação' }
-    ];
-
-    const frequencias = [
-        { id: 13, name: '1% a 25%' },
-        { id: 14, name: '25% a 50%' },
-        { id: 15, name: '50% a 75%' },
-        { id: 16, name: '75% a 100%' }
-    ];
 
     return (
         <div className='text-base font-medium custom-input'>
@@ -89,7 +66,7 @@ export function FormSymptoms({ data, onDataChange }) {
             <h3 className='text-xl text-center font-medium my-5'>Qual o tipo de desconforto? (selecione todas as opções compatíveis)</h3>
             <div className='flex flex-wrap max-w-[700px] w-full gap-1 m-auto justify-center'>
                 {desconfortos.map((desconforto) => (
-                    <div className='w-[23%]' key={desconforto.id}>
+                    <div className='w-[24%]' key={desconforto.id}>
                         <input
                             type="checkbox"
                             id={desconforto.id}

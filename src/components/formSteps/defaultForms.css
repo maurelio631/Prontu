@@ -20,11 +20,12 @@
 
 
 
-/*radios*/
+/*radios checkbox*/
 
 .radio-label {
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 5px;
     border: 1px solid #A3A3A3;
     border-radius: 8px;
@@ -44,4 +45,10 @@
 .radio-input:checked + .radio-label {
     border-color: #5A9CDA;
     background-color: #deebf8;
+}
+
+
+/*input checkbox maior que o necessário Fisioterapia / Acupuntura / Massagem*/
+#ajusteInput33 {
+    width: 73%!important;
 }
