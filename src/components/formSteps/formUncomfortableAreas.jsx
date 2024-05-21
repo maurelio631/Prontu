@@ -73,9 +73,9 @@ export function FormUncomfortableAreas() {
             <h2 className='text-2xl text-center font-medium mb-4'>Marque as áreas de desconforto na imagem abaixo</h2>
 
             <div className="flex items-center gap-12 justify-center">
-                <button className="limpar" onClick={limparCanvas} ref={buttonClear}>
+                <button className="limpar hover:bg-azul-principal/10 rounded-md" onClick={limparCanvas} ref={buttonClear}>
                     <img className="pincel-borracha" src={lixeira} alt="desfazer" />
-                    <p>Desfazer</p>
+                    <p className='font-semibold'>Desfazer</p>
                 </button>
                 <canvas ref={tela} id='tela'></canvas>
             </div>
