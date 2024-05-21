@@ -82,9 +82,11 @@ export function FormSymptoms({ data, onDataChange }) {
             </div>
 
             <h3 className='text-xl text-center font-medium my-5'>Qual a frequência dos sintomas?</h3>
-            <div className='flex w-full justify-center gap-2'>
+
+
+            <div className='flex justify-center gap-2 items-baseline'>
                 {frequencias.map((frequencia) => (
-                    <div key={frequencia.id}>
+                    <div key={frequencia.id} className='input-escada'>
                         <input
                             type="radio"
                             id={frequencia.id}
@@ -94,7 +96,7 @@ export function FormSymptoms({ data, onDataChange }) {
                             checked={localData.frequencia === frequencia.name}
                             onChange={handleChange}
                         />
-                        <label htmlFor={frequencia.id} className="radio-label">{frequencia.name}</label>
+                        <label htmlFor={frequencia.id} className="radio-label ">{frequencia.name}</label>
                     </div>
                 ))}
             </div>
