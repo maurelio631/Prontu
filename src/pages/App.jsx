@@ -1,8 +1,8 @@
-import { Form } from "./components/Form";
-import { Header } from "./components/Header";
+import { Form } from "../components/Form";
+import { Header } from "../components/Header";
 
-import Sidebar from "./components/Sidebar";
-import Wrapper from "./components/Wrapper";
+import Sidebar from "../components/Sidebar";
+import Wrapper from "../components/Wrapper";
 
 function App() {
   return (
