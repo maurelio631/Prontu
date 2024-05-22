@@ -60,12 +60,34 @@ export function FormUncomfortableAreas() {
     }, []);
 
     const buttonClear = useRef(null);
+    const buttonCapture = useRef(null);
 
     const limparCanvas = (evento) => {
         evento.preventDefault();
         const canvas = tela.current;
         const contexto = canvas.getContext("2d");
         contexto.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    const captureScreenshot = async(evento) => {
+        evento.preventDefault();
+        const canvas = tela.current;
+        const contexto = canvas.getContext("2d");
+        const video = document.createElement('video');
+
+        try {
+            const captureStream = await navigator.mediaDevices.getDisplayMedia({audio:false,video:true});
+            video.srcObject = captureStream;
+            contexto.drawImage(video, 0, 0, window.width, window.height);
+
+            const frame = canvas.toDataURL('image/png');
+            captureStream.getTracks().forEach(track => track.stop());
+            window.location.href = frame;
+
+            console.log(this.frame)
+        }catch(e){
+            console.log(e)
+        }
     }
 
     return (
@@ -77,6 +99,11 @@ export function FormUncomfortableAreas() {
                     <img className="pincel-borracha" src={lixeira} alt="desfazer" />
                     <p className='font-semibold'>Desfazer</p>
                 </button>
+                <button className="limpar hover:bg-azul-principal/10 rounded-md" onClick={captureScreenshot} ref={buttonCapture}>
+                    <img className="pincel-borracha" src={lixeira} alt="desfazer" />
+                    <p className='font-semibold'>Capturar</p>
+                </button>
+                
                 <canvas ref={tela} id='tela'></canvas>
             </div>
         </div>
