@@ -82,9 +82,6 @@ export function FormUncomfortableAreas() {
 
             const frame = canvas.toDataURL('image/png');
             captureStream.getTracks().forEach(track => track.stop());
-            window.location.href = frame;
-
-            console.log(this.frame)
         }catch(e){
             console.log(e)
         }
