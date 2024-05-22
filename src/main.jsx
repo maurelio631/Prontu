@@ -3,10 +3,12 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import "./assets/styles/alerts.css";
 
-import App from "./pages/App";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import App from "./pages/App";
 import { Pacientes } from "./pages/Pacientes";
 import { Prontuario } from "./pages/Prontuario";
+import { Login } from "./pages/Login";
 
 
 
@@ -15,8 +17,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
         <Routes>
           <Route index path="/" element={<App />} />
-          <Route  path="/Pacientes" element={<Pacientes/>} />
-          <Route path="/Prontuario" element={<Prontuario />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/login/pacientes" element={<Pacientes/>} />
+          <Route path="/login/prontuario" element={<Prontuario />} />
         </Routes>
     </BrowserRouter>
   </React.StrictMode>

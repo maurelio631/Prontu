@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import lixeira from '../../assets/lixeira.png';
 import corpo from '../../assets/corpohumano.png';
 import { FaCamera, FaTrash } from 'react-icons/fa';
 
