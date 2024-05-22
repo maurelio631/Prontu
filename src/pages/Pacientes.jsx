@@ -31,7 +31,7 @@ export function Pacientes(){
                                 onChange={funcBusca}
                                 className="bg-transparent outline-none  border-0 p-0 text-sm focus:ring-0"
                                 type="text"
-                                placeholder="Nome, e-mail ou telefone"
+                                placeholder="Nome ou telefone"
                             /> 
                         </div>
 
