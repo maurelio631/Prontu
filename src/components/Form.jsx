@@ -22,7 +22,7 @@ export function Form() {
             case 1:
                 return <FormPersonalDetails data={formData.personalDetails} onDataChange={(data) => handleDataChange('personalDetails', data)} />;
             case 2:
-                return <FormUncomfortableAreas data={formData.uncomfortableAreas} onDataChange={(data) => handleDataChange('uncomfortableAreas', data)} />;
+                return <FormUncomfortableAreas setFormData={setFormData}/>;
             case 3:
                 return <FormSymptoms data={formData.symptoms} onDataChange={(data) => handleDataChange('symptoms', data)} />;
             case 4:
@@ -43,9 +43,9 @@ export function Form() {
                 denyButtonText: `Editar auto-avaliação`,
 
             }).then((result) => {
-                /* Read more about isConfirmed, isDenied below */
                 if (result.isConfirmed) {
                     Swal.fire("Saved!", "", "success");
+                    console.log(formData)
                 } else if (result.isDenied) {
                    setStep(1)
                 }

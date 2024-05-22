@@ -3,8 +3,8 @@ import lixeira from '../../assets/lixeira.png';
 import corpo from '../../assets/corpohumano.png';
 import { FaCamera, FaTrash } from 'react-icons/fa';
 
-export function FormUncomfortableAreas() {
-
+export function FormUncomfortableAreas({ setFormData }) {
+    
     const tela = useRef(null);
     const background = new Image();
     background.src = corpo; // Replace with the path to your background image
@@ -90,13 +90,18 @@ export function FormUncomfortableAreas() {
 
         // Option 1: Scale down the image further
         const scaledCanvas = document.createElement('canvas');
-        scaledCanvas.width = canvas.width / 1; // Adjust the scaling factor as needed
-        scaledCanvas.height = canvas.height / 1;
+        scaledCanvas.width = canvas.width / 2; // Adjust the scaling factor as needed
+        scaledCanvas.height = canvas.height / 2;
         const scaledContext = scaledCanvas.getContext('2d');
         scaledContext.drawImage(canvas, 0, 0, scaledCanvas.width, scaledCanvas.height);
         const scaledFrame = scaledCanvas.toDataURL('image/jpeg', 0.5); // Use JPEG with lower quality (0.5)
 
-        console.log(scaledFrame);
+        setFormData(prevState => ({
+            ...prevState, 
+            uncomfortableAreas: {
+                scaledFrame
+            }
+        }));
     };
 
     return (
