@@ -1,10 +1,13 @@
 import { useEffect, useRef } from 'react';
 import lixeira from '../../assets/lixeira.png';
-import './canvaCorpo.css'
+import corpo from '../../assets/corpohumano.png';
+import { FaCamera, FaTrash } from 'react-icons/fa';
 
 export function FormUncomfortableAreas() {
 
     const tela = useRef(null);
+    const background = new Image();
+    background.src = corpo; // Replace with the path to your background image
 
     useEffect(() => {
         const canvas = tela.current;
@@ -14,7 +17,7 @@ export function FormUncomfortableAreas() {
             movendo: false,
             pos: { x: 0, y: 0 },
             posAnterior: null
-        }
+        };
 
         canvas.width = 500;
         canvas.height = 425;
@@ -22,12 +25,16 @@ export function FormUncomfortableAreas() {
         contexto.lineWidth = 12;
         contexto.strokeStyle = "rgba(218, 28, 28, 0.5)";
 
+        const drawBackground = () => {
+            contexto.drawImage(background, 0, 0, canvas.width, canvas.height);
+        };
+
         const desenharLinha = (linha) => {
             contexto.beginPath();
             contexto.moveTo(linha.posAnterior.x, linha.posAnterior.y);
             contexto.lineTo(linha.pos.x, linha.pos.y);
             contexto.stroke();
-        }
+        };
 
         const obterPosicaoMouse = (evento) => {
             const rect = canvas.getBoundingClientRect();
@@ -35,7 +42,7 @@ export function FormUncomfortableAreas() {
                 x: evento.clientX - rect.left,
                 y: evento.clientY - rect.top
             };
-        }
+        };
 
         canvas.onmousedown = (evento) => {
             pincel.ativo = true;
@@ -51,11 +58,14 @@ export function FormUncomfortableAreas() {
                 desenharLinha({ pos: pincel.pos, posAnterior: pincel.posAnterior });
                 pincel.posAnterior = { x: pincel.pos.x, y: pincel.pos.y };
             }
-        }
+        };
 
         canvas.onmouseout = () => {
-            pincel.ativo = false
-        }
+            pincel.ativo = false;
+        };
+
+        // Draw the background initially
+        background.onload = drawBackground;
 
     }, []);
 
@@ -67,28 +77,27 @@ export function FormUncomfortableAreas() {
         const canvas = tela.current;
         const contexto = canvas.getContext("2d");
         contexto.clearRect(0, 0, canvas.width, canvas.height);
-    }
+        const background = new Image();
+        background.src = 'path_to_your_background_image';
+        background.onload = () => {
+            contexto.drawImage(background, 0, 0, canvas.width, canvas.height);
+        };
+    };
 
-    const captureScreenshot = async(evento) => {
+    const captureScreenshot = (evento) => {
         evento.preventDefault();
         const canvas = tela.current;
-        const contexto = canvas.getContext("2d");
-        const video = document.createElement('video');
 
-        try {
-            const captureStream = await navigator.mediaDevices.getDisplayMedia({audio:false,video:true});
-            video.srcObject = captureStream;
-            contexto.drawImage(video, 0, 0, window.width, window.height);
+        // Option 1: Scale down the image further
+        const scaledCanvas = document.createElement('canvas');
+        scaledCanvas.width = canvas.width / 1; // Adjust the scaling factor as needed
+        scaledCanvas.height = canvas.height / 1;
+        const scaledContext = scaledCanvas.getContext('2d');
+        scaledContext.drawImage(canvas, 0, 0, scaledCanvas.width, scaledCanvas.height);
+        const scaledFrame = scaledCanvas.toDataURL('image/jpeg', 0.5); // Use JPEG with lower quality (0.5)
 
-            const frame = canvas.toDataURL('image/png');
-            captureStream.getTracks().forEach(track => track.stop());
-            window.location.href = frame;
-
-            console.log(this.frame)
-        }catch(e){
-            console.log(e)
-        }
-    }
+        console.log(scaledFrame);
+    };
 
     return (
         <div className="m-auto">
@@ -96,15 +105,18 @@ export function FormUncomfortableAreas() {
 
             <div className="flex items-center gap-12 justify-center">
                 <button className="limpar hover:bg-azul-principal/10 rounded-md" onClick={limparCanvas} ref={buttonClear}>
-                    <img className="pincel-borracha" src={lixeira} alt="desfazer" />
+                    <FaTrash className='size-12 m-auto text-black/80' />
                     <p className='font-semibold'>Desfazer</p>
                 </button>
+
+                <canvas ref={tela} className='w-full h-full max-w-[500px] max-h-[400px]'></canvas>
+
+
                 <button className="limpar hover:bg-azul-principal/10 rounded-md" onClick={captureScreenshot} ref={buttonCapture}>
-                    <img className="pincel-borracha" src={lixeira} alt="desfazer" />
+                    <FaCamera className='size-12 m-auto text-black/80'/>
                     <p className='font-semibold'>Capturar</p>
                 </button>
-                
-                <canvas ref={tela} id='tela'></canvas>
+
             </div>
         </div>
     );
