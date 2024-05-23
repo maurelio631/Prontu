@@ -78,6 +78,12 @@
 
 
 /*input checkbox maior que o necessário Fisioterapia / Acupuntura / Massagem*/
-#ajusteInput33 {
+    #ajusteInput33 {
+    width: 100%!important;
+}
+
+@media (min-width:640px) {
+    #ajusteInput33 {
     width: 73%!important;
+}
 }

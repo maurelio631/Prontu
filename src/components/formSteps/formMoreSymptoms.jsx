@@ -31,17 +31,15 @@ export function FormMoreSymptoms({ data, onDataChange }) {
 
     return (
         <div className="text-base font-medium">
-
-
             <div className="flex flex-col items-center lg:flex-row lg:justify-between">
                 <div className="w-full  lg:w-[47%]">
-                    <h3 className="font-medium my-5 text-base sm:text-xl text-center ">
+                    <h3 className="font-medium my-5 text-xl text-center ">
                         O desconforto aumenta com:<br />
                         (selecione todas as opções compatíveis)
                     </h3>
-                    <div className="flex flex-wrap gap-1 justify-center">
+                    <div className="flex flex-col items-center gap-1 sm:flex-row sm:justify-center sm:flex-wrap">
                         {desconfortoAumenta.map((desconforto) => (
-                            <div key={desconforto.id} className='w-[24%] text-xs sm:text-sm'>
+                            <div key={desconforto.id} className='w-full sm:w-[24%] text-xs sm:text-sm'>
                                 <input
                                     type="checkbox"
                                     id={desconforto.id}
@@ -58,13 +56,13 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                 </div>
 
                 <div className="w-full lg:w-[47%]">
-                    <h3 className="font-medium my-5 text-base sm:text-xl text-center">
+                    <h3 className="font-medium my-5 text-xl text-center">
                         O desconforto diminui com:<br />
                         (selecione todas as opções compatíveis)
                     </h3>
-                    <div className="flex flex-wrap gap-1 justify-center">
+                    <div className="flex flex-col items-center gap-1 sm:flex-row sm:justify-center sm:flex-wrap">
                         {desconfortoDiminui.map((desconforto) => (
-                            <div key={desconforto.id} id={`ajusteInput${desconforto.id}`} className='w-[24%] text-xs sm:text-sm'>
+                            <div key={desconforto.id} id={`ajusteInput${desconforto.id}`} className='w-full sm:w-[24%] text-xs sm:text-sm'>
                                 <input
                                     type="checkbox"
                                     id={desconforto.id}
