@@ -1,5 +1,4 @@
 import { useState } from "react"
-import { ViewStep } from "./ViewStep";
 
 import { FormPersonalDetails } from "./formSteps/formPersonalDetails";
 import { FormUncomfortableAreas } from "./formSteps/formUncomfortableAreas";
@@ -66,9 +65,9 @@ export function Form() {
     };
 
     return (
-        <main className="p-9 flex flex-col justify-between relative min-h-[calc(100vh-162px)] min-[470px]:min-h-[calc(100vh-142px)]">
+        <main className="p-9 flex flex-col justify-between relative min-h-[calc(100vh-162px)] min-[470px]:min-h-[calc(100vh-160px)]">
 
-            <form className="overflow-y-auto min-[470px]:max-h-[calc(100vh-270px)]">
+            <form className="overflow-y-auto min-[470px]:max-h-[calc(100vh-280px)]">
                 {getCompStep()}
             </form>
 
@@ -81,7 +80,6 @@ export function Form() {
                     Voltar
                 </button>
 
-                <ViewStep step={step} />
 
                 <button
                     className={`w-full text-white rounded-md py-2 max-w-20 text-base min-[470px]:text-lg min-[470px]:max-w-32  ${step === 4 ? 'bg-verde-claro' : 'bg-azul-principal'}`}

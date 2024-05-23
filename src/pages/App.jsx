@@ -10,7 +10,7 @@ function App() {
     <Wrapper>
 
       <div className="w-screen">
-        <Header subtitle={`Auto-avaliação Prontuário de Atendimento de Quiropraxia`}/>
+        <Header subtitle={`Autoavaliação Prontuário de Atendimento de Quiropraxia`}/>
         <Form/>
       </div>
     </Wrapper>
