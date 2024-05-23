@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import logo from '../assets/logo.svg'
 
 export function Header({ subtitle }) {
 
@@ -9,32 +8,32 @@ export function Header({ subtitle }) {
     var res = nomeClinica ? nomeClinica.replace("-", " ") : '';
 
     return (
-        <header className="px-4">
-            <nav className="min-h-24 w-full flex justify-between border-b-2 border-cinza-escuro ">
+        <header >
+            <nav className="w-full h-20 flex justify-between bg-[#EFEFEF] border-b-2 border-cinza-escuro/20">
+                
                 <div className="flex items-center">
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 bg-slate-600 rounded-full"></div> 
-                    <span className="text-sm pl-2 sm:text-2xl font-semibold sm:pl-4">{res ? res : '' }</span>
+                    <div className="h-full w-24 flex justify-center items-center border-r-2 border-cinza-escuro/20">
+                        <div className="w-12 h-12 bg-slate-600 rounded-full"></div>
+                    </div> 
+                    <span className="text-xl text-azul-principal font-semibold pl-2 sm:text-2xl sm:pl-4">{res ? res : '' }</span>
                 </div>
                 {   
-                    pathname == '/' ?
-                        <div className="flex items-center flex-row-reverse">
-                            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-slate-600 rounded-full"></div>
-                            <span className="text-sm pr-2 sm:text-base font-medium sm:pr-4">Nome funcionário</span>
-                        </div>
+                    pathname == `/${nomeClinica}` ?
+                        null
                     :
-                        <div className="md:hidden flex items-center flex-row-reverse ">
-                            <img src={logo} alt="logo" className="w-14 h-14"/>
-                            <span className="text-sm text-azul-principal pr-2 sm:text-base font-medium sm:pr-4">Prontu & Ponto</span>
+                        <div className="flex items-center flex-row-reverse  pr-4">
+                            <div className="w-12 h-12 bg-slate-600 rounded-full"></div>
+                            <span className="text-sm pr-2 sm:text-base font-medium sm:pr-4">Ola, Joana</span>
                         </div>
                 }
             </nav>
 
+                    
             {
                 subtitle ?
-                    <div className="subtitle border-b-2 border-cinza-escuro py-2 text-center">
-                        <h3 className="text-base sm:text-xl font-medium">{subtitle}</h3>
-                    </div>
-                    : null
+                        <h3 className="text-xl md:text-3xl font-medium text-center px-4 pt-8 text-azul-principal">{subtitle}</h3>
+                    : 
+                        null
             }
         </header>
     )

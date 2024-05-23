@@ -5,12 +5,12 @@ import Sidebar from "../components/Sidebar";
 import Wrapper from "../components/Wrapper";
 
 function App() {
+
   return (
     <Wrapper>
-      <Sidebar></Sidebar>
 
       <div className="w-screen">
-        <Header subtitle={'Auto-avaliação - Prontuário de Atendimento de Quiropraxia'}/>
+        <Header subtitle={`Auto-avaliação Prontuário de Atendimento de Quiropraxia`}/>
         <Form/>
       </div>
     </Wrapper>
