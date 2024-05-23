@@ -45,8 +45,8 @@ export function FormSymptoms({ data, onDataChange }) {
                 />
             </label>
 
-            <h3 className='text-xl text-center font-medium my-5'>Como começaram os sintomas?</h3>
-            <div className='flex w-full justify-center gap-2'>
+            <h3 className='text-center font-medium my-5 text-lg md:text-xl'>Como começaram os sintomas?</h3>
+            <div className='flex  w-full justify-center gap-2 flex-col min-[710px]:flex-row'>
                 {sintomas.map((sintoma) => (
                     <div key={sintoma.id}>
                         <input
@@ -63,10 +63,10 @@ export function FormSymptoms({ data, onDataChange }) {
                 ))}
             </div>
 
-            <h3 className='text-xl text-center font-medium my-5'>Qual o tipo de desconforto? (selecione todas as opções compatíveis)</h3>
-            <div className='flex flex-wrap max-w-[700px] w-full gap-1 m-auto justify-center'>
+            <h3 className='text-center font-medium my-5 text-lg md:text-xl'>Qual o tipo de desconforto? (selecione todas as opções compatíveis)</h3>
+            <div className='flex flex-wrap gap-1 m-auto justify-center max-w-[700px] w-full flex-col min-[520px]:flex-row'>
                 {desconfortos.map((desconforto) => (
-                    <div className='w-[24%]' key={desconforto.id}>
+                    <div className='w-full min-[520px]:w-[24%]' key={desconforto.id}>
                         <input
                             type="checkbox"
                             id={desconforto.id}
@@ -81,8 +81,10 @@ export function FormSymptoms({ data, onDataChange }) {
                 ))}
             </div>
 
-            <h3 className='text-xl text-center font-medium my-5'>Qual a frequência dos sintomas?</h3>
+            <h3 className='text-center font-medium my-5 text-lg md:text-xl'>Qual a frequência dos sintomas?</h3>
 
+
+            {/* className='flex gap-2 items-center  flex-col sm:flex-row  sm:justify-center sm:items-baseline' */}
 
             <div className='flex justify-center gap-2 items-baseline'>
                 {frequencias.map((frequencia) => (

@@ -59,6 +59,7 @@
     align-items: end;
 }
 
+
 .input-escada:nth-of-type(1) label{
    height: 35px;
 }
@@ -83,7 +84,22 @@
 }
 
 @media (min-width:640px) {
-    #ajusteInput33 {
-    width: 73%!important;
+        #ajusteInput33 {
+        width: 73%!important;
+    }
 }
+
+
+@media (max-width:460px) {
+
+    .input-escada label{
+        font-size: 12px!important;
+    }
 }
+
+/* @media (max-width:640px) {
+
+    .input-escada label{
+        max-width: 100px;
+    }
+} */
