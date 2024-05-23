@@ -46,6 +46,11 @@
     background-color: #deebf8;
 }
 
+.radio-input:not(:checked) + .radio-label {
+    border: 1px solid #A3A3A3;
+    background-color: white;
+}
+
 
 
 /*escadinha em inputs*/

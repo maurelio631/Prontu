@@ -83,7 +83,7 @@ export function FormMoreSymptoms({ data, onDataChange }) {
 
             <h2 className='text-center font-medium mt-9 text-xl md:text-2xl '>Selecione as informações sobre sua saúde em geral e qualidade de vida:</h2>
 
-            <div className='flex flex-col items-center min-[860px]:flex-row min-[860px]:justify-between'>
+            <div className='flex flex-col items-center min-[860px]:items-stretch min-[860px]:flex-row min-[860px]:justify-between'>
                 
                 <div className='w-full min-[860px]:w-[19%]'>
                     <h3 className='text-base text-center font-medium mt-9'>Estado Geral</h3>
