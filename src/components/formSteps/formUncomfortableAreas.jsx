@@ -3,10 +3,10 @@ import corpo from '../../assets/corpohumano.png';
 import { FaCamera, FaTrash } from 'react-icons/fa';
 
 export function FormUncomfortableAreas({ setFormData }) {
-    
+
     const tela = useRef(null);
-    const background = new Image();
-    background.src = corpo; // Replace with the path to your background image
+    const background = useRef(new Image());
+    background.current.src = corpo; // Replace with the path to your background image
 
     useEffect(() => {
         const canvas = tela.current;
@@ -25,7 +25,7 @@ export function FormUncomfortableAreas({ setFormData }) {
         contexto.strokeStyle = "rgba(218, 28, 28, 0.5)";
 
         const drawBackground = () => {
-            contexto.drawImage(background, 0, 0, canvas.width, canvas.height);
+            contexto.drawImage(background.current, 0, 0, canvas.width, canvas.height);
         };
 
         const desenharLinha = (linha) => {
@@ -64,7 +64,7 @@ export function FormUncomfortableAreas({ setFormData }) {
         };
 
         // Draw the background initially
-        background.onload = drawBackground;
+        background.current.onload = drawBackground;
 
     }, []);
 
@@ -76,11 +76,7 @@ export function FormUncomfortableAreas({ setFormData }) {
         const canvas = tela.current;
         const contexto = canvas.getContext("2d");
         contexto.clearRect(0, 0, canvas.width, canvas.height);
-        const background = new Image();
-        background.src = 'path_to_your_background_image';
-        background.onload = () => {
-            contexto.drawImage(background, 0, 0, canvas.width, canvas.height);
-        };
+        contexto.drawImage(background.current, 0, 0, canvas.width, canvas.height);
     };
 
     const captureScreenshot = (evento) => {
@@ -96,7 +92,7 @@ export function FormUncomfortableAreas({ setFormData }) {
         const scaledFrame = scaledCanvas.toDataURL('image/jpeg', 0.5); // Use JPEG with lower quality (0.5)
 
         setFormData(prevState => ({
-            ...prevState, 
+            ...prevState,
             uncomfortableAreas: {
                 scaledFrame
             }
@@ -117,7 +113,7 @@ export function FormUncomfortableAreas({ setFormData }) {
                 <canvas ref={tela} className='w-full h-full max-w-[500px] max-h-[400px]'></canvas>
 
                 <button className="hover:bg-azul-principal/10 rounded-md hidden min-[875px]:block" onClick={captureScreenshot} ref={buttonCapture}>
-                    <FaCamera className='size-12 m-auto text-black/80'/>
+                    <FaCamera className='size-12 m-auto text-black/80' />
                     <p className='font-semibold'>Capturar</p>
                 </button>
 
