@@ -65,15 +65,15 @@ export function Form() {
     };
 
     return (
-        <main className="p-9 flex flex-col justify-between relative min-h-[calc(100vh-142px)]">
+        <main className="p-9 flex flex-col justify-between relative min-h-[calc(100vh-162px)] min-[470px]:min-h-[calc(100vh-142px)]">
 
             <form className="max-h-[calc(100vh-270px)] overflow-y-auto ">
                 {getCompStep()}
             </form>
 
-            <div className="flex w-full  flex-col items-center gap-2 min-[470px]:flex-row min-[470px]:justify-between min-[470px]:pt-3 min-[470px]:gap-0">
+            <div className="flex w-full flex-row justify-between pt-3 gap-0">
                 <button
-                    className={`text-lg text-white py-2 w-full max-w-32 rounded-md ${step === 1  ? 'bg-gray-500/50 cursor-not-allowed' : 'bg-azul-principal'}`}
+                    className={`w-full text-white rounded-md py-2 max-w-20 text-base min-[470px]:text-lg min-[470px]:max-w-32  ${step === 1  ? 'bg-gray-500/50 cursor-not-allowed' : 'bg-azul-principal'}`}
                     onClick={() => retornaStep()}
                     disabled={step === 1}
                 >
@@ -83,7 +83,7 @@ export function Form() {
                 <ViewStep step={step} />
 
                 <button
-                    className={`text-lg text-white py-2 w-full max-w-32 rounded-md ${step === 4 ? 'bg-verde-claro' : 'bg-azul-principal'}`}
+                    className={`w-full text-white rounded-md py-2 max-w-20 text-base min-[470px]:text-lg min-[470px]:max-w-32  ${step === 4 ? 'bg-verde-claro' : 'bg-azul-principal'}`}
                     onClick={() => concluiStep()}
                 >
                     {step === 4 ? 'Concluir' : 'Próximo'}
