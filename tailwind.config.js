@@ -1,4 +1,7 @@
 /** @type {import('tailwindcss').Config} */
+
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
@@ -12,6 +15,9 @@ export default {
         'cinza-escuro': '#A3A3A3',
         'verde-claro': '#46DB5E'
       },
+      fontFamily:{
+        'sans':["'Montserrat'", ...defaultTheme.fontFamily.sans]
+      }
     },
   },
   plugins: [],
