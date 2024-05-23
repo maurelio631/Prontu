@@ -22,7 +22,7 @@ export function Header({ subtitle }) {
                             <span className="text-sm pr-2 sm:text-base font-medium sm:pr-4">Nome funcionário</span>
                         </div>
                     :
-                        <div className="sm:hidden flex items-center flex-row-reverse ">
+                        <div className="md:hidden flex items-center flex-row-reverse ">
                             <img src={logo} alt="logo" className="w-14 h-14"/>
                             <span className="text-sm text-azul-principal pr-2 sm:text-base font-medium sm:pr-4">Prontu & Ponto</span>
                         </div>

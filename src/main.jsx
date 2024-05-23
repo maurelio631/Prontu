@@ -9,6 +9,7 @@ import App from "./pages/App";
 import { Pacientes } from "./pages/Pacientes";
 import { Prontuario } from "./pages/Prontuario";
 import { Login } from "./pages/Login";
+import { Page404 } from "./pages/Page404";
 
 
 
@@ -20,6 +21,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/login" element={<Login />} />
           <Route path="/login/pacientes" element={<Pacientes/>} />
           <Route path="/login/prontuario" element={<Prontuario />} />
+
+          <Route path="*" element={<Page404 />} />
         </Routes>
     </BrowserRouter>
   </React.StrictMode>

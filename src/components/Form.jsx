@@ -44,6 +44,7 @@ export function Form() {
 
             }).then((result) => {
                 if (result.isConfirmed) {
+                    
                     Swal.fire("Saved!", "", "success");
                     console.log(formData)
                 } else if (result.isDenied) {
