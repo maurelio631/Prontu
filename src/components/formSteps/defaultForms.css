@@ -109,6 +109,13 @@
     }
 }
 
+@media (max-width:380px) {
+
+    .input-escada label{
+        font-size: 10px!important;
+    }
+}
+
 /* @media (max-width:640px) {
 
     .input-escada label{
