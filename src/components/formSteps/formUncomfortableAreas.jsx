@@ -105,21 +105,33 @@ export function FormUncomfortableAreas({ setFormData }) {
 
     return (
         <div className="m-auto">
-            <h2 className='text-2xl text-center font-medium mb-4'>Marque as áreas de desconforto na imagem abaixo</h2>
+            <h2 className='text-center font-medium mb-4 text-xl md:text-2xl '>Marque as áreas de desconforto na imagem abaixo</h2>
 
-            <div className="flex items-center gap-12 justify-center">
-                <button className="limpar hover:bg-azul-principal/10 rounded-md" onClick={limparCanvas} ref={buttonClear}>
+            <div className="flex flex-col items-center min-[875px]:flex-row min-[875px]:items-center min-[875px]:gap-12 min-[875px]:justify-center">
+
+                <button className="hover:bg-azul-principal/10 rounded-md hidden min-[875px]:block" onClick={limparCanvas} ref={buttonClear}>
                     <FaTrash className='size-12 m-auto text-black/80' />
                     <p className='font-semibold'>Desfazer</p>
                 </button>
 
                 <canvas ref={tela} className='w-full h-full max-w-[500px] max-h-[400px]'></canvas>
 
-
-                <button className="limpar hover:bg-azul-principal/10 rounded-md" onClick={captureScreenshot} ref={buttonCapture}>
+                <button className="hover:bg-azul-principal/10 rounded-md hidden min-[875px]:block" onClick={captureScreenshot} ref={buttonCapture}>
                     <FaCamera className='size-12 m-auto text-black/80'/>
                     <p className='font-semibold'>Capturar</p>
                 </button>
+
+                <div className='flex min-[875px]:hidden gap-10'>
+                    <button className="limpar hover:bg-azul-principal/10 rounded-md" onClick={limparCanvas} ref={buttonClear}>
+                        <FaTrash className='size-12 m-auto text-black/80' />
+                        <p className='font-semibold'>Desfazer</p>
+                    </button>
+
+                    <button className="limpar hover:bg-azul-principal/10 rounded-md" onClick={captureScreenshot} ref={buttonCapture}>
+                        <FaCamera className='size-12 m-auto text-black/80' />
+                        <p className='font-semibold'>Capturar</p>
+                    </button>
+                </div>
 
             </div>
         </div>
