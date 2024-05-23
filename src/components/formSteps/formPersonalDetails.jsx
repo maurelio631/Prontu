@@ -89,6 +89,7 @@ export function FormPersonalDetails({ data, onDataChange }) {
                     id="txt-email"
                     type="text"
                     name="txt-email"
+                    className="w-[92%]"
                     value={localData["txt-email"] || ""}
                     onChange={handleChange}
                 />
@@ -100,7 +101,6 @@ export function FormPersonalDetails({ data, onDataChange }) {
                     id="txt-endr"
                     type="text"
                     name="txt-endr"
-                    className="w-full"
                     value={localData["txt-endr"] || ""}
                     onChange={handleChange}
                 />

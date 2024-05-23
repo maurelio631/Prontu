@@ -71,7 +71,7 @@ export function Form() {
                 {getCompStep()}
             </form>
 
-            <div className="w-full flex flex-col justify-between pt-3 md:flex-row">
+            <div className="flex w-full  flex-col items-center gap-2 min-[470px]:flex-row min-[470px]:justify-between min-[470px]:pt-3 min-[470px]:gap-0">
                 <button
                     className={`text-lg text-white py-2 w-full max-w-32 rounded-md ${step === 1  ? 'bg-gray-500/50 cursor-not-allowed' : 'bg-azul-principal'}`}
                     onClick={() => retornaStep()}
