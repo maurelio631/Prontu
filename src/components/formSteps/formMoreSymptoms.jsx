@@ -39,7 +39,7 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                     </h3>
                     <div className="flex flex-col items-center gap-1 sm:flex-row sm:justify-center sm:flex-wrap">
                         {desconfortoAumenta.map((desconforto) => (
-                            <div key={desconforto.id} className='w-full sm:w-[24%] text-xs sm:text-sm'>
+                            <div key={desconforto.id} className='w-full sm:w-[24%] text-sm'>
                                 <input
                                     type="checkbox"
                                     id={desconforto.id}
@@ -62,7 +62,7 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                     </h3>
                     <div className="flex flex-col items-center gap-1 sm:flex-row sm:justify-center sm:flex-wrap">
                         {desconfortoDiminui.map((desconforto) => (
-                            <div key={desconforto.id} id={`ajusteInput${desconforto.id}`} className='w-full sm:w-[24%] text-xs sm:text-sm'>
+                            <div key={desconforto.id} id={`ajusteInput${desconforto.id}`} className='w-full sm:w-[24%] text-sm'>
                                 <input
                                     type="checkbox"
                                     id={desconforto.id}

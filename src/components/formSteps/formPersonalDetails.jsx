@@ -76,25 +76,25 @@ export function FormPersonalDetails({ data, onDataChange }) {
                         id="txt-cpf"
                         type="text"
                         name="txt-cpf"
-                        className="w-52"
+                       
                         value={localData["txt-cpf"] || ""}
                         onChange={handleChange}
                     />
                 </label>
             </div>
 
-            <label htmlFor="txt-email" className="flex flex-col">
+            <label htmlFor="txt-email">
                 E-mail:
                 <input
                     id="txt-email"
                     type="text"
-                    name="txt-email" className="max-w-48"
+                    name="txt-email"
                     value={localData["txt-email"] || ""}
                     onChange={handleChange}
                 />
             </label>
 
-            <label htmlFor="txt-endr" className="flex flex-col">
+            <label htmlFor="txt-endr">
                 Endereço:
                 <input
                     id="txt-endr"
