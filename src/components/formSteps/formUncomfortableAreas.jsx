@@ -105,27 +105,27 @@ export function FormUncomfortableAreas({ setFormData }) {
 
             <div className="flex flex-col items-center min-[875px]:flex-row min-[875px]:items-center min-[875px]:gap-12 min-[875px]:justify-center">
 
-                <button className="hover:bg-azul-principal/10 rounded-md hidden min-[875px]:block" onClick={limparCanvas} ref={buttonClear}>
-                    <FaTrash className='size-12 m-auto text-black/80' />
-                    <p className='font-semibold'>Desfazer</p>
+                <button className="hover:bg-azul-principal/60 bg-azul-principal p-2 rounded-md hidden min-[875px]:block" onClick={limparCanvas} ref={buttonClear}>
+                    <FaTrash className='size-12 m-auto text-white' />
+                    <p className='font-semibold text-white'>Desfazer</p>
                 </button>
 
                 <canvas ref={tela} className='w-full h-full max-w-[500px] max-h-[400px]'></canvas>
 
-                <button className="hover:bg-azul-principal/10 rounded-md hidden min-[875px]:block" onClick={captureScreenshot} ref={buttonCapture}>
-                    <FaCamera className='size-12 m-auto text-black/80' />
-                    <p className='font-semibold'>Capturar</p>
+                <button className="hover:bg-azul-principal/60 bg-azul-principal p-2   rounded-md hidden min-[875px]:block" onClick={captureScreenshot} ref={buttonCapture}>
+                    <FaCamera className='size-9 m-auto text-white' />
+                    <p className='font-semibold text-white'>Capturar</p>
                 </button>
 
                 <div className='flex min-[875px]:hidden gap-10'>
-                    <button className="limpar hover:bg-azul-principal/10 rounded-md" onClick={limparCanvas} ref={buttonClear}>
-                        <FaTrash className='size-12 m-auto text-black/80' />
-                        <p className='font-semibold'>Desfazer</p>
+                    <button className="limpar hover:bg-azul-principal/60 bg-azul-principal p-2  rounded-md" onClick={limparCanvas} ref={buttonClear}>
+                        <FaTrash className='size-9 m-auto text-white' />
+                        <p className='font-semibold text-white'>Desfazer</p>
                     </button>
 
-                    <button className="limpar hover:bg-azul-principal/10 rounded-md" onClick={captureScreenshot} ref={buttonCapture}>
-                        <FaCamera className='size-12 m-auto text-black/80' />
-                        <p className='font-semibold'>Capturar</p>
+                    <button className="limpar hover:bg-azul-principal/60 bg-azul-principal p-2  rounded-md" onClick={captureScreenshot} ref={buttonCapture}>
+                        <FaCamera className='size-12 m-auto text-white' />
+                        <p className='font-semibold text-white'>Capturar</p>
                     </button>
                 </div>
 
