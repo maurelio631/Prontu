@@ -16,7 +16,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
         <Routes>
-          <Route index path="/" element={<App />} />
+          <Route index path="/:nomeClinica" element={<App />} />
           <Route path="/login" element={<Login />} />
           <Route path="/login/pacientes" element={<Pacientes/>} />
           <Route path="/login/prontuario" element={<Prontuario />} />

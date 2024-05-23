@@ -67,7 +67,7 @@ export function Form() {
     return (
         <main className="p-9 flex flex-col justify-between relative min-h-[calc(100vh-162px)] min-[470px]:min-h-[calc(100vh-142px)]">
 
-            <form className="max-h-[calc(100vh-270px)] overflow-y-auto ">
+            <form className="overflow-y-auto min-[470px]:max-h-[calc(100vh-270px)]">
                 {getCompStep()}
             </form>
 
