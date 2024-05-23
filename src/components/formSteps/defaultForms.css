@@ -12,8 +12,22 @@
 .custom-input label input:hover , input:focus{
     border-color: #5A9CDA;
     outline: none;
+}
+
+.custom-input label textarea{
+    border: 1px solid #e0e0e0;
+    background-color: #F6FAFD;
+    font-weight: 300;
+    padding:8px 10px;
+    border-radius: 3px;
+    resize: none;
+}
+.custom-input label textarea:hover , textarea:focus{
+    border-color: #5A9CDA;
+    outline: none;
 
 }
+
 
 
 /*radios checkbox*/
@@ -40,6 +54,7 @@
 
 .radio-input:checked + .radio-label {
     border-color: #5A9CDA;
+    border-width: 2px;
     background-color: #deebf8;
 }
 

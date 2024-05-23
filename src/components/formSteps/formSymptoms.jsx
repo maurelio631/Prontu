@@ -33,16 +33,16 @@ export function FormSymptoms({ data, onDataChange }) {
     return (
         <div className='text-base font-medium custom-input'>
             <h2 className='text-2xl text-center font-bold mb-5'>Descreva seus sintomas abaixo</h2>
-            <label htmlFor="txt-sintoma">
+            <label htmlFor="txt-sintoma" className='flex flex-col gap-2'>
                 Sintomas:
-                <input
+                <textarea
                     type="text"
                     name='txt-sintoma'
                     id='txt-sintoma'
-                    className="w-full"
+                    className="w-full h-24"
                     value={localData['txt-sintoma'] || ""}
                     onChange={handleChange}
-                />
+                ></textarea>
             </label>
 
             <h3 className='text-center font-medium my-5 text-lg md:text-xl'>Como começaram os sintomas?</h3>
