@@ -27,19 +27,21 @@ export function FormMoreSymptoms({ data, onDataChange }) {
 
         setLocalData(updatedData);
         onDataChange(updatedData);
-    };
+    };  
 
     return (
         <div className="text-base font-medium">
-            <div className="flex justify-between">
-                <div className="w-[47%]">
-                    <h3 className="text-xl text-center font-medium my-5">
+
+
+            <div className="flex flex-col items-center lg:flex-row lg:justify-between">
+                <div className="w-full  lg:w-[47%]">
+                    <h3 className="font-medium my-5 text-base sm:text-xl text-center ">
                         O desconforto aumenta com:<br />
                         (selecione todas as opções compatíveis)
                     </h3>
                     <div className="flex flex-wrap gap-1 justify-center">
                         {desconfortoAumenta.map((desconforto) => (
-                            <div key={desconforto.id} className='w-[24%] text-sm'>
+                            <div key={desconforto.id} className='w-[24%] text-xs sm:text-sm'>
                                 <input
                                     type="checkbox"
                                     id={desconforto.id}
@@ -55,14 +57,14 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                     </div>
                 </div>
 
-                <div className="w-[47%]">
-                    <h3 className="text-xl text-center font-medium my-5">
+                <div className="w-full lg:w-[47%]">
+                    <h3 className="font-medium my-5 text-base sm:text-xl text-center">
                         O desconforto diminui com:<br />
                         (selecione todas as opções compatíveis)
                     </h3>
                     <div className="flex flex-wrap gap-1 justify-center">
                         {desconfortoDiminui.map((desconforto) => (
-                            <div key={desconforto.id} id={`ajusteInput${desconforto.id}`} className='w-[24%] text-sm'>
+                            <div key={desconforto.id} id={`ajusteInput${desconforto.id}`} className='w-[24%] text-xs sm:text-sm'>
                                 <input
                                     type="checkbox"
                                     id={desconforto.id}
@@ -79,13 +81,14 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                 </div>
             </div>
 
-            <h2 className='text-2xl text-center font-medium mt-9'>Selecione as informações sobre sua saúde em geral e qualidade de vida:</h2>
+            <h2 className='text-center font-medium mt-9 text-xl md:text-2xl '>Selecione as informações sobre sua saúde em geral e qualidade de vida:</h2>
 
-            <div className='flex justify-between'>
-                <div className='w-[19%]'>
+            <div className='flex flex-col items-center min-[860px]:flex-row min-[860px]:justify-between'>
+                
+                <div className='w-full min-[860px]:w-[19%]'>
                     <h3 className='text-base text-center font-medium mt-9'>Estado Geral</h3>
                     {estadoGeral.map((estado) => (
-                        <div key={estado.id} className='text-sm mb-2'>
+                        <div key={estado.id} className='text-sm text-center mb-2'>
                             <input
                                 type="checkbox"
                                 id={estado.id}
@@ -100,10 +103,10 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                     ))}
                 </div>
 
-                <div className='w-[19%]'>
+                <div className='w-full min-[860px]:w-[19%]'>
                     <h3 className='text-base text-center font-medium mt-9'>Cabeça e Pescoço</h3>
                     {cabecaPescoco.map((estado) => (
-                        <div key={estado.id} className='text-sm mb-2'>
+                        <div key={estado.id} className='text-sm text-center mb-2'>
                             <input
                                 type="checkbox"
                                 id={estado.id}
@@ -118,10 +121,10 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                     ))}
                 </div>
 
-                <div className='w-[19%]'>
+                <div className='w-full min-[860px]:w-[19%]'>
                     <h3 className='text-base text-center font-medium mt-9'>Tórax/Respiratório</h3>
                     {toraxRespiratorio.map((estado) => (
-                        <div key={estado.id} className='text-sm mb-2'>
+                        <div key={estado.id} className='text-sm text-center mb-2'>
                             <input
                                 type="checkbox"
                                 id={estado.id}
@@ -136,10 +139,10 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                     ))}
                 </div>
 
-                <div className='w-[19%]'>
+                <div className='w-full min-[860px]:w-[19%]'>
                     <h3 className='text-base text-center font-medium mt-9'>Cardio-Vascular</h3>
                     {cardioVascular.map((estado) => (
-                        <div key={estado.id} className='text-sm mb-2'>
+                        <div key={estado.id} className='text-sm text-center mb-2'>
                             <input
                                 type="checkbox"
                                 id={estado.id}
@@ -156,7 +159,7 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                     <div>
                         <h3 className='text-base text-center font-medium mt-9'>Gastro-Intestinal</h3>
                         {gastroIntestinal.map((estado) => (
-                            <div key={estado.id} className='text-sm mb-2'>
+                            <div key={estado.id} className='text-sm text-center mb-2'>
                                 <input
                                     type="checkbox"
                                     id={estado.id}
@@ -172,10 +175,10 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                     </div>
                 </div>
 
-                <div className='w-[19%]'>
+                <div className='w-full min-[860px]:w-[19%]'>
                     <h3 className='text-base text-center font-medium mt-9'>Gênito-Urinário</h3>
                     {genitoUrinário.map((estado) => (
-                        <div key={estado.id} className='text-sm mb-2'>
+                        <div key={estado.id} className='text-sm text-center mb-2'>
                             <input
                                 type="checkbox"
                                 id={estado.id}

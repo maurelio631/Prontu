@@ -29,7 +29,7 @@ export const desconfortoAumenta = [
     { id: 19, name: 'De pé' },
     { id: 20, name: 'Sentado' },
     { id: 21, name: 'Andando' },
-    { id: 22, name: 'Atividade Física' },
+    { id: 22, name: 'Ativ Física' },
     { id: 23, name: 'Tossir/espirrar' },
     { id: 24, name: 'Outros' },
 ];
@@ -40,7 +40,7 @@ export const desconfortoDiminui = [
     { id: 27, name: 'Medicamento' },
     { id: 28, name: 'Quiropraxia' },
     { id: 29, name: 'Alongamento' },
-    { id: 30, name: 'Atividade Física' },
+    { id: 30, name: 'Ativ Física' },
     { id: 31, name: 'Gelo' },
     { id: 32, name: 'Calor' },
     { id: 33, name: 'Fisioterapia / Acupuntura / Massagem' },
