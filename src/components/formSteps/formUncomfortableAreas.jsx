@@ -32,7 +32,7 @@ export function FormUncomfortableAreas({ setFormData }) {
         };
 
         const ajustarCanvas = () => {
-            const proporcao = 1.176; // Proporção da imagem original (500 / 425)
+            const proporcao = 500 / 425; // Proporção da imagem original (500 / 425)
             const largura = Math.min(window.innerWidth, 500);
             const altura = largura / proporcao;
             canvas.width = largura;
@@ -54,24 +54,19 @@ export function FormUncomfortableAreas({ setFormData }) {
             contexto.stroke();
         };
 
-        const obterPosicaoMouse = (evento) => {
+        const obterPosicao = (evento) => {
             const rect = canvas.getBoundingClientRect();
+            const escalaX = canvas.width / rect.width;
+            const escalaY = canvas.height / rect.height;
+            const x = (evento.clientX || evento.touches[0].clientX) - rect.left;
+            const y = (evento.clientY || evento.touches[0].clientY) - rect.top;
             return {
-                x: evento.clientX - rect.left,
-                y: evento.clientY - rect.top
+                x: x * escalaX,
+                y: y * escalaY
             };
         };
 
-        const obterPosicaoTouch = (evento) => {
-            const rect = canvas.getBoundingClientRect();
-            const touch = evento.touches[0];
-            return {
-                x: touch.clientX - rect.left,
-                y: touch.clientY - rect.top
-            };
-        };
-
-        const iniciarDesenho = (evento, obterPosicao) => {
+        const iniciarDesenho = (evento) => {
             evento.preventDefault();
             pincel.ativo = true;
             pincel.posAnterior = obterPosicao(evento);
@@ -82,7 +77,7 @@ export function FormUncomfortableAreas({ setFormData }) {
             pincel.ativo = false;
         };
 
-        const moverDesenho = (evento, obterPosicao) => {
+        const moverDesenho = (evento) => {
             evento.preventDefault();
             if (pincel.ativo) {
                 pincel.pos = obterPosicao(evento);
@@ -93,15 +88,15 @@ export function FormUncomfortableAreas({ setFormData }) {
         };
 
         // Eventos de mouse
-        canvas.onmousedown = (evento) => iniciarDesenho(evento, obterPosicaoMouse);
+        canvas.onmousedown = iniciarDesenho;
         canvas.onmouseup = finalizarDesenho;
-        canvas.onmousemove = (evento) => moverDesenho(evento, obterPosicaoMouse);
+        canvas.onmousemove = moverDesenho;
         canvas.onmouseout = finalizarDesenho;
 
         // Eventos de toque
-        canvas.ontouchstart = (evento) => iniciarDesenho(evento, obterPosicaoTouch);
+        canvas.ontouchstart = iniciarDesenho;
         canvas.ontouchend = finalizarDesenho;
-        canvas.ontouchmove = (evento) => moverDesenho(evento, obterPosicaoTouch);
+        canvas.ontouchmove = moverDesenho;
         canvas.ontouchcancel = finalizarDesenho;
 
         // Ajusta o canvas inicialmente
