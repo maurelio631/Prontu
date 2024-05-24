@@ -50,7 +50,7 @@ export function ListagemPacientes({ valorBusca }) {
                     paginatedPacientes.map(paciente => (
                         <tr key={paciente.id}>
                             <td>{paciente.id}</td>
-                            <td>{paciente.name}</td>
+                            <td><span className="m-auto overflow-hidden max-w-[120px] text-ellipsis block  whitespace-nowrap">{paciente.name}</span></td>
                             <td>{paciente.cpf}</td>
                             <td>{paciente.telefone}</td>
                             <td>{paciente.nascimento}</td>

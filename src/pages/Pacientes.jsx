@@ -20,13 +20,11 @@ export function Pacientes(){
         <Wrapper>
             <div className="w-screen">
                 <Header/>
-                <main className="flex justify-between">
-                    <Sidebar></Sidebar>
+                <main className="flex justify-between w-full">
+                    <Sidebar/>
                     
-
-                    <div className="w-full px-4 ">
-                        <div className="flex justify-between py-4">
-                            
+                    <div className="w-full px-4 md:w-11/12 ">
+                        <div className="flex justify-between py-4"> 
                             <label className="px-3 py-1.5 w-full max-w-80 bg-[#F6FAFD]  border-2 border-cinza-escuro/20 rounded-full  flex items-center gap-3" htmlFor="inputBusca" >
                                 <IoIosSearch className="size-7 text-cinza-escuro" />
                                 <input
@@ -39,18 +37,14 @@ export function Pacientes(){
                                 />
                             </label>
 
-                            <Link to={'/'} className="text-white bg-azul-principal flex items-center px-5 rounded-full hover:bg-azul-principal/80">
+                            <Link to={'/'} className="text-white bg-azul-principal w-full max-w-56 flex items-center px-5 rounded-full hover:bg-azul-principal/80">
                                 <GoPlus className="stroke-2 mr-2" />Adicionar pacientes
                             </Link>
-                            
                         </div>
 
 
-                        <div className="overflow-auto">
-                            <ListagemPacientes valorBusca={searchValue} />
-
-                        </div>
-                    </div>
+                        <ListagemPacientes valorBusca={searchValue} />
+                    </div> 
                 </main>
             </div>
         </Wrapper>
