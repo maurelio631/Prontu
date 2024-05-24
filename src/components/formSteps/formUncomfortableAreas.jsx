@@ -121,31 +121,40 @@ export function FormUncomfortableAreas({ setFormData }) {
     };
 
     const captureScreenshot = (evento) => {
-        evento.preventDefault();
-        const canvas = tela.current;
+    evento.preventDefault();
+    const canvas = tela.current;
 
-        // Reduzindo a imagem capturada
-        const scaledCanvas = document.createElement('canvas');
-        scaledCanvas.width = canvas.width / 2; // Ajuste o fator de escala conforme necessário
-        scaledCanvas.height = canvas.height / 2;
-        const scaledContext = scaledCanvas.getContext('2d');
-        scaledContext.drawImage(canvas, 0, 0, scaledCanvas.width, scaledCanvas.height);
-        const scaledFrame = scaledCanvas.toDataURL('image/jpeg', 0.5); // Use JPEG com menor qualidade (0.5)
+    // Reduzindo a imagem capturada
+    const scaledCanvas = document.createElement('canvas');
+    scaledCanvas.width = canvas.width / 2; // Ajuste o fator de escala conforme necessário
+    scaledCanvas.height = canvas.height / 2;
+    const scaledContext = scaledCanvas.getContext('2d');
+    scaledContext.drawImage(canvas, 0, 0, scaledCanvas.width, scaledCanvas.height);
 
-        console.log(scaledFrame)
+    scaledCanvas.toBlob((blob) => {
+        if (blob) {
+            // Converta o Blob para um URL de objeto para visualização ou download
+            const url = URL.createObjectURL(blob);
 
-        setFormData(prevState => ({
-            ...prevState,
-            uncomfortableAreas: {
-                scaledFrame
-            }
-        }));
+            // Para fins de depuração, exiba o URL ou o Blob no console
+            console.log(url);
+            console.log(blob);
 
-        Toast.fire({
-            icon: "success",
-            title: "Captura feita com sucesso!"
-        });
-    };
+            // Supondo que você tenha um estado chamado `formData` para armazenar a imagem capturada
+            setFormData(prevState => ({
+                ...prevState,
+                uncomfortableAreas: {
+                    scaledFrame: url
+                }
+            }));
+
+            Toast.fire({
+                icon: "success",
+                title: "Captura feita com sucesso!"
+            });
+        }
+    }, 'image/jpeg', 0.2); // Use JPEG com menor qualidade (0.2)
+};
 
     return (
         <div className="m-auto">

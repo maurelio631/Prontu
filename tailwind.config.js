@@ -13,7 +13,9 @@ export default {
         'azul-transp': '#5a9cda33',
         'cinza-claro': '#EFEFEF',
         'cinza-escuro': '#A3A3A3',
-        'verde-claro': '#46DB5E'
+        'verde-claro': '#46DB5E',
+        'vermelho':'#DA1C1C',
+        'prontuario': '#F0F9FF'
       },
       fontFamily:{
         'sans':["'Montserrat'", ...defaultTheme.fontFamily.sans]
