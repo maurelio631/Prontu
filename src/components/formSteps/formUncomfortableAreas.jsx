@@ -132,6 +132,8 @@ export function FormUncomfortableAreas({ setFormData }) {
         scaledContext.drawImage(canvas, 0, 0, scaledCanvas.width, scaledCanvas.height);
         const scaledFrame = scaledCanvas.toDataURL('image/jpeg', 0.5); // Use JPEG com menor qualidade (0.5)
 
+        console.log(scaledFrame)
+
         setFormData(prevState => ({
             ...prevState,
             uncomfortableAreas: {
@@ -160,7 +162,7 @@ export function FormUncomfortableAreas({ setFormData }) {
 
                 <button className="hover:bg-azul-principal/60 bg-azul-principal p-2 rounded-md hidden min-[875px]:block" onClick={captureScreenshot} ref={buttonCapture}>
                     <FaCamera className='size-9 m-auto text-white' />
-                    <p className='font-semibold text-white'>Capturar</p>
+                    <p className='font-semibold text-white'>Salvar Áreas</p>
                 </button>
 
                 <div className='flex min-[875px]:hidden gap-10'>
@@ -171,7 +173,7 @@ export function FormUncomfortableAreas({ setFormData }) {
 
                     <button className="limpar hover:bg-azul-principal/60 bg-azul-principal p-2 rounded-md" onClick={captureScreenshot} ref={buttonCapture}>
                         <FaCamera className='size-12 m-auto text-white' />
-                        <p className='font-semibold text-white'>Capturar</p>
+                        <p className='font-semibold text-white'>Salvar Áreas</p>
                     </button>
                 </div>
 
