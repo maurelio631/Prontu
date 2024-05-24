@@ -20,7 +20,6 @@ export function FormUncomfortableAreas({ setFormData }) {
             toast.onmouseleave = Swal.resumeTimer;
         }
     });
-   
 
     useEffect(() => {
         const canvas = tela.current;
@@ -32,11 +31,17 @@ export function FormUncomfortableAreas({ setFormData }) {
             posAnterior: null
         };
 
-        canvas.width = 500;
-        canvas.height = 425;
+        const ajustarCanvas = () => {
+            const proporcao = 1.176; // Proporção da imagem original (500 / 425)
+            const largura = Math.min(window.innerWidth, 500);
+            const altura = largura / proporcao;
+            canvas.width = largura;
+            canvas.height = altura;
 
-        contexto.lineWidth = 12;
-        contexto.strokeStyle = "rgba(218, 28, 28, 0.5)";
+            contexto.lineWidth = 12 * (largura / 500);
+            contexto.strokeStyle = "rgba(218, 28, 28, 0.5)";
+            drawBackground();
+        };
 
         const drawBackground = () => {
             contexto.drawImage(background.current, 0, 0, canvas.width, canvas.height);
@@ -99,9 +104,14 @@ export function FormUncomfortableAreas({ setFormData }) {
         canvas.ontouchmove = (evento) => moverDesenho(evento, obterPosicaoTouch);
         canvas.ontouchcancel = finalizarDesenho;
 
-        // Desenha o fundo inicialmente
+        // Ajusta o canvas inicialmente
+        window.addEventListener('resize', ajustarCanvas);
+        ajustarCanvas();
         background.current.onload = drawBackground;
 
+        return () => {
+            window.removeEventListener('resize', ajustarCanvas);
+        };
     }, []);
 
     const buttonClear = useRef(null);
@@ -126,8 +136,6 @@ export function FormUncomfortableAreas({ setFormData }) {
         const scaledContext = scaledCanvas.getContext('2d');
         scaledContext.drawImage(canvas, 0, 0, scaledCanvas.width, scaledCanvas.height);
         const scaledFrame = scaledCanvas.toDataURL('image/jpeg', 0.5); // Use JPEG com menor qualidade (0.5)
-
-        console.log(scaledFrame)
 
         setFormData(prevState => ({
             ...prevState,
