@@ -5,7 +5,7 @@ export function Header({ subtitle }) {
     const pathname = location.pathname;
     const urlParams = useParams()
     const { nomeClinica } = urlParams ? urlParams : '';
-    var res = nomeClinica ? nomeClinica.replace("-", " ") : '';
+    var nomeViaParam = nomeClinica ? nomeClinica.replace("-", " ") : '';
 
     return (
         <header >
@@ -15,7 +15,7 @@ export function Header({ subtitle }) {
                     <div className="h-full w-24 flex justify-center items-center border-r-2 border-cinza-escuro/20">
                         <div className="w-12 h-12 bg-slate-600 rounded-full"></div>
                     </div> 
-                    <span className="text-xl text-azul-principal font-semibold pl-2 sm:text-2xl sm:pl-4">{res ? res : '' }</span>
+                    <span className="text-xl text-azul-principal font-semibold pl-2 sm:text-2xl sm:pl-4">{nomeViaParam ? nomeViaParam : '' }</span>
                 </div>
                 {   
                     pathname == `/${nomeClinica}` ?

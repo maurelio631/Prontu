@@ -1,12 +1,26 @@
 import { useEffect, useRef } from 'react';
 import corpo from '../../assets/corpohumano.png';
 import { FaCamera, FaTrash } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 export function FormUncomfortableAreas({ setFormData }) {
 
     const tela = useRef(null);
     const background = useRef(new Image());
-    background.current.src = corpo; // Replace with the path to your background image
+    background.current.src = corpo; // Caminho para a sua imagem de fundo
+    //alert
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top-end",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.onmouseenter = Swal.stopTimer;
+            toast.onmouseleave = Swal.resumeTimer;
+        }
+    });
+   
 
     useEffect(() => {
         const canvas = tela.current;
@@ -43,27 +57,49 @@ export function FormUncomfortableAreas({ setFormData }) {
             };
         };
 
-        canvas.onmousedown = (evento) => {
-            pincel.ativo = true;
-            pincel.posAnterior = obterPosicaoMouse(evento);
+        const obterPosicaoTouch = (evento) => {
+            const rect = canvas.getBoundingClientRect();
+            const touch = evento.touches[0];
+            return {
+                x: touch.clientX - rect.left,
+                y: touch.clientY - rect.top
+            };
         };
 
-        canvas.onmouseup = () => { pincel.ativo = false };
+        const iniciarDesenho = (evento, obterPosicao) => {
+            evento.preventDefault();
+            pincel.ativo = true;
+            pincel.posAnterior = obterPosicao(evento);
+        };
 
-        canvas.onmousemove = (evento) => {
+        const finalizarDesenho = (evento) => {
+            evento.preventDefault();
+            pincel.ativo = false;
+        };
+
+        const moverDesenho = (evento, obterPosicao) => {
+            evento.preventDefault();
             if (pincel.ativo) {
-                pincel.pos = obterPosicaoMouse(evento);
+                pincel.pos = obterPosicao(evento);
                 pincel.movendo = true;
                 desenharLinha({ pos: pincel.pos, posAnterior: pincel.posAnterior });
                 pincel.posAnterior = { x: pincel.pos.x, y: pincel.pos.y };
             }
         };
 
-        canvas.onmouseout = () => {
-            pincel.ativo = false;
-        };
+        // Eventos de mouse
+        canvas.onmousedown = (evento) => iniciarDesenho(evento, obterPosicaoMouse);
+        canvas.onmouseup = finalizarDesenho;
+        canvas.onmousemove = (evento) => moverDesenho(evento, obterPosicaoMouse);
+        canvas.onmouseout = finalizarDesenho;
 
-        // Draw the background initially
+        // Eventos de toque
+        canvas.ontouchstart = (evento) => iniciarDesenho(evento, obterPosicaoTouch);
+        canvas.ontouchend = finalizarDesenho;
+        canvas.ontouchmove = (evento) => moverDesenho(evento, obterPosicaoTouch);
+        canvas.ontouchcancel = finalizarDesenho;
+
+        // Desenha o fundo inicialmente
         background.current.onload = drawBackground;
 
     }, []);
@@ -83,13 +119,15 @@ export function FormUncomfortableAreas({ setFormData }) {
         evento.preventDefault();
         const canvas = tela.current;
 
-        // Option 1: Scale down the image further
+        // Reduzindo a imagem capturada
         const scaledCanvas = document.createElement('canvas');
-        scaledCanvas.width = canvas.width / 2; // Adjust the scaling factor as needed
+        scaledCanvas.width = canvas.width / 2; // Ajuste o fator de escala conforme necessário
         scaledCanvas.height = canvas.height / 2;
         const scaledContext = scaledCanvas.getContext('2d');
         scaledContext.drawImage(canvas, 0, 0, scaledCanvas.width, scaledCanvas.height);
-        const scaledFrame = scaledCanvas.toDataURL('image/jpeg', 0.5); // Use JPEG with lower quality (0.5)
+        const scaledFrame = scaledCanvas.toDataURL('image/jpeg', 0.5); // Use JPEG com menor qualidade (0.5)
+
+        console.log(scaledFrame)
 
         setFormData(prevState => ({
             ...prevState,
@@ -97,6 +135,11 @@ export function FormUncomfortableAreas({ setFormData }) {
                 scaledFrame
             }
         }));
+
+        Toast.fire({
+            icon: "success",
+            title: "Captura feita com sucesso!"
+        });
     };
 
     return (
@@ -112,18 +155,18 @@ export function FormUncomfortableAreas({ setFormData }) {
 
                 <canvas ref={tela} className='w-full h-full max-w-[500px] max-h-[400px]'></canvas>
 
-                <button className="hover:bg-azul-principal/60 bg-azul-principal p-2   rounded-md hidden min-[875px]:block" onClick={captureScreenshot} ref={buttonCapture}>
+                <button className="hover:bg-azul-principal/60 bg-azul-principal p-2 rounded-md hidden min-[875px]:block" onClick={captureScreenshot} ref={buttonCapture}>
                     <FaCamera className='size-9 m-auto text-white' />
                     <p className='font-semibold text-white'>Capturar</p>
                 </button>
 
                 <div className='flex min-[875px]:hidden gap-10'>
-                    <button className="limpar hover:bg-azul-principal/60 bg-azul-principal p-2  rounded-md" onClick={limparCanvas} ref={buttonClear}>
+                    <button className="limpar hover:bg-azul-principal/60 bg-azul-principal p-2 rounded-md" onClick={limparCanvas} ref={buttonClear}>
                         <FaTrash className='size-9 m-auto text-white' />
                         <p className='font-semibold text-white'>Desfazer</p>
                     </button>
 
-                    <button className="limpar hover:bg-azul-principal/60 bg-azul-principal p-2  rounded-md" onClick={captureScreenshot} ref={buttonCapture}>
+                    <button className="limpar hover:bg-azul-principal/60 bg-azul-principal p-2 rounded-md" onClick={captureScreenshot} ref={buttonCapture}>
                         <FaCamera className='size-12 m-auto text-white' />
                         <p className='font-semibold text-white'>Capturar</p>
                     </button>
