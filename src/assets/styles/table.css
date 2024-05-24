@@ -1,9 +1,15 @@
 table{
-    background-color: #EFEFEF;
+    background-color: #F0F9FF;
+    width: 100%;
+    min-width: 900px;
 }
 
 thead tr{
     background-color: white;
+}
+
+tr{
+    border-radius: 6px;
 }
 
 tr:nth-child(even) {
@@ -18,7 +24,8 @@ th{
 
 tbody td{
     text-align: center;
-    padding: 10px 0;
+    height: 44px;
+
 }
 
 tbody td svg{

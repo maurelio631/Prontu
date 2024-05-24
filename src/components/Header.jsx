@@ -9,7 +9,7 @@ export function Header({ subtitle }) {
 
     return (
         <header >
-            <nav className="w-full h-20 flex justify-between bg-[#EFEFEF] border-b-2 border-cinza-escuro/20">
+            <nav className="w-full h-20 flex justify-between bg-[#F6FAFD] border-b-2 border-cinza-escuro/20">
                 
                 <div className="flex items-center">
                     <div className="h-full w-24 flex justify-center items-center border-r-2 border-cinza-escuro/20">
@@ -21,7 +21,7 @@ export function Header({ subtitle }) {
                     pathname == `/${nomeClinica}` ?
                         null
                     :
-                        <div className="flex items-center flex-row-reverse  pr-4">
+                        <div className="flex items-center flex-row-reverse pr-4">
                             <div className="w-12 h-12 bg-slate-600 rounded-full"></div>
                             <span className="text-sm pr-2 sm:text-base font-medium sm:pr-4">Ola, Joana</span>
                         </div>
