@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import corpo from '../../assets/corpohumano.png';
-import { FaCamera, FaTrash } from 'react-icons/fa';
+import { FaCheck, FaTrash } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 
 export function FormUncomfortableAreas({ setFormData }) {
@@ -160,29 +160,19 @@ export function FormUncomfortableAreas({ setFormData }) {
         <div className="m-auto">
             <h2 className='text-center font-medium mb-4 text-xl md:text-2xl '>Marque as áreas de desconforto na imagem abaixo</h2>
 
-            <div className="flex flex-col items-center min-[875px]:flex-row min-[875px]:items-center min-[875px]:gap-12 min-[875px]:justify-center">
-
-                <button className="hover:bg-azul-principal/60 bg-azul-principal p-2 rounded-md hidden min-[875px]:block" onClick={limparCanvas} ref={buttonClear}>
-                    <FaTrash className='size-12 m-auto text-white' />
-                    <p className='font-semibold text-white'>Desfazer</p>
-                </button>
+            <div className="flex flex-col items-center">
 
                 <canvas ref={tela} className='w-full h-full max-w-[500px] max-h-[400px]'></canvas>
 
-                <button className="hover:bg-azul-principal/60 bg-azul-principal p-2 rounded-md hidden min-[875px]:block" onClick={captureScreenshot} ref={buttonCapture}>
-                    <FaCamera className='size-9 m-auto text-white' />
-                    <p className='font-semibold text-white'>Salvar Áreas</p>
-                </button>
-
-                <div className='flex min-[875px]:hidden gap-10'>
-                    <button className="limpar hover:bg-azul-principal/60 bg-azul-principal p-2 rounded-md" onClick={limparCanvas} ref={buttonClear}>
-                        <FaTrash className='size-9 m-auto text-white' />
-                        <p className='font-semibold text-white'>Desfazer</p>
+                <div className='flex gap-10 md:gap-48'>
+                    <button className="text-white font-semibold  hover:bg-vermelho/60 bg-vermelho p-2 rounded-md flex items-center  w-full gap-2 min-w-28 justify-center" onClick={limparCanvas} ref={buttonClear}>
+                        <FaTrash/>
+                        <span >Desfazer</span>
                     </button>
 
-                    <button className="limpar hover:bg-azul-principal/60 bg-azul-principal p-2 rounded-md" onClick={captureScreenshot} ref={buttonCapture}>
-                        <FaCamera className='size-12 m-auto text-white' />
-                        <p className='font-semibold text-white'>Salvar Áreas</p>
+                    <button className="text-white font-semibold  hover:bg-verde-claro/60 bg-verde-claro p-2 rounded-md flex items-center w-full gap-2 min-w-28 justify-center" onClick={captureScreenshot} ref={buttonCapture}>
+                        <FaCheck />
+                        <span > Salvar</span>
                     </button>
                 </div>
 
