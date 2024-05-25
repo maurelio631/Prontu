@@ -73,7 +73,7 @@ export function Form() {
 
             <div className="flex w-full flex-row justify-between pt-3 gap-0">
                 <button
-                    className={`w-full text-white rounded-md py-2 max-w-20 text-base min-[470px]:text-lg min-[470px]:max-w-32  ${step === 1  ? 'bg-gray-500/50 cursor-not-allowed' : 'bg-azul-principal'}`}
+                    className={`w-full rounded-md py-2 max-w-20 text-base min-[470px]:text-lg min-[470px]:max-w-32  ${step === 1 ? 'bg-gray-500/20 cursor-not-allowed text-white' : 'bg-white text-azul-principal border border-azul-principal'}`}
                     onClick={() => retornaStep()}
                     disabled={step === 1}
                 >
