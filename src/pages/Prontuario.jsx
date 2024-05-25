@@ -9,7 +9,7 @@ import Wrapper from "../components/Wrapper";
 
 //icons
 import { PiFilePngDuotone } from "react-icons/pi";
-import { FaRegTrashCan } from "react-icons/fa6";
+import { FaChevronDown, FaChevronRight, FaRegTrashCan, FaTrash } from "react-icons/fa6";
 import { LuPaperclip } from "react-icons/lu";
 import { TbChevronLeft } from "react-icons/tb";
 
@@ -17,9 +17,11 @@ export function Prontuario() {
     const [groupExams, setGroupExams] = useState([]);
     const [gallery, setGallery] = useState([]);
 
+    //modalState
     const [selectedImage, setSelectedImage] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const [isAccordionOpen, setIsAccordionOpen] = useState(false);
     //substituir dps
     const mockDados = {
         nome: 'Maria Aparecida Oliveira da Cruz',
@@ -48,14 +50,22 @@ export function Prontuario() {
         }
     };
 
+    const [atendimentoData, setAtendimentoData] = useState([
+        { nome: 'Atendimento 1', data: '12/12/2012', observacao:'C1-D; C4-E; C6-PE; L1-PE; S2-E;AS-E; Cóccix; T5-' },
+        { nome: '', data: '', observacao:'' }
+    ]);
+
     const handleExamsChange = (event) => {
         const files = Array.from(event.target.files);
-        const fileNames = files.map(file => file.name);
-        setGroupExams(fileNames);
+        const fileData = files.map(file => ({
+            url: URL.createObjectURL(file),
+            name: file.name
+        }));
+        setGroupExams(fileData);
     };
     const handleRemoveFile = (fileNameToRemove, event) => {
-        event.preventDefault();
-        setGroupExams(prevGroupExams => prevGroupExams.filter(fileName => fileName !== fileNameToRemove));
+        event.preventDefault()
+        setGroupExams(prevGroupExams => prevGroupExams.filter(file => file.name !== fileNameToRemove));
     };
 
     const handleGalleryChange = (event) => {
@@ -65,10 +75,6 @@ export function Prontuario() {
             name: file.name
         }));
         setGallery(prevGallery => [...prevGallery, ...newFiles]);
-    };
-    const handleRemoveGalleryItem = (nameToRemove, event) => {
-        event.preventDefault();
-        setGallery(prevGallery => prevGallery.filter(file => file.name !== nameToRemove));
     };
 
     const handleImageClick = (image) => {
@@ -80,17 +86,21 @@ export function Prontuario() {
         setSelectedImage(null);
     };
 
+    const toggleAccordion = (i) => {
+        setIsAccordionOpen(isAccordionOpen === i ? null : i);
+    };
+
     return (
         <Wrapper>
             <div className="w-screen">
                 <Header subtitle={'Prontuário de Atendimento de Quiropraxia'} />
 
-                <main className="max-w-6xl m-auto flex flex-col gap-8 px-4 lg:px-0">
+                <main className="max-w-6xl m-auto flex flex-col px-4 lg:px-0">
                     <Link to={'/home/pacientes'} className="outline-none w-14 h-14 rounded-full border-2 border-cinza-escuro/20 flex items-center justify-center hover:bg-black/10">
                         <TbChevronLeft className="size-8" />
                     </Link>
 
-                    <section className="w-full bg-prontuario p-3 text-base text-center bSpace rounded-lg">
+                    <section className="w-full bg-prontuario p-3 text-base text-center bSpace rounded-lg mb-9">
                         <h2 className="font-bold text-2xl">{mockDados.nome}</h2>
                         <h4 className="m-5"><b>{mockDados.nascimento ? Math.floor((new Date() - new Date(mockDados.nascimento)) / (365.25 * 24 * 60 * 60 * 1000)) : ''} anos </b> - {mockDados.nascimento}</h4>
                         <div className="flex justify-center gap-5">
@@ -104,7 +114,7 @@ export function Prontuario() {
                     </section>
 
                     <form>
-                        <section className="w-full bg-prontuario rounded-lg py-5 px-10 mb-10">
+                        <section className="w-full bg-prontuario rounded-lg py-5 px-10 mb-9">
                             <h2 className="text-azul-principal text-2xl font-bold text-center">{gallery.length === 0 ? 'Autoavaliação' : 'Galeria'}</h2>
 
                             <div className="flex justify-end mb-4 min-w-[980px]:mb-0">
@@ -203,7 +213,7 @@ export function Prontuario() {
                             )}
                         </section>
 
-                        <section className="w-full bg-prontuario rounded-lg py-5 px-10 mb-10">
+                        <section className="w-full bg-prontuario rounded-lg py-5 px-10 mb-14">
                             <h2 className="text-azul-principal text-2xl font-bold text-center">Exames do paciente</h2>
 
                             <div className="flex justify-end">
@@ -222,13 +232,15 @@ export function Prontuario() {
                             </div>
 
                             <div className="flex justify-center gap-2">
-                                {groupExams.map((fileName, index) => (
+                                {groupExams.map((file, index) => (
                                     <div key={index} className="bg-white px-2 py-3 my-2 rounded-lg flex justify-between items-center gap-2">
-                                        <PiFilePngDuotone className="size-6" />
-                                        <span>{fileName}</span>
+                                        <a href={file.url} download={file.name} className="flex items-center gap-2">
+                                            <PiFilePngDuotone className="size-6" />
+                                            <span>{file.name}</span>
+                                        </a>
                                         <button
                                             className="bg-vermelho text-white p-1.5 rounded-lg"
-                                            onClick={(event) => handleRemoveFile(fileName, event)}
+                                            onClick={(event) => handleRemoveFile(file.name, event)}
                                         >
                                             <FaRegTrashCan />
                                         </button>
@@ -237,13 +249,75 @@ export function Prontuario() {
                             </div>
                         </section>
 
-                        <section className="w-full mb-10 text-center">
+                        <section className="w-full text-center mb-14">
                             <h2 className="text-azul-principal text-2xl font-bold mb-6">Observações</h2>
                             <textarea name="observacao" id="observacao" className="resize-none bg-[#F6FAFD] border border-cinza-escuro/20 w-full h-40 rounded-lg p-4"></textarea>
                         </section>
 
-                        <section className="w-full bg-prontuario text-center rounded-lg">
+                        <section className="w-full text-center mb-14">
                             <h2 className="text-azul-principal text-2xl font-bold mb-6">Atendimentos</h2>
+
+                            {atendimentoData.map((atendimento , i) => (
+                                <div key={i} className="mb-2 bg-white border-2 border-azul-principal rounded-lg">
+                                    <div className="flex justify-between items-center py-2 px-4">
+                                        <div className=" flex gap-10">
+                                            <input 
+                                                type="text" 
+                                                name={`nomeAtendimento${i + 1}`} 
+                                                id={`nomeAtendimento${i + 1}`}  
+                                                value={atendimento.nome}
+                                                placeholder="Nome do atendimento"
+                                                className="font-semibold w-full max-w-48 "
+                                                onChange={(e) => {
+                                                    const newName = [...atendimentoData];
+                                                    newName[i].nome = e.target.value;
+                                                    setAtendimentoData(newName);
+                                                }}
+                                            />
+                                            <input
+                                                type="text"
+                                                name={`dataAtendimento${i + 1}`}
+                                                id={`dataAtendimento${i + 1}`}
+                                                value={atendimento.data}
+                                                placeholder="XX/XX/XXXX"
+                                                className="max-w-20"
+                                                onChange={(e) => {
+                                                    const newData = [...atendimentoData];
+                                                    newData[i].data = e.target.value;
+                                                    setAtendimentoData(newData);
+                                                }}
+                                            />
+                                            <span className="w-72 overflow-hidden whitespace-nowrap text-ellipsis">{atendimento.observacao}</span>
+                                        </div>
+                                        <span className="rounded-full hover:bg-azul-principal/40 p-1 cursor-pointer" onClick={() => toggleAccordion(i)}>{isAccordionOpen === i ? <FaChevronRight /> : <FaChevronDown />}</span>
+                                    </div>
+
+
+                                    {isAccordionOpen === i && (
+                                        <div className="px-10 py-5 flex-1">
+                                            <div className="flex">
+                                                <select name="select">
+                                                    <option value="valor1">Valor 1</option>
+                                                    <option value="valor2" selected>Valor 2</option>
+                                                    <option value="valor3">Valor 3</option>
+                                                </select>
+                                            </div>
+                                            
+                                        </div>
+                                    )}
+                                </div>
+                            ))}
+                        </section>
+
+                        <section className="flex justify-between pb-16">
+                            <button className="bg-vermelho text-white px-4 py-3 font-medium rounded-lg flex justify-between items-center">
+                                <FaTrash  className="mr-3"/>
+                                Apagar prontuário
+                            </button>
+
+                            <button className="bg-azul-principal text-white px-4 py-3  font-medium rounded-lg">
+                                Salvar e encerrar atendimento
+                            </button>
                         </section>
                     </form>
                 </main>
