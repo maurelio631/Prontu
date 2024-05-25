@@ -112,6 +112,7 @@ export function Prontuario() {
                                     className="bg-azul-principal text-white py-4 px-4 cursor-pointer rounded-lg flex items-center">
                                     <LuPaperclip className="size-5 mr-3" /> Anexar documentos
                                     <input
+                                        accept="image/*"
                                         type="file"
                                         id="fileGallery"
                                         name="fileGallery"
@@ -124,7 +125,62 @@ export function Prontuario() {
 
                             {gallery.length === 0 ? (
                                 <>
-                                    {/* Renderização da Autoavaliação */}
+                                    <div className="flex gap-10">
+                                        <img className="max-w-80 w-full max-h-80 rounded-lg" src={corpo} alt="areas desconfortaveis" />
+                                        <div className="flex flex-col justify-center gap-3 bSpacexl">
+                                            <p>
+                                                <b>Sintomas:</b>
+                                                {mockDados.sintomas.descSintomas}
+                                            </p>
+                                            <p>
+                                                <b>Como começaram os sintomas?</b>
+                                                {mockDados.sintomas.comoComeçaram}
+                                            </p>
+                                            <p>
+                                                <b>Qual o tipo de desconforto?</b>
+                                                {mockDados.sintomas.tipoDesconforto}
+                                            </p>
+                                            <p>
+                                                <b>Qual a frequência dos sintomas?</b>
+                                                {mockDados.sintomas.frequencia}
+                                            </p>
+                                            <p>
+                                                <b>O desconforto aumenta com:</b>
+                                                {mockDados.sintomas.desconfortoAumenta}
+                                            </p>
+                                            <p>
+                                                <b>O desconforto diminui com:</b>
+                                                {mockDados.sintomas.desconfortoDiminui}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div className="mt-5 flex flex-col gap-4 bSpacexl">
+                                        <h2 className="text-azul-principal text-2xl font-bold my-2">Informações sobre saúde em geral e qualidade de vida:</h2>
+                                        <p>
+                                            <b>Estado Geral:</b>
+                                            {mockDados.saudeGeral.estadoGeral !== '' ? mockDados.saudeGeral.estadoGeral : '---'}
+                                        </p>
+                                        <p>
+                                            <b>Cabeça e Pescoço:</b>
+                                            {mockDados.saudeGeral.cabecaPescoço !== '' ? mockDados.saudeGeral.cabecaPescoço : '---'}
+                                        </p>
+                                        <p>
+                                            <b>Tórax/Respiratório:</b>
+                                            {mockDados.saudeGeral.toraxRespiratorio !== '' ? mockDados.saudeGeral.toraxRespiratorio : '---'}
+                                        </p>
+                                        <p>
+                                            <b>Cardio-Vascular:</b>
+                                            {mockDados.saudeGeral.cardioVascular !== '' ? mockDados.saudeGeral.cardioVascular : '---'}
+                                        </p>
+                                        <p>
+                                            <b>Gastro-Intestinal:</b>
+                                            {mockDados.saudeGeral.gastroIntestinal !== '' ? mockDados.saudeGeral.gastroIntestinal : '---'}
+                                        </p>
+                                        <p>
+                                            <b>Gênito-Urinário:</b>
+                                            {mockDados.saudeGeral.genitoUrinário !== '' ? mockDados.saudeGeral.genitoUrinário : '---'}
+                                        </p>
+                                    </div>
                                 </>
                             ) : (
                                 <div className="flex flex-wrap gap-2 justify-center">
