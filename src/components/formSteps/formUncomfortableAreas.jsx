@@ -153,7 +153,7 @@ export function FormUncomfortableAreas({ setFormData }) {
                 title: "Captura feita com sucesso!"
             });
         }
-    }, 'image/jpeg', 0.2); // Use JPEG com menor qualidade (0.2)
+    }, 'image/jpeg', 1); // Use JPEG com menor qualidade (0.2)
 };
 
     return (

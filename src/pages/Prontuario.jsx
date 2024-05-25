@@ -1,12 +1,26 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import '../assets/styles/prontuario.css';
+import corpo  from "../assets/corpohumano.png";
+
+//components
 import { Header } from "../components/Header";
 import Wrapper from "../components/Wrapper";
+
+//icons
+import { PiFilePngDuotone } from "react-icons/pi";
+import { FaRegTrashCan } from "react-icons/fa6";
+import { LuPaperclip } from "react-icons/lu";
 import { TbChevronLeft } from "react-icons/tb";
 
-import '../assets/styles/prontuario.css'
+export function Prontuario() {
+    const [groupExams, setGroupExams] = useState([]);
+    const [gallery, setGallery] = useState([]);
 
-export function Prontuario(){
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
+    //substituir dps
     const mockDados = {
         nome: 'Maria Aparecida Oliveira da Cruz',
         nascimento: '01/02/1954',
@@ -15,22 +29,68 @@ export function Prontuario(){
         tel: '(11) 91234-5678',
         email: 'maria_ap.cruz@gmail.com',
         endereco: 'Rua Matias Lopes, 630 - Parque Boa Esperança - SP',
-        comoConheceu: 'Google'
+        comoConheceu: 'Google',
+        sintomas: {
+            descSintomas: 'Dor na lombar e no ombro',
+            comoComeçaram: 'Má postura ou atividades diárias',
+            tipoDesconforto: 'Pontada; formigamento',
+            frequencia: '50% a 75%',
+            desconfortoAumenta: 'Movimento; de pé; tossir/ espirrar',
+            desconfortoDiminui: 'Quiropraxia; alongamento; gelo'
+        },
+        saudeGeral: {
+            estadoGeral: 'Modificações de peso, diabetes',
+            cabecaPescoço: 'Dor de cabeça; desmaios',
+            toraxRespiratorio: 'Nódulo/secreção mama; Dispinéia',
+            cardioVascular: '',
+            gastroIntestinal: '',
+            genitoUrinário: 'Cólica menstrual'
+        }
+    };
 
-    }
+    const handleExamsChange = (event) => {
+        const files = Array.from(event.target.files);
+        const fileNames = files.map(file => file.name);
+        setGroupExams(fileNames);
+    };
+    const handleRemoveFile = (fileNameToRemove, event) => {
+        event.preventDefault();
+        setGroupExams(prevGroupExams => prevGroupExams.filter(fileName => fileName !== fileNameToRemove));
+    };
 
-    return(
+    const handleGalleryChange = (event) => {
+        const files = Array.from(event.target.files);
+        const newFiles = files.map(file => ({
+            url: URL.createObjectURL(file),
+            name: file.name
+        }));
+        setGallery(prevGallery => [...prevGallery, ...newFiles]);
+    };
+    const handleRemoveGalleryItem = (nameToRemove, event) => {
+        event.preventDefault();
+        setGallery(prevGallery => prevGallery.filter(file => file.name !== nameToRemove));
+    };
+
+    const handleImageClick = (image) => {
+        setSelectedImage(image);
+        setIsModalOpen(true);
+    };
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+        setSelectedImage(null);
+    };
+
+    return (
         <Wrapper>
             <div className="w-screen">
                 <Header subtitle={'Prontuário de Atendimento de Quiropraxia'} />
 
-                <main className="max-w-6xl m-auto flex flex-col gap-8">
-                    <Link to={'/home/pacientes'} className="w-14 h-14 rounded-full border-2 border-cinza-escuro/20  flex items-center justify-center hover:bg-black/10">
+                <main className="max-w-6xl m-auto flex flex-col gap-8 px-4 lg:px-0">
+                    <Link to={'/home/pacientes'} className="outline-none w-14 h-14 rounded-full border-2 border-cinza-escuro/20 flex items-center justify-center hover:bg-black/10">
                         <TbChevronLeft className="size-8" />
                     </Link>
 
-
-                    <div className="w-full bg-prontuario p-3 text-base text-center bSpace">
+                    <section className="w-full bg-prontuario p-3 text-base text-center bSpace rounded-lg">
                         <h2 className="font-bold text-2xl">{mockDados.nome}</h2>
                         <h4 className="m-5"><b>{mockDados.nascimento ? Math.floor((new Date() - new Date(mockDados.nascimento)) / (365.25 * 24 * 60 * 60 * 1000)) : ''} anos </b> - {mockDados.nascimento}</h4>
                         <div className="flex justify-center gap-5">
@@ -41,19 +101,97 @@ export function Prontuario(){
                         </div>
                         <p className="my-5"><b>Endereço:</b> {mockDados.endereco}</p>
                         <p><b>Como você nos conheceu?</b> {mockDados.comoConheceu}</p>
-                    </div>
-
-
+                    </section>
 
                     <form>
+                        <section className="w-full bg-prontuario rounded-lg py-5 px-10 mb-10">
+                            <h2 className="text-azul-principal text-2xl font-bold text-center">{gallery.length === 0 ? 'Autoavaliação' : 'Galeria'}</h2>
 
-                        <img src="blob:http://localhost:4000/60f40d4c-d50b-4319-a06a-ffee5410e3f8" alt=" foto" />
+                            <div className="flex justify-end mb-4 min-w-[980px]:mb-0">
+                                <label htmlFor="fileGallery"
+                                    className="bg-azul-principal text-white py-4 px-4 cursor-pointer rounded-lg flex items-center">
+                                    <LuPaperclip className="size-5 mr-3" /> Anexar documentos
+                                    <input
+                                        type="file"
+                                        id="fileGallery"
+                                        name="fileGallery"
+                                        className="hidden"
+                                        multiple
+                                        onChange={handleGalleryChange}
+                                    />
+                                </label>
+                            </div>
+
+                            {gallery.length === 0 ? (
+                                <>
+                                    {/* Renderização da Autoavaliação */}
+                                </>
+                            ) : (
+                                <div className="flex flex-wrap gap-2 justify-center">
+                                    {gallery.map((file, index) => (
+
+                                        <div key={index} className={`w-full max-w-52 h-36 relative flex  flex-col items-center`} onClick={() => handleImageClick(file)}>
+                                            <img src={file.url} alt={file.name} className="w-full h-full rounded-lg" />
+                                            <span className="text-sm absolute w-full bg-black/50 text-white p-2 bottom-0">{file.name}</span>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+
+                            {isModalOpen && selectedImage && (
+                                <div className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center" onClick={handleCloseModal}>
+                                    <div className="relative">
+                                        <img src={selectedImage.url} alt={selectedImage.name} className="max-w-full max-h-full" />
+                                    </div>
+                                </div>
+                            )}
+                        </section>
+
+                        <section className="w-full bg-prontuario rounded-lg py-5 px-10 mb-10">
+                            <h2 className="text-azul-principal text-2xl font-bold text-center">Exames do paciente</h2>
+
+                            <div className="flex justify-end">
+                                <label htmlFor="fileExames"
+                                    className="bg-azul-principal text-white py-4 px-4 cursor-pointer rounded-lg flex items-center">
+                                    <LuPaperclip className="size-5 mr-3" /> Anexar documentos
+                                    <input
+                                        type="file"
+                                        id="fileExames"
+                                        name="fileExames"
+                                        className="hidden"
+                                        multiple
+                                        onChange={handleExamsChange}
+                                    />
+                                </label>
+                            </div>
+
+                            <div className="flex justify-center gap-2">
+                                {groupExams.map((fileName, index) => (
+                                    <div key={index} className="bg-white px-2 py-3 my-2 rounded-lg flex justify-between items-center gap-2">
+                                        <PiFilePngDuotone className="size-6" />
+                                        <span>{fileName}</span>
+                                        <button
+                                            className="bg-vermelho text-white p-1.5 rounded-lg"
+                                            onClick={(event) => handleRemoveFile(fileName, event)}
+                                        >
+                                            <FaRegTrashCan />
+                                        </button>
+                                    </div>
+                                ))}
+                            </div>
+                        </section>
+
+                        <section className="w-full mb-10 text-center">
+                            <h2 className="text-azul-principal text-2xl font-bold mb-6">Observações</h2>
+                            <textarea name="observacao" id="observacao" className="resize-none bg-[#F6FAFD] border border-cinza-escuro/20 w-full h-40 rounded-lg p-4"></textarea>
+                        </section>
+
+                        <section className="w-full bg-prontuario text-center rounded-lg">
+                            <h2 className="text-azul-principal text-2xl font-bold mb-6">Atendimentos</h2>
+                        </section>
                     </form>
-
                 </main>
-
-
             </div>
         </Wrapper>
-    )
+    );
 }

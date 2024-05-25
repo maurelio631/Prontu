@@ -1,3 +1,7 @@
 .bSpace span b, .bSpace p b{
     padding-right: 5px;
 }
+
+.bSpacexl span b, .bSpacexl p b{
+    padding-right: 16px;
+}
