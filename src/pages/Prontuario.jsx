@@ -133,12 +133,12 @@ export function Prontuario() {
 
     // Função que retorna a classe de cor correspondente a uma opção, com base nas categorias de camposSelect
     const getColorClass = (option) => {
-        if (camposSelect.C.includes(option)) return 'bg-red-200';
-        if (camposSelect.T.includes(option)) return 'bg-yellow-200';
-        if (camposSelect.L.includes(option)) return 'bg-green-200';
-        if (camposSelect.PS.includes(option)) return 'bg-blue-200';
-        if (camposSelect.PI.includes(option)) return 'bg-darkblue-200';
-        if (camposSelect.Coccix.includes(option)) return 'bg-beige-200';
+        if (camposSelect.C.includes(option)) return 'bg-[#F19393]';
+        if (camposSelect.T.includes(option)) return 'bg-[#F1E893]';
+        if (camposSelect.L.includes(option)) return 'bg-[#C2F193]';
+        if (camposSelect.PS.includes(option)) return 'bg-[#93F1EB]';
+        if (camposSelect.PI.includes(option)) return 'bg-[#93C4F1]';
+        if (camposSelect.Coccix.includes(option)) return 'bg-[#F1CB93]';
         return ''; // Retorna uma string vazia se a opção não corresponder a nenhuma categoria
     };
 
