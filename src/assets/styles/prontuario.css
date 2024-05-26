@@ -5,3 +5,31 @@
 .bSpacexl span b, .bSpacexl p b{
     padding-right: 16px;
 }
+
+
+.options-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    font-weight: 700;
+}
+
+.options-label:hover {
+    border-color: #5A9CDA;
+    background-color: #deebf8;
+}
+
+.options-input {
+    display: none;
+}
+
+.options-input:checked + .options-label {
+    background-color: #deebf8;
+}
+
+.options-input:not(:checked) + .options-label {
+    background-color: white;
+}

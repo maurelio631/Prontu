@@ -22,6 +22,14 @@ export function Prontuario() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
+    const [selectedOption, setSelectedOption] = useState(null);
+
+    const [atendimentoData, setAtendimentoData] = useState([
+        { nome: '', data: '', observacao: '', checkboxes: {} },
+        { nome: '', data: '', observacao: '', checkboxes: {} }
+
+    ]);
+
     //substituir dps
     const mockDados = {
         nome: 'Maria Aparecida Oliveira da Cruz',
@@ -49,11 +57,14 @@ export function Prontuario() {
             genitoUrinário: 'Cólica menstrual'
         }
     };
-
-    const [atendimentoData, setAtendimentoData] = useState([
-        { nome: 'Atendimento 1', data: '12/12/2012', observacao:'C1-D; C4-E; C6-PE; L1-PE; S2-E;AS-E; Cóccix; T5-' },
-        { nome: '', data: '', observacao:'' }
-    ]);
+    const camposSelect = {
+        C: ["C1", "C2", "C3", "C4", "C5", "C6", "C7",],
+        T: ["T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12",],
+        L: ["L1", "L2", "L3", "L4", "L5"],
+        PS: ["PS", "AI", "S2", "S3"],
+        PI: ["PI" , "AS"],
+        Coccix: ["Cóccix"]
+    }
 
     const handleExamsChange = (event) => {
         const files = Array.from(event.target.files);
@@ -89,6 +100,60 @@ export function Prontuario() {
     const toggleAccordion = (i) => {
         setIsAccordionOpen(isAccordionOpen === i ? null : i);
     };
+
+    // Função que lida com o clique em uma opção, alternando a seleção entre ela e 'null' se já estiver selecionada
+    const handleOptionClick = (opcao) => {
+        setSelectedOption(selectedOption === opcao ? null : opcao);
+    };
+
+    // Função que lida com a mudança de estado de um checkbox, adicionando ou removendo valores conforme necessário
+    const handleCheckboxChange = (event, opcao, index) => {
+        const { name, checked } = event.target;
+        setAtendimentoData(prevData => {
+            const newData = [...prevData];
+            const checkboxValues = newData[index].checkboxes[opcao] || [];
+            if (checked) {
+                if (!checkboxValues.includes(name)) {
+                    newData[index].checkboxes[opcao] = [...checkboxValues, name];
+                }
+            } else {
+                newData[index].checkboxes[opcao] = checkboxValues.filter(value => value !== name);
+                if (newData[index].checkboxes[opcao].length === 0) {
+                    delete newData[index].checkboxes[opcao];
+                }
+            }
+            return newData;
+        });
+    };
+
+    // Função que verifica se algum checkbox está marcado para uma opção específica
+    const isAnyCheckboxChecked = (opcao, index) => {
+        return atendimentoData[index].checkboxes[opcao] && atendimentoData[index].checkboxes[opcao].length > 0;
+    };
+
+    // Função que retorna a classe de cor correspondente a uma opção, com base nas categorias de camposSelect
+    const getColorClass = (option) => {
+        if (camposSelect.C.includes(option)) return 'bg-red-200';
+        if (camposSelect.T.includes(option)) return 'bg-yellow-200';
+        if (camposSelect.L.includes(option)) return 'bg-green-200';
+        if (camposSelect.PS.includes(option)) return 'bg-blue-200';
+        if (camposSelect.PI.includes(option)) return 'bg-darkblue-200';
+        if (camposSelect.Coccix.includes(option)) return 'bg-beige-200';
+        return ''; // Retorna uma string vazia se a opção não corresponder a nenhuma categoria
+    };
+
+    // Função que lida com a mudança de texto na área de texto, atualizando a observação no atendimentoData
+    const handleTextareaChange = (e, index) => {
+        const newValue = e.target.value;
+        const checkboxPart = Object.entries(atendimentoData[index].checkboxes).flatMap(([opcao, values]) => values.map(value => `${opcao}-${value}`)).join(', ');
+        const newObservacao = newValue.substring(checkboxPart.length + 2); // +2 para ignorar "; " após os checkboxes
+        setAtendimentoData(prevData => {
+            const newData = [...prevData];
+            newData[index].observacao = newObservacao;
+            return newData;
+        });
+    };
+
 
     return (
         <Wrapper>
@@ -257,17 +322,17 @@ export function Prontuario() {
                         <section className="w-full text-center mb-14">
                             <h2 className="text-azul-principal text-2xl font-bold mb-6">Atendimentos</h2>
 
-                            {atendimentoData.map((atendimento , i) => (
+                            {atendimentoData.map((atendimento, i) => (
                                 <div key={i} className="mb-2 bg-white border-2 border-azul-principal rounded-lg">
                                     <div className="flex justify-between items-center py-2 px-4">
-                                        <div className=" flex gap-10">
-                                            <input 
-                                                type="text" 
-                                                name={`nomeAtendimento${i + 1}`} 
-                                                id={`nomeAtendimento${i + 1}`}  
+                                        <div className="flex gap-10">
+                                            <input
+                                                type="text"
+                                                name={`nomeAtendimento${i + 1}`}
+                                                id={`nomeAtendimento${i + 1}`}
                                                 value={atendimento.nome}
                                                 placeholder="Nome do atendimento"
-                                                className="font-semibold w-full max-w-48 "
+                                                className="font-semibold w-full max-w-48"
                                                 onChange={(e) => {
                                                     const newName = [...atendimentoData];
                                                     newName[i].nome = e.target.value;
@@ -287,22 +352,69 @@ export function Prontuario() {
                                                     setAtendimentoData(newData);
                                                 }}
                                             />
-                                            <span className="w-72 overflow-hidden whitespace-nowrap text-ellipsis">{atendimento.observacao}</span>
+                                            <span className="w-72 overflow-hidden whitespace-nowrap text-ellipsis">
+                                                {`${Object.entries(atendimento.checkboxes).flatMap(([opcao, values]) => values.map(value => `${opcao}-${value}`)).join(', ')} ${atendimento.observacao}`}
+                                            </span>
                                         </div>
-                                        <span className="rounded-full hover:bg-azul-principal/40 p-1 cursor-pointer" onClick={() => toggleAccordion(i)}>{isAccordionOpen === i ? <FaChevronRight /> : <FaChevronDown />}</span>
+                                        <span className="rounded-full hover:bg-azul-principal/40 p-1 cursor-pointer" onClick={() => toggleAccordion(i)}>
+                                            {isAccordionOpen === i ? <FaChevronRight /> : <FaChevronDown />}
+                                        </span>
                                     </div>
 
-
                                     {isAccordionOpen === i && (
-                                        <div className="px-10 py-5 flex-1">
-                                            <div className="flex">
-                                                <select name="select">
-                                                    <option value="valor1">Valor 1</option>
-                                                    <option value="valor2" selected>Valor 2</option>
-                                                    <option value="valor3">Valor 3</option>
-                                                </select>
-                                            </div>
-                                            
+                                        <div className="px-10 py-5 flex flex-col gap-2">
+                                            {Object.entries(camposSelect).map(([category, options]) => (
+                                                <div key={category} className="flex flex-row">
+                                                    {options.map((opcao) => (
+                                                        <div
+                                                            key={opcao}
+                                                            className={`py-1 px-3 border border-black relative ${isAnyCheckboxChecked(opcao, i) ? getColorClass(opcao) : ''}`}
+                                                        >
+                                                            <div onClick={() => handleOptionClick(opcao)} className="cursor-pointer">
+                                                                {opcao}
+                                                            </div>
+                                                            {selectedOption === opcao && (
+                                                                <div className="flex gap-2 border-black bg-white border w-32 p-1 rounded absolute -left-px -bottom-11 z-10">
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        className="options-input"
+                                                                        name="E"
+                                                                        id={`${opcao}-E`}
+                                                                        checked={atendimento.checkboxes[opcao]?.includes("E") || false}
+                                                                        onChange={(event) => handleCheckboxChange(event, opcao, i)}
+                                                                    />
+                                                                    <label htmlFor={`${opcao}-E`} className="options-label w-1/3">E</label>
+
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        className="options-input"
+                                                                        name="PE"
+                                                                        id={`${opcao}-PE`}
+                                                                        checked={atendimento.checkboxes[opcao]?.includes("PE") || false}
+                                                                        onChange={(event) => handleCheckboxChange(event, opcao, i)}
+                                                                    />
+                                                                    <label htmlFor={`${opcao}-PE`} className="options-label w-1/3">PE</label>
+
+                                                                    <input
+                                                                        type="checkbox"
+                                                                        className="options-input"
+                                                                        name="D"
+                                                                        id={`${opcao}-D`}
+                                                                        checked={atendimento.checkboxes[opcao]?.includes("D") || false}
+                                                                        onChange={(event) => handleCheckboxChange(event, opcao, i)}
+                                                                    />
+                                                                    <label htmlFor={`${opcao}-D`} className="options-label w-1/3">D</label>
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            ))}
+                                            <textarea
+                                                className="resize-none bg-[#F6FAFD] border border-cinza-escuro/20 w-full h-20 rounded-lg p-4 mt-4"
+                                                value={`${Object.entries(atendimentoData[i].checkboxes).flatMap(([opcao, values]) => values.map(value => `${opcao}-${value}`)).join(', ')}; ${atendimentoData[i].observacao}`}
+                                                onChange={(e) => handleTextareaChange(e, i)}
+                                            ></textarea>
                                         </div>
                                     )}
                                 </div>
