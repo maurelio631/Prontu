@@ -14,21 +14,22 @@ import { LuPaperclip } from "react-icons/lu";
 import { TbChevronLeft } from "react-icons/tb";
 
 export function Prontuario() {
-    const [groupExams, setGroupExams] = useState([]);
-    const [gallery, setGallery] = useState([]);
-
-    //modalState
+    //states de config de "componentes" 
     const [selectedImage, setSelectedImage] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
     const [isAccordionOpen, setIsAccordionOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState(null);
 
-    const [atendimentoData, setAtendimentoData] = useState([
-        { nome: '', data: '', observacao: '', checkboxes: {} },
+    //states de dados
+    const [groupExams, setGroupExams] = useState([]);
+    const [gallery, setGallery] = useState([]);
+    const [observation, setObservation] = useState("")
+    const [serviceData, setServiceData] = useState([
+        
         { nome: '', data: '', observacao: '', checkboxes: {} }
-
     ]);
+    const [finalData, setFinalData] = useState({});
+
 
     //substituir dps
     const mockDados = {
@@ -73,6 +74,7 @@ export function Prontuario() {
             name: file.name
         }));
         setGroupExams(fileData);
+        console.log(groupExams)
     };
     const handleRemoveFile = (fileNameToRemove, event) => {
         event.preventDefault()
@@ -86,6 +88,7 @@ export function Prontuario() {
             name: file.name
         }));
         setGallery(prevGallery => [...prevGallery, ...newFiles]);
+        console.log(gallery)
     };
 
     const handleImageClick = (image) => {
@@ -96,7 +99,6 @@ export function Prontuario() {
         setIsModalOpen(false);
         setSelectedImage(null);
     };
-
     const toggleAccordion = (i) => {
         setIsAccordionOpen(isAccordionOpen === i ? null : i);
     };
@@ -105,11 +107,10 @@ export function Prontuario() {
     const handleOptionClick = (opcao) => {
         setSelectedOption(selectedOption === opcao ? null : opcao);
     };
-
     // Função que lida com a mudança de estado de um checkbox, adicionando ou removendo valores conforme necessário
     const handleCheckboxChange = (event, opcao, index) => {
         const { name, checked } = event.target;
-        setAtendimentoData(prevData => {
+        setServiceData(prevData => {
             const newData = [...prevData];
             const checkboxValues = newData[index].checkboxes[opcao] || [];
             if (checked) {
@@ -125,12 +126,10 @@ export function Prontuario() {
             return newData;
         });
     };
-
     // Função que verifica se algum checkbox está marcado para uma opção específica
     const isAnyCheckboxChecked = (opcao, index) => {
-        return atendimentoData[index].checkboxes[opcao] && atendimentoData[index].checkboxes[opcao].length > 0;
+        return serviceData[index].checkboxes[opcao] && serviceData[index].checkboxes[opcao].length > 0;
     };
-
     // Função que retorna a classe de cor correspondente a uma opção, com base nas categorias de camposSelect
     const getColorClass = (option) => {
         if (camposSelect.C.includes(option)) return 'bg-[#F19393]';
@@ -141,17 +140,32 @@ export function Prontuario() {
         if (camposSelect.Coccix.includes(option)) return 'bg-[#F1CB93]';
         return ''; // Retorna uma string vazia se a opção não corresponder a nenhuma categoria
     };
-
-    // Função que lida com a mudança de texto na área de texto, atualizando a observação no atendimentoData
-    const handleTextareaChange = (e, index) => {
+    // Função que lida com a mudança de texto na área de texto, atualizando a observação no serviceData
+    const handleTextareaService = (e, index) => {
         const newValue = e.target.value;
-        const checkboxPart = Object.entries(atendimentoData[index].checkboxes).flatMap(([opcao, values]) => values.map(value => `${opcao}-${value}`)).join(', ');
+        const checkboxPart = Object.entries(serviceData[index].checkboxes).flatMap(([opcao, values]) => values.map(value => `${opcao}-${value}`)).join(', ');
         const newObservacao = newValue.substring(checkboxPart.length + 2); // +2 para ignorar "; " após os checkboxes
-        setAtendimentoData(prevData => {
+        setServiceData(prevData => {
             const newData = [...prevData];
             newData[index].observacao = newObservacao;
             return newData;
         });
+    };
+
+    const handleTextareaObservation = (event) =>{
+        setObservation(event.target.value)
+    }
+
+    const handleEncerrarAtendimento = (event) => {
+        event.preventDefault()
+        const allData = {
+            groupExams,
+            gallery,
+            observation,
+            serviceData
+        };
+        setFinalData(allData);
+        console.log(allData);
     };
 
 
@@ -316,13 +330,13 @@ export function Prontuario() {
 
                         <section className="w-full text-center mb-14">
                             <h2 className="text-azul-principal text-2xl font-bold mb-6">Observações</h2>
-                            <textarea name="observacao" id="observacao" className="resize-none bg-[#F6FAFD] border border-cinza-escuro/20 w-full h-40 rounded-lg p-4"></textarea>
+                            <textarea name="observacao" id="observacao" onChange={(event) => handleTextareaObservation(event)} className="resize-none bg-[#F6FAFD] border border-cinza-escuro/20 w-full h-40 rounded-lg p-4"></textarea>
                         </section>
 
                         <section className="w-full text-center mb-14">
                             <h2 className="text-azul-principal text-2xl font-bold mb-6">Atendimentos</h2>
 
-                            {atendimentoData.map((atendimento, i) => (
+                            {serviceData.map((atendimento, i) => (
                                 <div key={i} className="mb-2 bg-white border-2 border-azul-principal rounded-lg">
                                     <div className="flex justify-between items-center py-2 px-4">
                                         <div className="flex gap-10">
@@ -334,9 +348,9 @@ export function Prontuario() {
                                                 placeholder="Nome do atendimento"
                                                 className="font-semibold w-full max-w-48"
                                                 onChange={(e) => {
-                                                    const newName = [...atendimentoData];
+                                                    const newName = [...serviceData];
                                                     newName[i].nome = e.target.value;
-                                                    setAtendimentoData(newName);
+                                                    setServiceData(newName);
                                                 }}
                                             />
                                             <input
@@ -347,9 +361,9 @@ export function Prontuario() {
                                                 placeholder="XX/XX/XXXX"
                                                 className="max-w-20"
                                                 onChange={(e) => {
-                                                    const newData = [...atendimentoData];
+                                                    const newData = [...serviceData];
                                                     newData[i].data = e.target.value;
-                                                    setAtendimentoData(newData);
+                                                    setServiceData(newData);
                                                 }}
                                             />
                                             <span className="w-72 overflow-hidden whitespace-nowrap text-ellipsis">
@@ -412,8 +426,8 @@ export function Prontuario() {
                                             ))}
                                             <textarea
                                                 className="resize-none bg-[#F6FAFD] border border-cinza-escuro/20 w-full h-20 rounded-lg p-4 mt-4"
-                                                value={`${Object.entries(atendimentoData[i].checkboxes).flatMap(([opcao, values]) => values.map(value => `${opcao}-${value}`)).join(', ')}; ${atendimentoData[i].observacao}`}
-                                                onChange={(e) => handleTextareaChange(e, i)}
+                                                value={`${Object.entries(serviceData[i].checkboxes).flatMap(([opcao, values]) => values.map(value => `${opcao}-${value}`)).join(', ')}; ${serviceData[i].observacao}`}
+                                                onChange={(e) => handleTextareaService(e, i)}
                                             ></textarea>
                                         </div>
                                     )}
@@ -427,7 +441,7 @@ export function Prontuario() {
                                 Apagar prontuário
                             </button>
 
-                            <button className="bg-azul-principal text-white px-4 py-3  font-medium rounded-lg">
+                            <button className="bg-azul-principal text-white px-4 py-3  font-medium rounded-lg" onClick={(event)=>handleEncerrarAtendimento(event)}>
                                 Salvar e encerrar atendimento
                             </button>
                         </section>
