@@ -11,6 +11,7 @@ import { Prontuario } from "./pages/Prontuario";
 import { Login } from "./pages/Login";
 import { Page404 } from "./pages/Page404";
 import { Agenda } from "./pages/Agenda";
+import { CadastroClinica } from "./pages/CadastroClinica";
 
 
 
@@ -20,10 +21,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Routes>
           <Route index path="/:nomeClinica" element={<Ficha />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/cadastro" element={<CadastroClinica />} />
           <Route path="/home/pacientes" element={<Pacientes/>} />
           <Route path="/home/prontuario" element={<Prontuario />} />
           <Route path="/home/agenda" element={<Agenda />} />
-
 
           <Route path="*" element={<Page404 />} />
         </Routes>

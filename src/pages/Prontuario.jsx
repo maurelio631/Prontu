@@ -25,7 +25,17 @@ export function Prontuario() {
     const [gallery, setGallery] = useState([]);
     const [observation, setObservation] = useState("")
     const [serviceData, setServiceData] = useState([
-        
+        {   nome: 'Atendimento 1', 
+            data: '15/05/2005', 
+            observacao: 'teste para volta', 
+            checkboxes: { 
+                C1: ['PE', 'D'] ,
+                Cóccix: ['PE', 'D'],
+                L2: ['PE'],
+                PI: ['PE', 'D'],
+                S2: ['PE', 'E'],
+                T5: ['E', 'PE', 'D'],
+        }},
         { nome: '', data: '', observacao: '', checkboxes: {} }
     ]);
     const [finalData, setFinalData] = useState({});

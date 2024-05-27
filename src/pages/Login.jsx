@@ -32,23 +32,41 @@ export function Login(){
 
                 <div className="w-full sm:w-1/2 flex items-center justify-center">
                     {statusLogin == false ? (
-                        <div className="w-full max-w-[440px] flex flex-col gap-5 px-5">
+                        <form className="w-full max-w-[440px] flex flex-col gap-5 px-5">
                             <div className="mb-5">
                                 <h2 className="text-4xl font-semibold text-center sm:text-left">Olá</h2>
                                 <p className="text-center sm:text-left">Informe seus dados para acessar a plataforma.</p>
                             </div>
+                            
+                            <label htmlFor="endereco" className="font-medium">
+                                Código da clínica:
+                                <input 
+                                    type="text" 
+                                    id="codClinica" 
+                                    name="codClinica" 
+                                    className="w-full bg-[#F6FAFD] border border-[#e0e0e0] rounded-lg p-2 outline-none hover:border-azul-principal mt-2" 
+                                />
+                            </label>
 
-                            <input type="text" placeholder="Código da clínica" className="w-full border-2 border-cinza-escuro rounded-lg p-2 outline-none hover:border-black/70" />
-                            <input type="text" placeholder="Código do funcionário" className="w-full border-2 border-cinza-escuro rounded-lg p-2 outline-none hover:border-black/70" />
+                            <label htmlFor="endereco" className="font-medium">
+                                Código do funcionário:
+                                <input
+                                    type="text"
+                                    id="codFuncionario"
+                                    name="codFuncionario"
+                                    className="w-full bg-[#F6FAFD] border border-[#e0e0e0] rounded-lg p-2 outline-none hover:border-azul-principal mt-2"
+                                />
+                            </label>
 
-                            <div className="relative">
-                                <input type={type} name="" id="" placeholder="Senha"
-                                    className="w-full border-2 border-cinza-escuro rounded-lg p-2 outline-none hover:border-black/70" />
+                            <label htmlFor="senha" className="relative font-medium">
+                                Senha:
+                                <input type={type} name="senha" id="senha" placeholder="Senha"
+                                    className="w-full bg-[#F6FAFD] border border-[#e0e0e0] rounded-lg p-2 outline-none hover:border-azul-principal mt-2" />
 
-                                <button type="button" className="absolute right-4 top-3.5 text-black/70" onClick={handleToggle}>
+                                <button type="button" className="absolute right-4 bottom-3 text-black/70" onClick={handleToggle}>
                                     {iconPass == true ? <FaEye /> : <FaEyeSlash />}
                                 </button>
-                            </div>
+                            </label>
 
                             <div className="flex flex-col gap-3 items-center  sm:gap-0 sm:flex-row sm:justify-between">
                                 <button type="button" onClick={() => setStatusLogin(true)} className="border-2 border-azul-principal text-azul-principal rounded-lg py-2 px-4  hover:bg-azul-principal hover:text-white">
@@ -59,18 +77,35 @@ export function Login(){
                                     Entrar
                                 </button>
                             </div>
-                        </div>
+                        </form>
                     )
                         :
                     (
-                        <div className="w-full max-w-[440px] flex flex-col gap-5 px-5">
+                        <form className="w-full max-w-[440px] flex flex-col gap-5 px-5">
                             <div className="mb-5">
                                 <h2 className="text-xl sm:text-4xl font-semibold text-center sm:text-left">Recuperação de senha</h2>
                                 <p className="text-center sm:text-left">Informe os dados necessários para recuperar sua senha</p>
                             </div>
 
-                            <input type="text" placeholder="Código da clínica" className="w-full border-2 border-cinza-escuro rounded-lg p-2 outline-none hover:border-black/70" />
-                            <input type="text" placeholder="Código do funcionário" className="w-full border-2 border-cinza-escuro rounded-lg p-2 outline-none hover:border-black/70" />
+                            <label htmlFor="endereco" className="font-medium">
+                                Código da clínica:
+                                <input
+                                    type="text"
+                                    id="codClinica"
+                                    name="codClinica"
+                                    className="w-full bg-[#F6FAFD] border border-[#e0e0e0] rounded-lg p-2 outline-none hover:border-azul-principal mt-2"
+                                />
+                            </label>
+
+                            <label htmlFor="endereco" className="font-medium">
+                                Código do funcionário:
+                                <input
+                                    type="text"
+                                    id="codFuncionario"
+                                    name="codFuncionario"
+                                    className="w-full bg-[#F6FAFD] border border-[#e0e0e0] rounded-lg p-2 outline-none hover:border-azul-principal mt-2"
+                                />
+                            </label>
 
 
                             <div className="flex flex-col-reverse gap-3 items-center  sm:gap-0 sm:flex-row sm:justify-between">
@@ -82,7 +117,7 @@ export function Login(){
                                     Enviar recuperação de senha
                                 </button>
                             </div>
-                        </div>
+                        </form>
                     )}           
                 </div>      
         </main>
