@@ -29,7 +29,7 @@ export function Access() {
 
 
     return (
-        <section className="overflow-y-auto max-h-full px-1 pb-20">
+        <section className="">
             <h2 className="text-2xl font-semibold">Acessos</h2>
             <p className=" mb-5"> Você poderá escolher até 5 acessos para o aplicativo.</p>
 

@@ -25,7 +25,7 @@ export function Conta(params) {
     };
     
     return(
-        <section className="overflow-y-auto max-h-full px-1 pb-14">
+        <section className="">
             <h2 className="text-2xl font-semibold mb-3">Conta</h2>
 
            <form action="">
