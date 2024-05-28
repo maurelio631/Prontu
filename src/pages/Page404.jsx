@@ -11,7 +11,6 @@ export function Page404() {
             <Link to={'/home/ajustes'}>ajustes</Link><br/>
 
             <Link to={'/home/agenda'}>Agenda</Link>
-
         </>
 
     )
