@@ -12,6 +12,7 @@ import { Login } from "./pages/Login";
 import { Page404 } from "./pages/Page404";
 import { Agenda } from "./pages/Agenda";
 import { CadastroClinica } from "./pages/CadastroClinica";
+import { PainelConfig } from "./pages/PainelConfig";
 
 
 
@@ -25,6 +26,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Route path="/home/pacientes" element={<Pacientes/>} />
           <Route path="/home/prontuario" element={<Prontuario />} />
           <Route path="/home/agenda" element={<Agenda />} />
+          <Route path="/home/ajustes" element={<PainelConfig />} />
 
           <Route path="*" element={<Page404 />} />
         </Routes>
