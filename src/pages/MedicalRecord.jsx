@@ -13,7 +13,7 @@ import { FaChevronDown, FaChevronRight, FaRegTrashCan, FaTrash } from "react-ico
 import { LuPaperclip } from "react-icons/lu";
 import { TbChevronLeft } from "react-icons/tb";
 
-export function Prontuario() {
+export function MedicalRecord() {
     //states de config de "componentes" 
     const [selectedImage, setSelectedImage] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);

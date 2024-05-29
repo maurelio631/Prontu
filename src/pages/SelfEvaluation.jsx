@@ -3,7 +3,7 @@ import { Header } from "../components/Header";
 
 import Wrapper from "../components/Wrapper";
 
-export function Ficha() {
+export function SelfEvaluation() {
 
   return (
     <Wrapper>

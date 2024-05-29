@@ -5,10 +5,10 @@ import Wrapper from "../components/Wrapper";
 import { IoIosSearch } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
 
-import { ListagemPacientes } from "../components/ListagemPacientes.jsx";
+import { PatientListing } from "../components/PatientListing.jsx";
 import { useState } from "react";
 
-export function Pacientes(){
+export function Patients(){
 
     const [searchValue, setSearchValue] = useState('')
 
@@ -43,7 +43,7 @@ export function Pacientes(){
                         </div>
 
 
-                        <ListagemPacientes valorBusca={searchValue} />
+                        <PatientListing valorBusca={searchValue} />
                     </div> 
                 </main>
             </div>

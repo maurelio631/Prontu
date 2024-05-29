@@ -5,7 +5,7 @@ import { TbChevronLeft, TbChevronRight, TbChevronsLeft, TbChevronsRight } from "
 import { ArrayPacientes } from "../data/fakes";
 import '../assets/styles/table.css';
 
-export function ListagemPacientes({ valorBusca }) {
+export function PatientListing({ valorBusca }) {
     const [page, setPage] = useState(1);
 
     const filteredPacientes = ArrayPacientes.filter(paciente =>

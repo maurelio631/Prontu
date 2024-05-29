@@ -5,7 +5,7 @@ import logo from "../assets/logo.svg";
 import { GoUpload } from "react-icons/go";
 import { InputText } from "../components/InputText";
 
-export function CadastroClinica() {
+export function ClinicRegistration() {
 
     const [inputFileData, setInputFileData] = useState("");
     const [register, setRegister] = useState({})

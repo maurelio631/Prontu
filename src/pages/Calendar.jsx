@@ -2,7 +2,7 @@ import { Header } from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import Wrapper from "../components/Wrapper";
 
-export function Agenda() {
+export function Calendar() {
     return(
         <Wrapper>
             <div className="w-screen">

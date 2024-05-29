@@ -8,7 +8,7 @@ import { Access } from "../components/optionsPanel/Access";
 import { Payment } from "../components/optionsPanel/Payment";
 
 
-export function PainelConfig() {
+export function PanelConfig() {
     const [controller, setController] = useState(1);
 
     const handleController = (val) =>{
