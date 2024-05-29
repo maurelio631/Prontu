@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
-import  erroGif  from "../assets/erro404.gif";
 import  erroSvg  from "../assets/erro404.svg";
 
 export function Page404() {
     return(
         <div className="flex flex-col items-center p-20">
-
             <img src={erroSvg} alt=""  className="w-full max-w-60"/>
             <h1 className="text-6xl font-bold text-azul-principal mb-5">Opa!</h1>
             <p className="text-3xl font-normal text-[#404040] text-center">
@@ -21,9 +19,6 @@ export function Page404() {
                 <Link className="bg-azul-principal p-2 text-white rounded-xl font-semibold" to={'/home/ajustes'}>Ajustes</Link>
                 <Link className="bg-azul-principal p-2 text-white rounded-xl font-semibold" to={'/home/agenda'}>Agenda</Link>
             </div>
-
-
         </div>
-
     )
 }
