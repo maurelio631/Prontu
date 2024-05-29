@@ -13,23 +13,30 @@ import { Page404 } from "./pages/Page404";
 import { Calendar } from "./pages/Calendar";
 import { ClinicRegistration } from "./pages/ClinicRegistration";
 import { PanelConfig } from "./pages/PanelConfig";
-
-
+import { ProtectedRoutes } from "./utils/ProtectedRoutes";
+import { UserProvider } from "./utils/UserContext";
+import { Page403 } from "./pages/Page403";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <UserProvider>
+      <BrowserRouter>
         <Routes>
           <Route index path="/:nomeClinica" element={<SelfEvaluation />} />
           <Route path="/login" element={<Login />} />
           <Route path="/cadastro" element={<ClinicRegistration />} />
-          <Route path="/home/pacientes" element={<Patients />} />
-          <Route path="/home/prontuario" element={<MedicalRecord />} />
-          <Route path="/home/agenda" element={<Calendar />} />
-          <Route path="/home/ajustes" element={<PanelConfig />} />
 
+          <Route element={<ProtectedRoutes />}>
+            <Route path="/home/pacientes" element={<Patients />} />
+            <Route path="/home/prontuario" element={<MedicalRecord />} />
+            <Route path="/home/agenda" element={<Calendar />} />
+            <Route path="/home/ajustes" element={<PanelConfig />} />
+          </Route>
+
+          <Route path="/page403" element={<Page403 />} />
           <Route path="*" element={<Page404 />} />
         </Routes>
-    </BrowserRouter>
+      </BrowserRouter>
+    </UserProvider>
   </React.StrictMode>
 );
