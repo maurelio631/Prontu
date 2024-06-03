@@ -41,7 +41,7 @@ export function PatientListing({ valorBusca }) {
                         <tr key={paciente.id}>
                             <td>{paciente.id}</td>
                             <td>
-                                <span className="m-auto overflow-hidden max-w-[120px] text-ellipsis block whitespace-nowrap">
+                                <span className="m-auto truncate max-w-[120px] block">
                                     {paciente.name}
                                 </span>
                             </td>
