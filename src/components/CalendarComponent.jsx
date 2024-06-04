@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { errorAlert } from '../utils/Alerts';
 
-const MONTH_NAMES = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 const DAYS = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
+const HOURS = Array.from({ length: 10 }, (_, i) => `${i + 8}:00 - ${i + 9}:00`);
+const HOURS_COLUMN = Array.from({ length: 10 }, (_, i) => `${i + 8}:00`);
+
 const consultType = [
     { id: 'fistConsult', value: '1° Consulta' },
     { id: 'fistReturn', value: '1° Retorno' },
@@ -12,23 +14,21 @@ const consultType = [
 ];
 
 export function CalendarComponent() {
-    const [month, setMonth] = useState(0);
-    const [year, setYear] = useState(2020);
-    const [noOfDays, setNoOfDays] = useState([]);
-    const [blankDays, setBlankDays] = useState([]);
+    const [currentDate, setCurrentDate] = useState(new Date());
+    const [week, setWeek] = useState([]);
     const [openEventModal, setOpenEventModal] = useState(false);
-    const [selectedEventIndex, setSelectedEventIndex] = useState(null); 
+    const [selectedEventIndex, setSelectedEventIndex] = useState(null);
     const [events, setEvents] = useState([{
         event_id: 1,
         event_consultType: "1° Retorno",
         event_dateForListing: "Wed Jun 05 2024",
         event_dayConsult: "qua., 5 de junho",
-        event_hourConsult: "10:00 - 11:00",
+        event_hourConsult: "11:00 - 12:00",
         event_notes: "nota",
         event_patientName: "Rafael Melo",
         event_phone: "11999339613"
     }]);
-    
+
     const [newEvent, setNewEvent] = useState({
         id: '',
         patientName: '',
@@ -41,48 +41,97 @@ export function CalendarComponent() {
     });
 
     useEffect(() => {
-        initDate();
-    }, []);
+        updateWeek();
+    }, [currentDate]);
 
-    useEffect(() => {
-        getNoOfDays();
-    }, [month, year]);
-
-    const initDate = () => {
-        let today = new Date();
-        setMonth(today.getMonth());
-        setYear(today.getFullYear());
+    const updateWeek = () => {
+        const startOfWeek = new Date(currentDate);
+        startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
+        const weekArray = Array.from({ length: 7 }, (_, i) => {
+            const date = new Date(startOfWeek);
+            date.setDate(startOfWeek.getDate() + i);
+            return date;
+        });
+        setWeek(weekArray);
     };
 
     const isToday = (date) => {
         const today = new Date();
-        const d = new Date(year, month, date);
-        return today.toDateString() === d.toDateString();
+        return today.toDateString() === date.toDateString();
     };
 
-    const showEventModal = (date) => {
-        const eventDate = new Date(year, month, date);
-        const dayConsultFormatted = new Intl.DateTimeFormat('pt-BR', {
-            weekday: 'short',
-            day: 'numeric',
-            month: 'long'
-        }).format(eventDate);
+    const handlePreviousWeek = () => {
+        const newDate = new Date(currentDate);
+        newDate.setDate(currentDate.getDate() - 7);
+        setCurrentDate(newDate);
+    };
 
-        setOpenEventModal(true);
+    const handleNextWeek = () => {
+        const newDate = new Date(currentDate);
+        newDate.setDate(currentDate.getDate() + 7);
+        setCurrentDate(newDate);
+    };
+
+    const handleCurrentDate = () => {
+        const newDate = new Date();
+        setCurrentDate(newDate);
+    };
+
+    const showEventModal = (date, hour) => {
+        const eventExists = events.some(event =>
+            new Date(event.event_dateForListing).toDateString() === date.toDateString() &&
+            event.event_hourConsult === hour
+        );
+
+        if (eventExists) {
+            return;
+        }
+
         setNewEvent({
             ...newEvent,
-            dayConsult: dayConsultFormatted,
-            dateForListing: eventDate.toDateString()
+            dateForListing: date.toDateString(),
+            dayConsult: date.toLocaleDateString('pt-BR', { weekday: 'short', day: 'numeric', month: 'long' }),
+            hourConsult: hour
         });
+        setOpenEventModal(true);
+    };
+    const handleEventClick = (eventIndex) => {
+        setSelectedEventIndex(selectedEventIndex === eventIndex ? null : eventIndex);
     };
 
+    const handleRemoveEvent = (event_id) => {
+        setEvents(events.filter(event => event.event_id !== event_id));
+        setSelectedEventIndex(null);
+    };
+
+    const handleStartAppointment = (eventIndex) => {
+        console.log(events)
+    };
+
+    const handleUnmarkEvent = (eventIndex) => {
+        console.log(week)
+
+    };
+
+
     const addEvent = () => {
-        if (newEvent.patientName === '' || newEvent.hourConsult === '' || newEvent.consultType === '') {
+        if (newEvent.patientName === '' || newEvent.consultType === '') {
             const msgError = `Preencha os campos:
-            ${newEvent.patientName === '' ?  'Nome,' : ''}${newEvent.hourConsult === '' ? ' Hora,' : ''}${newEvent.consultType === '' ? ' Tipo de consulta' : ''}`
+            ${newEvent.patientName === '' ? 'Nome,' : ''}${newEvent.consultType === '' ? ' Tipo de consulta' : ''}`
             errorAlert(msgError)
             return;
         }
+
+        const eventExists = events.some(event =>
+            new Date(event.event_dateForListing).toDateString() === newEvent.dateForListing &&
+            event.event_hourConsult === newEvent.hourConsult
+        );
+
+        if (eventExists) {
+            errorAlert('Já existe um evento agendado para este horário.');
+            return;
+        }
+
         setEvents([...events, {
             event_id: Math.floor(Math.random() * 10) + 1,
             event_patientName: newEvent.patientName,
@@ -104,159 +153,114 @@ export function CalendarComponent() {
         setOpenEventModal(false);
     };
 
-    const getNoOfDays = () => {
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        const firstDayOfMonth = new Date(year, month, 1).getDay();
-        const blankdaysArray = Array.from({ length: firstDayOfMonth }, (_, i) => i + 1);
-        const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
-
-        setBlankDays(blankdaysArray);
-        setNoOfDays(daysArray);
-    };
-
-    const handlePreviousMonth = () => {
-        if (month === 0) {
-            setMonth(11);
-            setYear(year - 1);
-        } else {
-            setMonth(month - 1);
-        }
-    };
-
-    const handleNextMonth = () => {
-        if (month === 11) {
-            setMonth(0);
-            setYear(year + 1);
-        } else {
-            setMonth(month + 1);
-        }
-    };
-
-    const handleEventClick = (eventIndex) => {
-        setSelectedEventIndex(selectedEventIndex === eventIndex ? null : eventIndex);
-    };
-
-    const handleRemoveEvent = (event_id) => {
-        setEvents(events.filter(event => event.event_id !== event_id));
-        setSelectedEventIndex(null);
-    };
-
-    const handleStartAppointment = (eventIndex) => {
-        // Lógica para iniciar atendimento
-        console.log(`Iniciar atendimento para o evento ${eventIndex}`);
-    };
-
-    const handleUnmarkEvent = (eventIndex) => {
-        // Lógica para desmarcar evento
-        console.log(`Desmarcar evento ${eventIndex}`);
-    };
 
     return (
         <section className='w-full'>
             <div className="container mx-auto px-4 m-4">
                 <div className="bg-white rounded-lg shadow overflow-hidden">
+
                     <div className="flex items-center justify-between py-2 px-6">
-                        <div>
-                            <span className="text-lg font-bold text-gray-800">{MONTH_NAMES[month]}</span>
-                            <span className="ml-1 text-lg text-gray-600 font-normal">{year}</span>
-                        </div>
-                        <div className="bg-azul-principal rounded-lg">
-                            <button
-                                type="button"
-                                className={`p-2 rounded-s-lg transition hover:bg-black/20 `}
-                                onClick={handlePreviousMonth}
-                            >
-                                <FaChevronLeft className="text-white " />
-                            </button>
-                            <button
-                                type="button"
-                                className={`p-2 rounded-e-lg transition hover:bg-black/20 `}
-                                onClick={handleNextMonth}
-                            >
-                                <FaChevronRight className="text-white  " />
-                            </button>
-                        </div>
-                    </div>
-                    <div className="-mx-1 -mb-1">
-                        <div className="flex flex-wrap">
-                            {DAYS.map((day, index) => (
-                                <div key={index} className="w-[14.26%] px-2 py-2">
-                                    <h4 className="text-gray-600 text-sm tracking-wide font-medium text-center">{day}</h4>
+                        <div className='flex gap-5'>
+                            <div onClick={handleCurrentDate} className='px-6 flex items-center text-base font-semibold  bg-azul-principal/20 text-azul-principal border border-azul-principal rounded-lg'>
+                                <span >Hoje</span>
+                            </div>
+
+                            <div className="bg-azul-principal rounded-lg border border-[#93C4F1]">
+                                <button
+                                    type="button"
+                                    className={`p-2.5 rounded-s-lg transition hover:bg-black/20 border-r border-[#93C4F1] `}
+                                    onClick={handlePreviousWeek}
+                                >
+                                    <FaChevronLeft className="text-white " />
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`p-2.5 rounded-e-lg transition hover:bg-black/20 `}
+                                    onClick={handleNextWeek}
+                                >
+                                    <FaChevronRight className="text-white  " />
+                                </button>
+                            </div>
+
+                            {week.length > 0 && (
+                                <div className='px-2.5 flex items-center gap-1 text-base font-medium  bg-azul-principal/10 text-azul-principal border border-azul-principal rounded-lg'>
+                                    <span className="capitalize">{week[0].toLocaleDateString('pt-BR', { month: 'long' })}</span>
+                                    <span>de {week[0].toLocaleDateString('pt-BR', { year: 'numeric' })}</span>
                                 </div>
-                            ))}
+                            )}
                         </div>
-                        <div className="flex flex-wrap border-t border-l">
-                            {blankDays.map((index) => (
-                                <div key={index} className="w-[14.28%] h-[120px] text-center border-r border-b px-4 pt-2"></div>
-                            ))}
-                            {noOfDays.map((date, dateIndex) => (
-                                <div key={dateIndex} className="w-[14.28%] h-[120px] px-1 pt-2 border-r border-b relative">
-                                    <p
-                                        onClick={() => showEventModal(date)}
-                                        className={`inline-flex w-6 h-6 items-center justify-center cursor-pointer text-center leading-none rounded-full transition ease-in-out duration-100 ${isToday(date) ? 'bg-azul-principal text-white' : 'text-gray-700 hover:bg-blue-200'}`}
-                                    >
-                                        {date}
+                        {/* <div>
+                            adicionar botão
+                        </div> */}
+                    </div>
+
+                    <div className="-mx-1 -mb-1">
+                        <div className="flex">
+                            {/* Coluna dos Horários */}
+                            <div className="w-[10%] flex flex-col">
+                                <div className="h-12"></div>
+                                {HOURS_COLUMN.map((hour, hourIndex) => (
+                                    <p key={hourIndex} className="h-20 font-semibold flex items-center justify-center text-gray-600">
+                                        {hour}
                                     </p>
-                                    <div className="overflow-y-auto mt-1 h-20">
-                                        {events.filter(e => new Date(e.event_dateForListing).toDateString() === new Date(year, month, date).toDateString()).map((event, eventIndex) => (
-                                            <div
-                                                key={event.event_id}
-                                                className={`px-2 py-1 rounded-lg mt-1 overflow-hidden border text-white
-                                                ${event.event_consultType === '1° Consulta' ? 'bg-[#A95ADA]' : ''}
-                                                ${event.event_consultType === '1° Retorno' ? 'bg-[#DA5AB6]' : ''}
-                                                ${event.event_consultType === 'Retorno' ? 'bg-[#5A9CDA]' : ''}
-                                                ${event.event_consultType === 'Plano' ? 'bg-[#5ADA76]' : ''}`}
-                                                onClick={() => handleEventClick(event.event_id)}
-                                            >   
-                                                <h3 className="text-base font-semibold truncate leading-tight">{event.event_patientName}</h3>
-                                                <p className='text-xs bg-white/30 px-1 rounded inline-block'>{event.event_consultType}</p>
-                                                <p className='text-xs'>{event.event_hourConsult}</p> 
+                                ))}
+                            </div>
 
-                                                {selectedEventIndex === event.event_id && (
-                                                    <div className="bottom-0- w-44 -left-2 bg-white rounded-lg p-2 shadow-[0px_3px_10px_0px_#000000b2] absolute z-10 flex flex-col gap-2" key={event.event_id}>
-                                                        <button
-                                                            className="bg-red-500 text-white px-2 py-2 rounded"
-                                                            onClick={() => handleRemoveEvent(event.event_id)}
-                                                        >
-                                                            Remover da agenda
-                                                        </button>
-                                                        <button
-                                                            className="bg-green-500 text-white px-2 py-2 rounded"
-                                                            onClick={() => handleStartAppointment(event.event_id)}
-                                                        >
-                                                            Iniciar atendimento
-                                                        </button>
-                                                        <button
-                                                            className="bg-yellow-500 text-white px-2 py-2 rounded"
-                                                            onClick={() => handleUnmarkEvent(event.event_id)}
-                                                        >
-                                                            Desmarcar
-                                                        </button>
+                            {/* Coluna dos Dias */}
+                            {week.map((date, dateIndex) => (
+                                <div key={dateIndex} className="w-[12.85%] relative pr">
+                                    <div className="flex flex-col h-full">
+
+
+                                        <div className={`text-gray-600 text-sm tracking-wide font-normal text-center`}>
+                                            {DAYS[date.getDay()]}
+                                        </div>
+                                        <div className="flex justify-center items-center mt-1 mb-4">
+                                            <span className={`${isToday(date) ? 'text-azul-principal' : 'text-gray-600'} text-3xl tracking-wide font-normal`}>{date.getDate()}</span>
+                                        </div>
+
+
+
+                                        {HOURS.map((hour, hourIndex) => (
+                                            <div key={hourIndex} className="border h-20 relative mr" onClick={() => showEventModal(date, hour)}>
+                                                {events.filter(e => new Date(e.event_dateForListing).toDateString() === date.toDateString() && e.event_hourConsult === hour).map((event, eventIndex) => (
+                                                    <div
+                                                        key={event.event_id}
+                                                        className={`px-2 py-1 rounded-lg mt-1 overflow-hidden border text-white
+                                                        ${event.event_consultType === '1° Consulta' ? 'bg-[#A95ADA]' : ''}
+                                                        ${event.event_consultType === '1° Retorno' ? 'bg-[#DA5AB6]' : ''}
+                                                        ${event.event_consultType === 'Retorno' ? 'bg-[#5A9CDA]' : ''}
+                                                        ${event.event_consultType === 'Plano' ? 'bg-[#5ADA76]' : ''}`}
+                                                        onClick={() => handleEventClick(event.event_id)}
+                                                    >
+                                                        <h3 className="text-base font-semibold truncate leading-tight">{event.event_patientName}</h3>
+                                                        <p className='text-xs bg-white/30 px-1 rounded inline-block'>{event.event_consultType}</p>
+                                                        <p className='text-xs'>{event.event_hourConsult}</p>
+
+                                                        {selectedEventIndex === event.event_id && (
+                                                            <div className="bottom-0- w-44 -left-2 bg-white rounded-lg p-2 shadow-[0px_3px_10px_0px_#000000b2] absolute z-10 flex flex-col gap-2" key={event.event_id}>
+                                                                <button
+                                                                    className="bg-red-500 text-white px-2 py-2 rounded"
+                                                                    onClick={() => handleRemoveEvent(event.event_id)}
+                                                                >
+                                                                    Remover da agenda
+                                                                </button>
+                                                                <button
+                                                                    className="bg-green-500 text-white px-2 py-2 rounded"
+                                                                    onClick={() => handleStartAppointment(event.event_id)}
+                                                                >
+                                                                    Iniciar atendimento
+                                                                </button>
+                                                                <button
+                                                                    className="bg-yellow-500 text-white px-2 py-2 rounded"
+                                                                    onClick={() => handleUnmarkEvent(event.event_id)}
+                                                                >
+                                                                    Desmarcar
+                                                                </button>
+                                                            </div>
+                                                        )}
                                                     </div>
-
-                                                    // <div className="bg-[#000000cc] fixed z-40 top-0 right-0 left-0 bottom-0 h-full w-full">
-                                                    //     <div className="p-4 max-w-xl mx-auto relative left-0 right-0 overflow-hidden mt-24" key={event.event_id}>
-                                                    //         <button
-                                                    //             className="bg-red-500 text-white px-2 py-1 rounded mr-2"
-                                                    //             onClick={() => handleRemoveEvent(event.event_id)}
-                                                    //         >
-                                                    //             Remover da agenda
-                                                    //         </button>
-                                                    //         <button
-                                                    //             className="bg-green-500 text-white px-2 py-1 rounded mr-2"
-                                                    //             onClick={() => handleStartAppointment(event.event_id)}
-                                                    //         >
-                                                    //             Iniciar atendimento
-                                                    //         </button>
-                                                    //         <button
-                                                    //             className="bg-yellow-500 text-white px-2 py-1 rounded"
-                                                    //             onClick={() => handleUnmarkEvent(event.event_id)}
-                                                    //         >
-                                                    //             Desmarcar
-                                                    //         </button>
-                                                    //     </div>
-                                                    // </div>
-                                                )}   
+                                                ))}
                                             </div>
                                         ))}
                                     </div>
@@ -297,7 +301,8 @@ export function CalendarComponent() {
                                         id='hourConsult'
                                         name='hourConsult'
                                         className="w-full bg-[#F6FAFD] border border-[#e0e0e0] rounded-lg p-2 outline-none hover:border-azul-principal text-center"
-                                        onChange={(e) => setNewEvent({ ...newEvent, hourConsult: e.target.value })}
+                                        value={newEvent.hourConsult}
+                                        readOnly
                                     />
                                 </div>
 

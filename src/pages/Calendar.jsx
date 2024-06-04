@@ -14,7 +14,6 @@ export function Calendar() {
                 <main className="flex justify-between w-full">
                     <Sidebar/>
                     <CalendarComponent />
-
                 </main>
             </div>
         </Wrapper>
