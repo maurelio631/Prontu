@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Swal from "sweetalert2";
 
 import { FormPersonalDetails } from "./formSteps/formPersonalDetails";
@@ -8,6 +8,7 @@ import { FormMoreSymptoms } from "./formSteps/formMoreSymptoms";
 
 export function Form() {
     const [step, setStep] = useState(1);
+    const sectionScroll = useRef(null);
 
     const [formData, setFormData] = useState({
         personalDetails: {},
@@ -28,7 +29,7 @@ export function Form() {
             case 1:
                 return <FormPersonalDetails data={formData.personalDetails} onDataChange={(data) => handleDataChange('personalDetails', data)} />;
             case 2:
-                return <FormUncomfortableAreas data={formData.uncomfortableAreas} onDataChange={(data) => handleDataChange('uncomfortableAreas', data)} />;
+                return <FormUncomfortableAreas setFormData={setFormData} />;
             case 3:
                 return <FormSymptoms data={formData.symptoms} onDataChange={(data) => handleDataChange('symptoms', data)} />;
             case 4:
@@ -41,6 +42,9 @@ export function Form() {
     const concluiStep = () => {
         if (step !== 4) {
             setStep(step + 1);
+            if (sectionScroll.current) {
+                sectionScroll.current.scrollTo({ top: 0, behavior: 'smooth' });
+            }
         } else {
             Swal.fire({
                 title: "Auto-avaliação preenchida com sucesso!",
@@ -60,11 +64,14 @@ export function Form() {
 
     const retornaStep = () => {
         setStep(step - 1);
+        if (sectionScroll.current) {
+            sectionScroll.current.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     };
 
     return (
         <main className="p-9 flex flex-col justify-between relative min-h-[calc(100vh-162px)] min-[470px]:min-h-[calc(100vh-160px)]">
-            <form className="overflow-y-auto min-[470px]:max-h-[calc(100vh-280px)]">
+            <form ref={sectionScroll} className="overflow-y-auto min-[470px]:max-h-[calc(100vh-280px)]">
                 {getCompStep()}
             </form>
 

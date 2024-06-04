@@ -161,7 +161,7 @@ export function CalendarComponent() {
 
                     <div className="flex items-center justify-between py-2 px-6">
                         <div className='flex gap-5'>
-                            <div onClick={handleCurrentDate} className='px-6 flex items-center text-base font-semibold  bg-azul-principal/20 text-azul-principal border border-azul-principal rounded-lg'>
+                            <div onClick={handleCurrentDate} className='px-6 flex items-center text-base font-semibold cursor-pointer  bg-azul-principal/20 text-azul-principal border border-azul-principal rounded-lg'>
                                 <span >Hoje</span>
                             </div>
 
