@@ -37,7 +37,7 @@ export function Patients(){
                                 />
                             </label>
 
-                            <Link to={'/'} className="text-white bg-azul-principal w-full max-w-56 flex items-center px-5 rounded-full hover:bg-azul-principal/80">
+                            <Link to={'/home/preregistro'} className="text-white bg-azul-principal w-full max-w-56 flex items-center px-5 rounded-full hover:bg-azul-principal/80">
                                 <GoPlus className="stroke-2 mr-2" />Adicionar pacientes
                             </Link>
                         </div>

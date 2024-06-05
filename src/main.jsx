@@ -16,6 +16,7 @@ import { PanelConfig } from "./pages/PanelConfig";
 import { ProtectedRoutes } from "./utils/ProtectedRoutes";
 import { UserProvider } from "./utils/UserContext";
 import { Page403 } from "./pages/Page403";
+import { PreRegistration } from "./pages/PreRegsitration";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -31,6 +32,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/home/prontuario" element={<MedicalRecord />} />
             <Route path="/home/agenda" element={<Calendar />} />
             <Route path="/home/ajustes" element={<PanelConfig />} />
+            <Route path="/home/preregistro" element={<PreRegistration />} />
+
           </Route>
 
           <Route path="/page403" element={<Page403 />} />

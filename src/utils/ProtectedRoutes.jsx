@@ -4,9 +4,9 @@ import { useUser } from './UserContext'; // Importa o contexto do usuário
 
 const checkPermissions = (userRole, path) => {
     const permissions = {
-        admin: ['/', '/home/pacientes', '/home/prontuario', '/home/agenda', '/home/ajustes'],
-        quiropraxista: ['/', '/home/pacientes', '/home/prontuario', '/home/agenda', '/home/ajustes'],
-        secretaria: ['/', '/home/pacientes', '/home/agenda', '/home/ajustes']
+        admin: ['/', '/home/pacientes', '/home/prontuario', '/home/agenda', '/home/ajustes', '/home/preregistro'],
+        quiropraxista: ['/', '/home/pacientes', '/home/prontuario', '/home/agenda', '/home/ajustes', '/home/preregistro'],
+        secretaria: ['/', '/home/pacientes', '/home/agenda', '/home/ajustes', '/home/preregistro']
     };
 
     return permissions[userRole]?.includes(path);
