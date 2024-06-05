@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Header } from "../components/Header";
 import Wrapper from "../components/Wrapper";
 import { FormPersonalDetails } from "../components/formSteps/formPersonalDetails";
+import { Link } from "react-router-dom";
 
 export function PreRegistration(){
 
@@ -32,11 +33,11 @@ export function PreRegistration(){
                     </form>
 
                     <div className="flex w-full flex-row justify-between pt-3 gap-0">
-                        <a
+                        <Link  to={'/home/pacientes'}
                             className={`w-full rounded-md text-azul-principal py-2 max-w-20 text-base min-[470px]:text-lg min-[470px]:max-w-32 bg-white  border border-azul-principal text-center`}
                         >
                             Cancelar
-                        </a>
+                        </Link>
 
                         <button
                             onClick={handleSubmit}

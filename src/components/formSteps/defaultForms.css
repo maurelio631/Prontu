@@ -8,6 +8,7 @@
     font-weight: 300;
     padding:8px 10px;
     border-radius: 3px;
+    font-weight: 400;
 }
 .custom-input label input:hover , input:focus{
     border-color: #5A9CDA;
