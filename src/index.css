@@ -5,7 +5,7 @@
 
 
 @layer components{
-    /*INPUTS*/
+/*INPUTS*/
     .custom-label{
         @apply flex;
     }
@@ -15,9 +15,7 @@
     .radio-input {
         @apply hidden;
     }
-
-    /*///////////////*/
-
+/*///////////////*/
     .radio-label {
         @apply flex justify-center items-center p-[5px] border border-cinza-900 rounded-lg cursor-pointer hover:border-azul-900 hover:bg-cinza-700;
     }
@@ -27,9 +25,7 @@
     .radio-input:not(:checked) + .radio-label {
         @apply border border-cinza-900 bg-white
     }
-
-    /*///////////////*/
-
+/*///////////////*/
     .input-escada:nth-of-type(1) label{
         @apply h-9;
     }

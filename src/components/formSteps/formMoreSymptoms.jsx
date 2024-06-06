@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { cabecaPescoco, cardioVascular, desconfortoAumenta, desconfortoDiminui, estadoGeral, gastroIntestinal, genitoUrinário, toraxRespiratorio } from '../../data/arraySintomas';
-import './defaultForms.css';
 
 export function FormMoreSymptoms({ data, onDataChange }) {
     const [localData, setLocalData] = useState(data);

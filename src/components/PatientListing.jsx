@@ -30,32 +30,32 @@ export function PatientListing({ valorBusca }) {
     const goToPreviousPage = () => setPage(page - 1);
 
     return (
-        <table className="w-full">
+        <table className="w-full bg-azul-700">
             <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>CPF</th>
-                    <th>Telefone</th>
-                    <th>Data Nascimento</th>
-                    <th>Ações</th>
+                <tr className="bg-white text-base min-[790px]:text-xl">
+                    <th className="py-3 font-medium">ID</th>
+                    <th className="py-3 font-medium">Nome</th>
+                    <th className="py-3 font-medium">CPF</th>
+                    <th className="py-3 font-medium">Telefone</th>
+                    <th className="py-3 font-medium">Data Nascimento</th>
+                    <th className="py-3 font-medium">Ações</th>
                 </tr>
             </thead>
 
             <tbody>
                 {paginatedPacientes.length > 0 ? (
                     paginatedPacientes.map(paciente => (
-                        <tr key={paciente.id}>
-                            <td>{paciente.id}</td>
-                            <td>
+                        <tr key={paciente.id} className="even:bg-white text-sm min-[790px]:text-base">
+                            <td className="text-center h-11">{paciente.id}</td>
+                            <td className="text-center h-11">
                                 <span className="m-auto truncate max-w-[120px] block">
                                     {paciente.name}
                                 </span>
                             </td>
-                            <td>{paciente.cpf}</td>
-                            <td>{paciente.telefone}</td>
-                            <td>{paciente.nascimento}</td>
-                            <td className="bg-white flex gap-1 justify-center">
+                            <td className="text-center h-11">{paciente.cpf}</td>
+                            <td className="text-center h-11">{paciente.telefone}</td>
+                            <td className="text-center h-11">{paciente.nascimento}</td>
+                            <td className="bg-white flex gap-1 justify-center h-11">
                                 {user.role === 'secretaria' && 
                                     <button className="bg-azul-900 text-white h-full px-2.5 rounded-lg">
                                         <LuPencil />
