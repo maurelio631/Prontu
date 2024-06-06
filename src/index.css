@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+
+@layer components{
+    .custom-label{
+        display: flex;
+    }
+
+    .custom-input{
+        @apply border border-cinza-700 bg-azul-800 font-normal px-2 py-[10px] rounded-lg outline-none hover:border-azul-900 focus:border-azul-900 ;
+    }   
+
+}

@@ -340,7 +340,7 @@ export function MedicalRecord() {
 
                         <section className="w-full text-center mb-14">
                             <h2 className="text-azul-900 text-2xl font-bold mb-6">Observações</h2>
-                            <textarea name="observacao" id="observacao" onChange={(event) => handleTextareaObservation(event)} className="resize-none bg-azul-800 border border-cinza-900/20 w-full h-40 rounded-lg p-4"></textarea>
+                            <textarea name="observacao" id="observacao" onChange={(event) => handleTextareaObservation(event)} className="custom-input w-full h-40 p-4 resize-none"></textarea>
                         </section>
 
                         <section className="w-full text-center mb-14">

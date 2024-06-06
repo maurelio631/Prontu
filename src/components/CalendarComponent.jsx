@@ -291,7 +291,7 @@ export function CalendarComponent() {
                                         type="text"
                                         id='dayConsult'
                                         name='patientName'
-                                        className="w-full bg-[#F6FAFD] border border-cinza-700 rounded-lg p-2 outline-none text-center"
+                                        className="w-full custom-input text-center cursor-not-allowed"
                                         value={newEvent.dayConsult}
                                         readOnly
                                     />
@@ -300,7 +300,7 @@ export function CalendarComponent() {
                                         type="text"
                                         id='hourConsult'
                                         name='hourConsult'
-                                        className="w-full bg-[#F6FAFD] border border-cinza-700 rounded-lg p-2 outline-none hover:border-azul-900 text-center"
+                                        className="w-full custom-input text-center cursor-not-allowed"
                                         value={newEvent.hourConsult}
                                         readOnly
                                     />
@@ -328,7 +328,7 @@ export function CalendarComponent() {
                                         type="text"
                                         id='tel'
                                         name='tel'
-                                        className="w-full bg-[#F6FAFD] border border-cinza-700 rounded-lg p-2 outline-none hover:border-azul-900 mt-2"
+                                        className="w-full custom-input mt-2"
                                         onChange={(e) => setNewEvent({ ...newEvent, phone: e.target.value })}
                                     />
                                 </label>
@@ -339,7 +339,7 @@ export function CalendarComponent() {
                                         type="text"
                                         id='notes'
                                         name='notes'
-                                        className="w-full bg-[#F6FAFD] border border-cinza-700 rounded-lg p-2 outline-none hover:border-azul-900 mt-2"
+                                        className="w-full custom-input mt-2"
                                         onChange={(e) => setNewEvent({ ...newEvent, notes: e.target.value })}
                                     />
                                 </label>

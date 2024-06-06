@@ -27,7 +27,7 @@ export function InputText({ InputId, labelName, required, password, onChange }) 
                 name={InputId}
                 id={InputId}
                 onChange={handleChange}
-                className="w-full bg-azul-800 border border-cinza-700 rounded-lg p-2 outline-none hover:border-azul-900 mt-2"
+                className="w-full custom-input mt-2"
             />
             {password && (
                 <button type="button" className="absolute right-4 bottom-3 text-black/70" onClick={handleToggle}>

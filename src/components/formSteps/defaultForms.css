@@ -1,38 +1,5 @@
-.custom-input label{
-    display: flex;
-}
-
-.custom-input label input{
-    border: 1px solid #e0e0e0;
-    background-color: #F6FAFD;
-    font-weight: 300;
-    padding:8px 10px;
-    border-radius: 3px;
-    font-weight: 400;
-}
-.custom-input label input:hover , input:focus{
-    border-color: #5A9CDA;
-    outline: none;
-}
-
-.custom-input label textarea{
-    border: 1px solid #e0e0e0;
-    background-color: #F6FAFD;
-    font-weight: 300;
-    padding:8px 10px;
-    border-radius: 3px;
-    resize: none;
-}
-.custom-input label textarea:hover , textarea:focus{
-    border-color: #5A9CDA;
-    outline: none;
-
-}
-
-
 
 /*radios checkbox*/
-
 .radio-label {
     display: flex;
     align-items: center;
