@@ -5,12 +5,28 @@
 
 
 @layer components{
+    /*INPUTS*/
     .custom-label{
-        display: flex;
+        @apply flex;
     }
-
     .custom-input{
         @apply border border-cinza-700 bg-azul-800 font-normal px-2 py-[10px] rounded-lg outline-none hover:border-azul-900 focus:border-azul-900 ;
     }   
+    .radio-input {
+        @apply hidden;
+    }
+    /*///////////////*/
+    .radio-label {
+        @apply flex justify-center items-center p-[5px] border border-cinza-900 rounded-lg cursor-pointer hover:border-azul-900 hover:bg-cinza-700;
+    }
 
+    .radio-input:checked + .radio-label {
+        @apply border-azul-900 border-2 bg-cinza-700;
+    }
+
+    .radio-input:not(:checked) + .radio-label {
+        @apply border border-cinza-900 bg-white
+    }
+
+    
 }

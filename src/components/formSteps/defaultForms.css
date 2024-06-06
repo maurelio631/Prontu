@@ -1,35 +1,11 @@
 
+
+
+
+
+
 /*radios checkbox*/
-.radio-label {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px;
-    border: 1px solid #A3A3A3;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-}
 
-.radio-label:hover {
-    border-color: #5A9CDA;
-    background-color: #deebf8;
-}
-
-.radio-input {
-    display: none;
-}
-
-.radio-input:checked + .radio-label {
-    border-color: #5A9CDA;
-    border-width: 2px;
-    background-color: #deebf8;
-}
-
-.radio-input:not(:checked) + .radio-label {
-    border: 1px solid #A3A3A3;
-    background-color: white;
-}
 
 
 
