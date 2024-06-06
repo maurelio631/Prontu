@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import "./defaultForms.css";
 
 export function FormPersonalDetails({ data, onDataChange }) {
     const [localData, setLocalData] = useState(data);

@@ -1,4 +1,3 @@
-import './defaultForms.css';
 import { useState, useEffect } from "react";
 import { desconfortos, frequencias, sintomas } from "../../data/arraySintomas";
 
@@ -98,7 +97,7 @@ export function FormSymptoms({ data, onDataChange }) {
                             checked={localData.frequencia === frequencia.name}
                             onChange={handleChange}
                         />
-                        <label htmlFor={frequencia.id} className="radio-label ">{frequencia.name}</label>
+                        <label htmlFor={frequencia.id} className="radio-label items-end">{frequencia.name}</label>
                     </div>
                 ))}
             </div>
