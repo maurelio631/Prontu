@@ -19,8 +19,8 @@ export function Payment() {
                         </div>
 
                         <div className="flex gap-2">
-                            <button className="text-vermelho font-semibold p-2 ">Excluir</button>
-                            <button className="text-white bg-azul-principal p-2 rounded-lg font-semibold">Editar</button>
+                            <button className="text-vermelho-900 font-semibold p-2 ">Excluir</button>
+                            <button className="text-white bg-azul-900 p-2 rounded-lg font-semibold">Editar</button>
                         </div>
                     </div>
                 </div>

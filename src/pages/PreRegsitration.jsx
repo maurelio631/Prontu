@@ -34,14 +34,14 @@ export function PreRegistration(){
 
                     <div className="flex w-full flex-row justify-between pt-3 gap-0">
                         <Link  to={'/home/pacientes'}
-                            className={`w-full rounded-md text-azul-principal py-2 max-w-20 text-base min-[470px]:text-lg min-[470px]:max-w-32 bg-white  border border-azul-principal text-center`}
+                            className={`w-full rounded-md text-azul-900 py-2 max-w-20 text-base min-[470px]:text-lg min-[470px]:max-w-32 bg-white  border border-azul-900 text-center`}
                         >
                             Cancelar
                         </Link>
 
                         <button
                             onClick={handleSubmit}
-                            className={`w-full rounded-md  text-white py-2 max-w-20 text-base min-[470px]:text-lg min-[470px]:max-w-32 bg-verde-claro`}
+                            className={`w-full rounded-md  text-white py-2 max-w-20 text-base min-[470px]:text-lg min-[470px]:max-w-32 bg-verde-900`}
                         >
                             Concluir
                         </button>

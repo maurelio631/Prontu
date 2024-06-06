@@ -185,11 +185,11 @@ export function MedicalRecord() {
                 <Header subtitle={'Prontuário de Atendimento de Quiropraxia'} />
 
                 <main className="max-w-6xl m-auto flex flex-col px-4 lg:px-0">
-                    <Link to={'/home/pacientes'} className="outline-none w-14 h-14 rounded-full border-2 border-cinza-escuro/20 flex items-center justify-center hover:bg-black/10">
+                    <Link to={'/home/pacientes'} className="mb-10 outline-none w-14 h-14 rounded-full border-2 border-cinza-900/20 flex items-center justify-center hover:bg-black/10">
                         <TbChevronLeft className="size-8" />
                     </Link>
 
-                    <section className="w-full bg-prontuario p-3 text-base text-center bSpace rounded-lg mb-9">
+                    <section className="w-full bg-azul-700 p-3 text-base text-center bSpace rounded-lg mb-9">
                         <h2 className="font-bold text-2xl">{mockDados.nome}</h2>
                         <h4 className="m-5"><b>{mockDados.nascimento ? Math.floor((new Date() - new Date(mockDados.nascimento)) / (365.25 * 24 * 60 * 60 * 1000)) : ''} anos </b> - {mockDados.nascimento}</h4>
                         <div className="flex justify-center gap-5">
@@ -203,12 +203,12 @@ export function MedicalRecord() {
                     </section>
 
                     <form>
-                        <section className="w-full bg-prontuario rounded-lg py-5 px-10 mb-9">
-                            <h2 className="text-azul-principal text-2xl font-bold text-center">{gallery.length === 0 ? 'Autoavaliação' : 'Galeria'}</h2>
+                        <section className="w-full bg-azul-700 rounded-lg py-5 px-10 mb-9">
+                            <h2 className="text-azul-900 text-2xl font-bold text-center">{gallery.length === 0 ? 'Autoavaliação' : 'Galeria'}</h2>
 
                             <div className="flex justify-end mb-4 min-w-[980px]:mb-0">
                                 <label htmlFor="fileGallery"
-                                    className="bg-azul-principal text-white py-4 px-4 cursor-pointer rounded-lg flex items-center">
+                                    className="bg-azul-900 text-white py-4 px-4 cursor-pointer rounded-lg flex items-center">
                                     <LuPaperclip className="size-5 mr-3" /> Anexar documentos
                                     <input
                                         accept="image/*"
@@ -254,7 +254,7 @@ export function MedicalRecord() {
                                         </div>
                                     </div>
                                     <div className="mt-5 flex flex-col gap-4 bSpacexl">
-                                        <h2 className="text-azul-principal text-2xl font-bold my-2">Informações sobre saúde em geral e qualidade de vida:</h2>
+                                        <h2 className="text-azul-900 text-2xl font-bold my-2">Informações sobre saúde em geral e qualidade de vida:</h2>
                                         <p>
                                             <b>Estado Geral:</b>
                                             {mockDados.saudeGeral.estadoGeral !== '' ? mockDados.saudeGeral.estadoGeral : '---'}
@@ -302,12 +302,12 @@ export function MedicalRecord() {
                             )}
                         </section>
 
-                        <section className="w-full bg-prontuario rounded-lg py-5 px-10 mb-14">
-                            <h2 className="text-azul-principal text-2xl font-bold text-center">Exames do paciente</h2>
+                        <section className="w-full bg-azul-700 rounded-lg py-5 px-10 mb-14">
+                            <h2 className="text-azul-900 text-2xl font-bold text-center">Exames do paciente</h2>
 
                             <div className="flex justify-end">
                                 <label htmlFor="fileExames"
-                                    className="bg-azul-principal text-white py-4 px-4 cursor-pointer rounded-lg flex items-center">
+                                    className="bg-azul-900 text-white py-4 px-4 cursor-pointer rounded-lg flex items-center">
                                     <LuPaperclip className="size-5 mr-3" /> Anexar documentos
                                     <input
                                         type="file"
@@ -328,7 +328,7 @@ export function MedicalRecord() {
                                             <span>{file.name}</span>
                                         </a>
                                         <button
-                                            className="bg-vermelho text-white p-1.5 rounded-lg"
+                                            className="bg-vermelho-900 text-white p-1.5 rounded-lg"
                                             onClick={(event) => handleRemoveFile(file.name, event)}
                                         >
                                             <FaRegTrashCan />
@@ -339,15 +339,15 @@ export function MedicalRecord() {
                         </section>
 
                         <section className="w-full text-center mb-14">
-                            <h2 className="text-azul-principal text-2xl font-bold mb-6">Observações</h2>
-                            <textarea name="observacao" id="observacao" onChange={(event) => handleTextareaObservation(event)} className="resize-none bg-[#F6FAFD] border border-cinza-escuro/20 w-full h-40 rounded-lg p-4"></textarea>
+                            <h2 className="text-azul-900 text-2xl font-bold mb-6">Observações</h2>
+                            <textarea name="observacao" id="observacao" onChange={(event) => handleTextareaObservation(event)} className="resize-none bg-azul-800 border border-cinza-900/20 w-full h-40 rounded-lg p-4"></textarea>
                         </section>
 
                         <section className="w-full text-center mb-14">
-                            <h2 className="text-azul-principal text-2xl font-bold mb-6">Atendimentos</h2>
+                            <h2 className="text-azul-900 text-2xl font-bold mb-6">Atendimentos</h2>
 
                             {serviceData.map((atendimento, i) => (
-                                <div key={i} className="mb-2 bg-white border-2 border-azul-principal rounded-lg">
+                                <div key={i} className="mb-2 bg-white border-2 border-azul-900 rounded-lg">
                                     <div className="flex justify-between items-center py-2 px-4">
                                         <div className="flex gap-10">
                                             <input
@@ -380,7 +380,7 @@ export function MedicalRecord() {
                                                 {`${Object.entries(atendimento.checkboxes).flatMap(([opcao, values]) => values.map(value => `${opcao}-${value}`)).join(', ')} ${atendimento.observacao}`}
                                             </span>
                                         </div>
-                                        <span className="rounded-full hover:bg-azul-principal/40 p-1 cursor-pointer" onClick={() => toggleAccordion(i)}>
+                                        <span className="rounded-full hover:bg-azul-900/40 p-1 cursor-pointer" onClick={() => toggleAccordion(i)}>
                                             {isAccordionOpen === i ? <FaChevronRight /> : <FaChevronDown />}
                                         </span>
                                     </div>
@@ -435,7 +435,7 @@ export function MedicalRecord() {
                                                 </div>
                                             ))}
                                             <textarea
-                                                className="resize-none bg-[#F6FAFD] border border-cinza-escuro/20 w-full h-20 rounded-lg p-4 mt-4"
+                                                className="resize-none bg-azul-800 border border-cinza-900/20 w-full h-20 rounded-lg p-4 mt-4"
                                                 value={`${Object.entries(serviceData[i].checkboxes).flatMap(([opcao, values]) => values.map(value => `${opcao}-${value}`)).join(', ')}; ${serviceData[i].observacao}`}
                                                 onChange={(e) => handleTextareaService(e, i)}
                                             ></textarea>
@@ -446,12 +446,12 @@ export function MedicalRecord() {
                         </section>
 
                         <section className="flex justify-between pb-16">
-                            <button className="bg-vermelho text-white px-4 py-3 font-medium rounded-lg flex justify-between items-center">
+                            <button className="bg-vermelho-900 text-white px-4 py-3 font-medium rounded-lg flex justify-between items-center">
                                 <FaTrash  className="mr-3"/>
                                 Apagar prontuário
                             </button>
 
-                            <button className="bg-azul-principal text-white px-4 py-3  font-medium rounded-lg" onClick={(event)=>handleEncerrarAtendimento(event)}>
+                            <button className="bg-azul-900 text-white px-4 py-3  font-medium rounded-lg" onClick={(event)=>handleEncerrarAtendimento(event)}>
                                 Salvar e encerrar atendimento
                             </button>
                         </section>

@@ -28,7 +28,7 @@ export function ClinicRegistration() {
 
     return (
         <main className="flex w-full flex-col sm:flex-row h-screen">
-            <div className="w-full py-10 sm:bg-azul-principal sm:p-0  sm:w-1/2 flex items-center justify-center">
+            <div className="w-full py-10 sm:bg-azul-900 sm:p-0  sm:w-1/2 flex items-center justify-center">
                 <img src={logoLogin} alt="logo" className="hidden sm:block" />
                 <img src={logo} alt="logo" className="block sm:hidden" />
             </div>
@@ -64,7 +64,7 @@ export function ClinicRegistration() {
                             Logo da clínica
                             <label 
                                 htmlFor="logoEmpresa" 
-                                className="flex items-center justify-center text-gray-500 bg-[#F6FAFD] border-dashed border-2 border-[#e0e0e0] rounded-lg p-2 w-full mt-2 cursor-pointer">
+                                className="flex items-center justify-center text-gray-500 bg-azul-800 border-dashed border-2 border-cinza-700 rounded-lg p-2 w-full mt-2 cursor-pointer">
                                     <GoUpload className="size-5 stroke-1 mr-3"/> 
                                     {inputFileData.length === 0 ? 'Subir Imagem' : inputFileData[0].name}
                             </label>
@@ -80,11 +80,11 @@ export function ClinicRegistration() {
                     </div>
 
                     <div className="flex flex-col gap-3 items-center  sm:gap-0 sm:flex-row sm:justify-between">
-                        <button type="button" className="border-2 border-azul-principal text-azul-principal rounded-lg py-2 px-4  hover:bg-azul-principal hover:text-white">
+                        <button type="button" className="border-2 border-azul-900 text-azul-900 rounded-lg py-2 px-4  hover:bg-azul-900 hover:text-white">
                             voltar
                         </button>
 
-                        <button type="button" className="bg-azul-principal text-white w-20 rounded-lg py-2  hover:bg-azul-principal/70">
+                        <button type="button" className="bg-azul-900 text-white w-20 rounded-lg py-2  hover:bg-azul-900/70">
                             Cadastrar
                         </button>
                     </div>

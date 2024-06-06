@@ -161,11 +161,11 @@ export function CalendarComponent() {
 
                     <div className="flex items-center justify-between py-2 px-6">
                         <div className='flex gap-5'>
-                            <div onClick={handleCurrentDate} className='px-6 flex items-center text-base font-semibold cursor-pointer  bg-azul-principal/20 text-azul-principal border border-azul-principal rounded-lg'>
+                            <div onClick={handleCurrentDate} className='px-6 flex items-center text-base font-semibold cursor-pointer  bg-azul-900/20 text-azul-900 border border-azul-900 rounded-lg'>
                                 <span >Hoje</span>
                             </div>
 
-                            <div className="bg-azul-principal rounded-lg border border-[#93C4F1]">
+                            <div className="bg-azul-900 rounded-lg border border-[#93C4F1]">
                                 <button
                                     type="button"
                                     className={`p-2.5 rounded-s-lg transition hover:bg-black/20 border-r border-[#93C4F1] `}
@@ -183,7 +183,7 @@ export function CalendarComponent() {
                             </div>
 
                             {week.length > 0 && (
-                                <div className='px-2.5 flex items-center gap-1 text-base font-medium  bg-azul-principal/10 text-azul-principal border border-azul-principal rounded-lg'>
+                                <div className='px-2.5 flex items-center gap-1 text-base font-medium  bg-azul-900/10 text-azul-900 border border-azul-900 rounded-lg'>
                                     <span className="capitalize">{week[0].toLocaleDateString('pt-BR', { month: 'long' })}</span>
                                     <span>de {week[0].toLocaleDateString('pt-BR', { year: 'numeric' })}</span>
                                 </div>
@@ -216,7 +216,7 @@ export function CalendarComponent() {
                                             {DAYS[date.getDay()]}
                                         </div>
                                         <div className="flex justify-center items-center mt-1 mb-4">
-                                            <span className={`${isToday(date) ? 'text-azul-principal' : 'text-gray-600'} text-3xl tracking-wide font-normal`}>{date.getDate()}</span>
+                                            <span className={`${isToday(date) ? 'text-azul-900' : 'text-gray-600'} text-3xl tracking-wide font-normal`}>{date.getDate()}</span>
                                         </div>
 
 
@@ -240,13 +240,13 @@ export function CalendarComponent() {
                                                         {selectedEventIndex === event.event_id && (
                                                             <div className="bottom-0- w-44 -left-2 bg-white rounded-lg p-2 shadow-[0px_3px_10px_0px_#000000b2] absolute z-10 flex flex-col gap-2" key={event.event_id}>
                                                                 <button
-                                                                    className="bg-red-500 text-white px-2 py-2 rounded"
+                                                                    className="bg-vermelho-900 text-white px-2 py-2 rounded"
                                                                     onClick={() => handleRemoveEvent(event.event_id)}
                                                                 >
                                                                     Remover da agenda
                                                                 </button>
                                                                 <button
-                                                                    className="bg-green-500 text-white px-2 py-2 rounded"
+                                                                    className="bg-verde-900 text-white px-2 py-2 rounded"
                                                                     onClick={() => handleStartAppointment(event.event_id)}
                                                                 >
                                                                     Iniciar atendimento
@@ -291,7 +291,7 @@ export function CalendarComponent() {
                                         type="text"
                                         id='dayConsult'
                                         name='patientName'
-                                        className="w-full bg-[#F6FAFD] border border-[#e0e0e0] rounded-lg p-2 outline-none text-center"
+                                        className="w-full bg-[#F6FAFD] border border-cinza-700 rounded-lg p-2 outline-none text-center"
                                         value={newEvent.dayConsult}
                                         readOnly
                                     />
@@ -300,7 +300,7 @@ export function CalendarComponent() {
                                         type="text"
                                         id='hourConsult'
                                         name='hourConsult'
-                                        className="w-full bg-[#F6FAFD] border border-[#e0e0e0] rounded-lg p-2 outline-none hover:border-azul-principal text-center"
+                                        className="w-full bg-[#F6FAFD] border border-cinza-700 rounded-lg p-2 outline-none hover:border-azul-900 text-center"
                                         value={newEvent.hourConsult}
                                         readOnly
                                     />
@@ -328,7 +328,7 @@ export function CalendarComponent() {
                                         type="text"
                                         id='tel'
                                         name='tel'
-                                        className="w-full bg-[#F6FAFD] border border-[#e0e0e0] rounded-lg p-2 outline-none hover:border-azul-principal mt-2"
+                                        className="w-full bg-[#F6FAFD] border border-cinza-700 rounded-lg p-2 outline-none hover:border-azul-900 mt-2"
                                         onChange={(e) => setNewEvent({ ...newEvent, phone: e.target.value })}
                                     />
                                 </label>
@@ -339,7 +339,7 @@ export function CalendarComponent() {
                                         type="text"
                                         id='notes'
                                         name='notes'
-                                        className="w-full bg-[#F6FAFD] border border-[#e0e0e0] rounded-lg p-2 outline-none hover:border-azul-principal mt-2"
+                                        className="w-full bg-[#F6FAFD] border border-cinza-700 rounded-lg p-2 outline-none hover:border-azul-900 mt-2"
                                         onChange={(e) => setNewEvent({ ...newEvent, notes: e.target.value })}
                                     />
                                 </label>
@@ -347,7 +347,7 @@ export function CalendarComponent() {
                                 <div className="flex justify-between mt-10">
                                     <button
                                         type="button"
-                                        className="bg-white hover:bg-gray-100 text-azul-principal font-semibold py-2 px-4 border border-azul-principal rounded-lg shadow-sm mr-2"
+                                        className="bg-white hover:bg-gray-100 text-azul-900 font-semibold py-2 px-4 border border-azul-900 rounded-lg shadow-sm mr-2"
                                         onClick={() => setOpenEventModal(false)}
                                     >
                                         Cancelar
@@ -355,7 +355,7 @@ export function CalendarComponent() {
 
                                     <button
                                         type="button"
-                                        className="bg-azul-principal hover:bg-azul-principal/80 text-white font-semibold py-2 px-4 rounded-lg shadow-sm"
+                                        className="bg-azul-900 hover:bg-azul-900/80 text-white font-semibold py-2 px-4 rounded-lg shadow-sm"
                                         onClick={addEvent}
                                     >
                                         Agendar

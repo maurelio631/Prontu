@@ -12,13 +12,13 @@ export function Header({ subtitle }) {
 
     return (
         <header>
-            <nav className="w-full h-20 flex justify-between bg-[#F6FAFD] border-b-2 border-cinza-escuro/20">
+            <nav className="w-full h-20 flex justify-between bg-azul-800 border-b-2 border-cinza-900/20">
                 <div className="flex items-center">
-                    <div className="h-full w-24 flex justify-center items-center border-r-2 border-cinza-escuro/20">
+                    <div className="h-full w-24 flex justify-center items-center border-r-2 border-cinza-900/20">
                         <DefaultUser /> 
                     </div>
 
-                    <span className="text-xl text-azul-principal font-semibold pl-2 sm:text-2xl sm:pl-4">
+                    <span className="text-xl text-azul-900 font-semibold pl-2 sm:text-2xl sm:pl-4">
                         {nomeViaParam}
                     </span>
                 </div>
@@ -36,7 +36,7 @@ export function Header({ subtitle }) {
             </nav>
 
             {subtitle && (
-                <h3 className="text-xl md:text-3xl font-medium text-center px-4 pt-8 text-azul-principal">
+                <h3 className="text-xl md:text-3xl font-medium text-center px-4 pt-8 text-azul-900">
                     {subtitle}
                 </h3>
             )}

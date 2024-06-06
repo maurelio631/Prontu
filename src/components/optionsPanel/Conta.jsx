@@ -32,7 +32,7 @@ export function Conta() {
                     Foto de Perfil:
                     <label
                         htmlFor="fotoPerfil"
-                        className="flex items-center justify-center text-gray-500 bg-[#F6FAFD] border-dashed border-2 border-[#e0e0e0] rounded-lg p-2 mt-2 cursor-pointer"
+                        className="flex items-center justify-center text-gray-500 bg-azul-800 border-dashed border-2 border-cinza-950 rounded-lg p-2 mt-2 cursor-pointer"
                     >
                         <GoUpload className="size-5 stroke-1 mr-3" />
                         {inputFileData.length === 0 ? 'Subir Imagem' : inputFileData[0].name}
@@ -60,7 +60,7 @@ export function Conta() {
                 </div>
 
                 <div className="w-full flex justify-end mt-5">
-                    <button className="bg-azul-principal text-white px-4 py-3 rounded-lg">
+                    <button className="bg-azul-900 text-white px-4 py-3 rounded-lg">
                         Salvar alterações
                     </button>
                 </div>

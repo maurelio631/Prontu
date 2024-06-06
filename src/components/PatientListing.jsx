@@ -57,21 +57,21 @@ export function PatientListing({ valorBusca }) {
                             <td>{paciente.nascimento}</td>
                             <td className="bg-white flex gap-1 justify-center">
                                 {user.role === 'secretaria' && 
-                                    <button className="bg-azul-principal text-white h-full px-2.5 rounded-lg">
+                                    <button className="bg-azul-900 text-white h-full px-2.5 rounded-lg">
                                         <LuPencil />
                                     </button>
                                 }
                                 {user.role === 'quiropraxista' &&
-                                    <Link to={'/home/prontuario'} className="bg-azul-principal text-white h-full px-2.5 rounded-lg flex items-center">
+                                    <Link to={'/home/prontuario'} className="bg-azul-900 text-white h-full px-2.5 rounded-lg flex items-center">
                                         <FaExternalLinkAlt />
                                     </Link>
                                 }
                                 {user.role === 'admin' &&
                                     <>
-                                        <button className="bg-azul-principal text-white h-full px-2.5 rounded-lg">
+                                        <button className="bg-azul-900 text-white h-full px-2.5 rounded-lg">
                                             <LuPencil />
                                         </button>
-                                        <Link to={'/home/prontuario'} className="bg-azul-principal text-white h-full px-2.5 rounded-lg flex items-center">
+                                        <Link to={'/home/prontuario'} className="bg-azul-900 text-white h-full px-2.5 rounded-lg flex items-center">
                                             <FaExternalLinkAlt />
                                         </Link>
                                     </> 
@@ -101,7 +101,7 @@ export function PatientListing({ valorBusca }) {
                                 <button
                                     onClick={goToFirstPage}
                                     disabled={page === 1}
-                                    className={`p-2 rounded border-[1px] border-azul-principal ${page === 1 ? 'bg-azul-principal/50' : ''}`}
+                                    className={`p-2 rounded border-[1px] border-azul-900 ${page === 1 ? 'bg-azul-900/50' : ''}`}
                                 >
                                     <TbChevronsLeft className={`size-4 ${page === 1 ? 'stroke-black/50' : ''}`} />
                                 </button>
@@ -109,7 +109,7 @@ export function PatientListing({ valorBusca }) {
                                 <button
                                     onClick={goToPreviousPage}
                                     disabled={page === 1}
-                                    className={`p-2 rounded border-[1px] border-azul-principal ${page === 1 ? 'bg-azul-principal/50' : ''}`}
+                                    className={`p-2 rounded border-[1px] border-azul-900 ${page === 1 ? 'bg-azul-900/50' : ''}`}
                                 >
                                     <TbChevronLeft className={`size-4 ${page === 1 ? 'stroke-black/50' : ''}`} />
                                 </button>
@@ -117,7 +117,7 @@ export function PatientListing({ valorBusca }) {
                                 <button
                                     onClick={goToNextPage}
                                     disabled={page === totalPages}
-                                    className={`p-2 rounded border-[1px] border-azul-principal ${page === totalPages ? 'bg-azul-principal/50' : ''}`}
+                                    className={`p-2 rounded border-[1px] border-azul-900 ${page === totalPages ? 'bg-azul-900/50' : ''}`}
                                 >
                                     <TbChevronRight className={`size-4 ${page === totalPages ? 'stroke-black/50' : ''}`} />
                                 </button>
@@ -125,7 +125,7 @@ export function PatientListing({ valorBusca }) {
                                 <button
                                     onClick={goToLastPage}
                                     disabled={page === totalPages}
-                                    className={`p-2 rounded border-[1px] border-azul-principal ${page === totalPages ? 'bg-azul-principal/50' : ''}`}
+                                    className={`p-2 rounded border-[1px] border-azul-900 ${page === totalPages ? 'bg-azul-900/50' : ''}`}
                                 >
                                     <TbChevronsRight className={`size-4 ${page === totalPages ? 'stroke-black/50' : ''}`} />
                                 </button>

@@ -22,14 +22,14 @@ export default function Sidebar() {
 
   const linkClasses = (path) => (
     `${pathname === path 
-      ? 'bg-azul-principal border-azul-principal text-white' 
-      : 'bg-white border-cinza-escuro/20 text-black/70 hover:border-azul-principal/50'} 
+      ? 'bg-azul-900 border-azul-900 text-white' 
+      : 'bg-white border-cinza-900/20 text-black/70 hover:border-azul-900/50'} 
       border-2 w-14 h-14 rounded-full flex items-center justify-center`
   );
 
   return (
     isVisible && (
-      <div className="flex flex-col p-5 gap-10 items-center min-w-[70px] max-w-[102px] w-1/12 min-h-[546px] h-[calc(100vh - 80px)] bg-[#F6FAFD] border-2 border-cinza-escuro/20 rounded-full m-4">
+      <div className="flex flex-col p-5 gap-10 items-center min-w-[70px] max-w-[102px] w-1/12 min-h-[546px] h-[calc(100vh - 80px)] bg-azul-800 border-2 border-cinza-900/20 rounded-full m-4">
         <Link to="/home/agenda" className={linkClasses('/home/agenda')}>
           <FaRegCalendarAlt className="size-6" />
         </Link>

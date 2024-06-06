@@ -45,8 +45,8 @@ export function Access() {
                                 </div>
                             </div>
                             <div className="flex gap-2">
-                                <button className="text-vermelho font-semibold p-2">Excluir</button>
-                                <button className="text-white bg-azul-principal p-2 rounded-lg font-semibold">Editar</button>
+                                <button className="text-vermelho-900 font-semibold p-2">Excluir</button>
+                                <button className="text-white bg-azul-900 p-2 rounded-lg font-semibold">Editar</button>
                             </div>
                         </div>
                     </div>
@@ -60,19 +60,19 @@ export function Access() {
                 <div className="flex gap-3">
                     <InputText InputId="email" labelName="E-mail:" required onChange={changeNewAccess} />
                     <label htmlFor="cargo">
-                        <b className="text-vermelho">*</b> Tipo de acesso:
+                        <b className="text-vermelho-900">*</b> Tipo de acesso:
                         <select
                             id="cargo"
                             name="cargo"
                             onChange={handleSelectChange}
-                            className="max-h-[42px] h-full w-full bg-[#F6FAFD] border border-[#e0e0e0] rounded-lg p-2 outline-none hover:border-azul-principal mt-2"
+                            className="max-h-[42px] h-full w-full bg-azul-800 border border-cinza-700 rounded-lg p-2 outline-none hover:border-azul-900 mt-2"
                         >
                             <option value="secretaria">Secretaria</option>
                             <option value="quiropraxista">Quiropraxista</option>
                         </select>
                     </label>
                 </div>
-                <button className="bg-azul-principal flex items-center text-white rounded-lg p-3 w-52 justify-center" onClick={addAccess}>
+                <button className="bg-azul-900 flex items-center text-white rounded-lg p-3 w-52 justify-center" onClick={addAccess}>
                     <FaPlus className="mr-2" /> Criar mais acessos
                 </button>
             </div>

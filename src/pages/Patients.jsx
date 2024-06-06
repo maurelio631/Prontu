@@ -25,8 +25,8 @@ export function Patients(){
                     
                     <div className="w-full px-4 md:w-11/12 ">
                         <div className="flex justify-between py-4"> 
-                            <label className="px-3 py-1.5 w-full max-w-80 bg-[#F6FAFD]  border-2 border-cinza-escuro/20 rounded-full  flex items-center gap-3" htmlFor="inputBusca" >
-                                <IoIosSearch className="size-7 text-cinza-escuro" />
+                            <label className="px-3 py-1.5 w-full max-w-80 bg-azul-800  border-2 border-cinza-900/20 rounded-full  flex items-center gap-3" htmlFor="inputBusca" >
+                                <IoIosSearch className="size-7 text-cinza-900" />
                                 <input
                                     id="inputBusca"
                                     value={searchValue}
@@ -37,7 +37,7 @@ export function Patients(){
                                 />
                             </label>
 
-                            <Link to={'/home/preregistro'} className="text-white bg-azul-principal w-full max-w-56 flex items-center px-5 rounded-full hover:bg-azul-principal/80">
+                            <Link to={'/home/preregistro'} className="text-white bg-azul-900 w-full max-w-56 flex items-center px-5 rounded-full hover:bg-azul-900/80">
                                 <GoPlus className="stroke-2 mr-2" />Adicionar pacientes
                             </Link>
                         </div>

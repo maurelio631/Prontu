@@ -39,11 +39,11 @@ export function PanelConfig() {
                         <div className="flex gap-4 mb-8">
                             { user.role === 'admin' ? (
                             <>
-                                <h3 onClick={() => handleController(1)} className={`text-xl font-semibold px-2 cursor-pointer ${controller === 1 ? 'text-azul-principal border-b-2 border-azul-principal' : 'text-cinza-escuro border-b-2 border-cinza-escuro'}`}>Conta e segurança</h3>
-                                <h3 onClick={() => handleController(2)} className={`text-xl font-semibold px-2 cursor-pointer ${controller === 2 ? 'text-azul-principal border-b-2 border-azul-principal' : 'text-cinza-escuro border-b-2 border-cinza-escuro'}`}>Painel de acessos</h3>
-                                <h3 onClick={() => handleController(3)} className={`text-xl font-semibold px-2 cursor-pointer ${controller === 3 ? 'text-azul-principal border-b-2 border-azul-principal' : 'text-cinza-escuro border-b-2 border-cinza-escuro'}`}>Pagamento</h3>
+                                <h3 onClick={() => handleController(1)} className={`text-xl font-semibold px-2 cursor-pointer ${controller === 1 ? 'text-azul-900 border-b-2 border-azul-900' : 'text-cinza-900 border-b-2 border-cinza-900'}`}>Conta e segurança</h3>
+                                <h3 onClick={() => handleController(2)} className={`text-xl font-semibold px-2 cursor-pointer ${controller === 2 ? 'text-azul-900 border-b-2 border-azul-900' : 'text-cinza-900 border-b-2 border-cinza-900'}`}>Painel de acessos</h3>
+                                <h3 onClick={() => handleController(3)} className={`text-xl font-semibold px-2 cursor-pointer ${controller === 3 ? 'text-azul-900 border-b-2 border-azul-900' : 'text-cinza-900 border-b-2 border-cinza-900'}`}>Pagamento</h3>
                             </>
-                            ) : <h3 onClick={() => handleController(1)} className={`text-xl font-semibold px-2 cursor-pointer ${controller === 1 ? 'text-azul-principal border-b-2 border-azul-principal' : 'text-cinza-escuro border-b-2 border-cinza-escuro'}`}>Conta e segurança</h3>}
+                            ) : <h3 onClick={() => handleController(1)} className={`text-xl font-semibold px-2 cursor-pointer ${controller === 1 ? 'text-azul-900 border-b-2 border-azul-900' : 'text-cinza-900 border-b-2 border-cinza-900'}`}>Conta e segurança</h3>}
                         </div>
                         {getOptions()}
                     </div>

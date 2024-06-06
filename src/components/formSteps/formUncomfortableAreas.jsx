@@ -165,12 +165,12 @@ export function FormUncomfortableAreas({ setFormData }) {
                 <canvas ref={tela} className='w-full h-full max-w-[500px] max-h-[400px]'></canvas>
 
                 <div className='flex gap-10 md:gap-48'>
-                    <button className="text-white font-semibold  hover:bg-vermelho/60 bg-vermelho p-2 rounded-md flex items-center  w-full gap-2 min-w-28 justify-center" onClick={limparCanvas} ref={buttonClear}>
+                    <button className="text-white font-semibold  hover:bg-vermelho-900/60 bg-vermelho-900 p-2 rounded-md flex items-center  w-full gap-2 min-w-28 justify-center" onClick={limparCanvas} ref={buttonClear}>
                         <FaTrash/>
                         <span >Desfazer</span>
                     </button>
 
-                    <button className="text-white font-semibold  hover:bg-verde-claro/60 bg-verde-claro p-2 rounded-md flex items-center w-full gap-2 min-w-28 justify-center" onClick={captureScreenshot} ref={buttonCapture}>
+                    <button className="text-white font-semibold  hover:bg-verde-900/60 bg-verde-900 p-2 rounded-md flex items-center w-full gap-2 min-w-28 justify-center" onClick={captureScreenshot} ref={buttonCapture}>
                         <FaCheck />
                         <span > Salvar</span>
                     </button>
