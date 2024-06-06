@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { InputText } from "../InputText";
+import { DefaultUser } from "../DefaultUser";
 
 export function Access() {
     const [access, setAccess] = useState([
@@ -36,7 +37,8 @@ export function Access() {
                         <h3 className="text-lg font-bold mb-3">{pessoa.nome}</h3>
                         <div className="flex justify-between items-center">
                             <div className="flex items-center gap-8">
-                                <img className="w-12 h-12 bg-slate-400 rounded-full" alt="Foto de perfil" />
+                                {/* <img className="w-12 h-12 bg-slate-400 rounded-full" alt="Foto de perfil" /> */}
+                                <DefaultUser user/>
                                 <div>
                                     <p><b>Email:</b> {pessoa.email}</p>
                                     <p><b>Tipo de acesso:</b> {pessoa.cargo}</p>

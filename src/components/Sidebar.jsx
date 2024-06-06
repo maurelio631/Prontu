@@ -29,7 +29,7 @@ export default function Sidebar() {
 
   return (
     isVisible && (
-      <div className="flex flex-col p-5 gap-10 items-center min-w-[70px] max-w-[108px] w-1/12 min-h-[546px] h-[calc(100vh - 80px)] bg-[#F6FAFD] border-2 border-cinza-escuro/20 rounded-full m-4">
+      <div className="flex flex-col p-5 gap-10 items-center min-w-[70px] max-w-[102px] w-1/12 min-h-[546px] h-[calc(100vh - 80px)] bg-[#F6FAFD] border-2 border-cinza-escuro/20 rounded-full m-4">
         <Link to="/home/agenda" className={linkClasses('/home/agenda')}>
           <FaRegCalendarAlt className="size-6" />
         </Link>

@@ -1,12 +1,19 @@
 import { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { LuPencil } from "react-icons/lu";
-import { TbChevronLeft, TbChevronRight, TbChevronsLeft, TbChevronsRight } from "react-icons/tb";
+import { Link } from "react-router-dom";
+import { useUser } from "../utils/UserContext";
+
 import { ArrayPacientes } from "../data/fakes";
 import '../assets/styles/table.css';
 
+import { LuPencil } from "react-icons/lu";
+import { FaExternalLinkAlt } from "react-icons/fa";
+import { TbChevronLeft, TbChevronRight, TbChevronsLeft, TbChevronsRight } from "react-icons/tb";
+
+
+
 export function PatientListing({ valorBusca }) {
     const [page, setPage] = useState(1);
+    const { user } = useUser();
 
     const filteredPacientes = ArrayPacientes.filter(paciente =>
         valorBusca === '' ||
@@ -48,10 +55,27 @@ export function PatientListing({ valorBusca }) {
                             <td>{paciente.cpf}</td>
                             <td>{paciente.telefone}</td>
                             <td>{paciente.nascimento}</td>
-                            <td className="bg-white">
-                                <button className="bg-azul-principal text-white h-full px-3 rounded-lg">
-                                    <LuPencil />
-                                </button>
+                            <td className="bg-white flex gap-1 justify-center">
+                                {user.role === 'secretaria' && 
+                                    <button className="bg-azul-principal text-white h-full px-2.5 rounded-lg">
+                                        <LuPencil />
+                                    </button>
+                                }
+                                {user.role === 'quiropraxista' &&
+                                    <Link to={'/home/prontuario'} className="bg-azul-principal text-white h-full px-2.5 rounded-lg flex items-center">
+                                        <FaExternalLinkAlt />
+                                    </Link>
+                                }
+                                {user.role === 'admin' &&
+                                    <>
+                                        <button className="bg-azul-principal text-white h-full px-2.5 rounded-lg">
+                                            <LuPencil />
+                                        </button>
+                                        <Link to={'/home/prontuario'} className="bg-azul-principal text-white h-full px-2.5 rounded-lg flex items-center">
+                                            <FaExternalLinkAlt />
+                                        </Link>
+                                    </> 
+                                }
                             </td>
                         </tr>
                     ))
