@@ -39,7 +39,6 @@ export function MedicalRecord() {
     ]);
     const [finalData, setFinalData] = useState({});
 
-
     //substituir dps
     const mockDados = {
         nome: 'Maria Aparecida Oliveira da Cruz',
@@ -141,12 +140,12 @@ export function MedicalRecord() {
     };
     // Função que retorna a classe de cor correspondente a uma opção, com base nas categorias de camposSelect
     const getColorClass = (option) => {
-        if (camposSelect.C.includes(option)) return 'bg-[#F19393]';
-        if (camposSelect.T.includes(option)) return 'bg-[#F1E893]';
-        if (camposSelect.L.includes(option)) return 'bg-[#C2F193]';
-        if (camposSelect.PS.includes(option)) return 'bg-[#93F1EB]';
-        if (camposSelect.PI.includes(option)) return 'bg-[#93C4F1]';
-        if (camposSelect.Coccix.includes(option)) return 'bg-[#F1CB93]';
+        if (camposSelect.C.includes(option)) return 'bg-[#F19393] dark:bg-[#db3131]';
+        if (camposSelect.T.includes(option)) return 'bg-[#F1E893] dark:bg-[#e9d949]';
+        if (camposSelect.L.includes(option)) return 'bg-[#C2F193] dark:bg-[#91e93a]';
+        if (camposSelect.PS.includes(option)) return 'bg-[#93F1EB] dark:bg-[#61ebe1]';
+        if (camposSelect.PI.includes(option)) return 'bg-[#93C4F1] dark:bg-[#4a9be7]';
+        if (camposSelect.Coccix.includes(option)) return 'bg-[#F1CB93] dark:bg-[#df9f41]';
         return ''; // Retorna uma string vazia se a opção não corresponder a nenhuma categoria
     };
     // Função que lida com a mudança de texto na área de texto, atualizando a observação no serviceData
@@ -180,15 +179,15 @@ export function MedicalRecord() {
 
     return (
         <Wrapper>
-            <div className="w-screen">
+            <div className="w-screen bg-white dark:bg-dark-900 overflow-y-scroll">
                 <Header subtitle={'Prontuário de Atendimento de Quiropraxia'} />
 
-                <main className="max-w-6xl m-auto flex flex-col px-4 lg:px-0">
-                    <Link to={'/home/pacientes'} className="mb-10 outline-none w-14 h-14 rounded-full border-2 border-cinza-900/20 flex items-center justify-center hover:bg-black/10">
+                <main className="container m-auto flex flex-col px-4 lg:px-0">
+                    <Link to={'/home/pacientes'} className="mb-10 textSwitch outline-none w-14 h-14 rounded-full border-2 border-cinza-900/20 flex items-center justify-center hover:bg-black/10">
                         <TbChevronLeft className="size-8" />
                     </Link>
 
-                    <section className="w-full bg-azul-700 p-3 text-base text-center bSpace rounded-lg mb-9">
+                    <section className="w-full bg-section p-3 text-base text-center bSpace rounded-lg  mb-9">
                         <h2 className="font-bold text-2xl">{mockDados.nome}</h2>
                         <h4 className="m-5"><b>{mockDados.nascimento ? Math.floor((new Date() - new Date(mockDados.nascimento)) / (365.25 * 24 * 60 * 60 * 1000)) : ''} anos </b> - {mockDados.nascimento}</h4>
                         <div className="flex justify-center gap-5">
@@ -202,7 +201,7 @@ export function MedicalRecord() {
                     </section>
 
                     <form>
-                        <section className="w-full bg-azul-700 rounded-lg py-5 px-10 mb-9">
+                        <section className="w-full bg-section py-5 px-10 mb-9">
                             <h2 className="text-azul-900 text-2xl font-bold text-center">{gallery.length === 0 ? 'Autoavaliação' : 'Galeria'}</h2>
 
                             <div className="flex justify-end mb-4 min-w-[980px]:mb-0">
@@ -224,7 +223,7 @@ export function MedicalRecord() {
                             {gallery.length === 0 ? (
                                 <>
                                     <div className="flex gap-10">
-                                        <img className="max-w-80 w-full max-h-80 rounded-lg" src={corpo} alt="areas desconfortaveis" />
+                                        <img className="max-w-80 w-full max-h-80 rounded-lg" src={corpo} alt="areas desconfortáveis" />
                                         <div className="flex flex-col justify-center gap-3 bSpacexl">
                                             <p>
                                                 <b>Sintomas:</b>
@@ -286,7 +285,7 @@ export function MedicalRecord() {
 
                                         <div key={index} className={`w-full max-w-52 h-36 relative flex  flex-col items-center`} onClick={() => handleImageClick(file)}>
                                             <img src={file.url} alt={file.name} className="w-full h-full rounded-lg" />
-                                            <span className="text-sm absolute w-full bg-black/50 text-white p-2 bottom-0">{file.name}</span>
+                                            <span className="text-sm absolute w-full bg-black/50 text-white p-2 bottom-0 rounded-b-lg">{file.name}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -301,7 +300,7 @@ export function MedicalRecord() {
                             )}
                         </section>
 
-                        <section className="w-full bg-azul-700 rounded-lg py-5 px-10 mb-14">
+                        <section className="w-full bg-section rounded-lg py-5 px-10 mb-14">
                             <h2 className="text-azul-900 text-2xl font-bold text-center">Exames do paciente</h2>
 
                             <div className="flex justify-end">
@@ -321,7 +320,7 @@ export function MedicalRecord() {
 
                             <div className="flex justify-center gap-2">
                                 {groupExams.map((file, index) => (
-                                    <div key={index} className="bg-white px-2 py-3 my-2 rounded-lg flex justify-between items-center gap-2">
+                                    <div key={index} className="bg-white dark:bg-dark-600 px-2 py-3 my-2 rounded-lg flex justify-between items-center gap-2">
                                         <a href={file.url} download={file.name} className="flex items-center gap-2">
                                             <PiFilePngDuotone className="size-6" />
                                             <span>{file.name}</span>
@@ -346,7 +345,7 @@ export function MedicalRecord() {
                             <h2 className="text-azul-900 text-2xl font-bold mb-6">Atendimentos</h2>
 
                             {serviceData.map((atendimento, i) => (
-                                <div key={i} className="mb-2 bg-white border-2 border-azul-900 rounded-lg">
+                                <div key={i} className="mb-2 bg-white dark:bg-dark-800 textSwitch border-2 border-azul-900 rounded-lg">
                                     <div className="flex justify-between items-center py-2 px-4">
                                         <div className="flex gap-10">
                                             <input
@@ -355,7 +354,7 @@ export function MedicalRecord() {
                                                 id={`nomeAtendimento${i + 1}`}
                                                 value={atendimento.nome}
                                                 placeholder="Nome do atendimento"
-                                                className="font-semibold w-full max-w-48"
+                                                className="font-semibold w-full max-w-48 bg-transparent"
                                                 onChange={(e) => {
                                                     const newName = [...serviceData];
                                                     newName[i].nome = e.target.value;
@@ -368,7 +367,7 @@ export function MedicalRecord() {
                                                 id={`dataAtendimento${i + 1}`}
                                                 value={atendimento.data}
                                                 placeholder="XX/XX/XXXX"
-                                                className="max-w-20"
+                                                className="max-w-20 bg-transparent"
                                                 onChange={(e) => {
                                                     const newData = [...serviceData];
                                                     newData[i].data = e.target.value;
@@ -397,7 +396,7 @@ export function MedicalRecord() {
                                                                 {opcao}
                                                             </div>
                                                             {selectedOption === opcao && (
-                                                                <div className="flex gap-2 border-black bg-white border w-32 p-1 rounded absolute -left-px -bottom-11 z-10">
+                                                                <div className="flex gap-2 border-black bg-white dark:bg-dark-600 border w-32 p-1 rounded absolute -left-px -bottom-11 z-10">
                                                                     <input
                                                                         type="checkbox"
                                                                         className="options-input"
@@ -434,7 +433,7 @@ export function MedicalRecord() {
                                                 </div>
                                             ))}
                                             <textarea
-                                                className="resize-none bg-azul-800 border border-cinza-900/20 w-full h-20 rounded-lg p-4 mt-4"
+                                                className="resize-none custom-input w-full h-20 rounded-lg p-4 mt-4"
                                                 value={`${Object.entries(serviceData[i].checkboxes).flatMap(([opcao, values]) => values.map(value => `${opcao}-${value}`)).join(', ')}; ${serviceData[i].observacao}`}
                                                 onChange={(e) => handleTextareaService(e, i)}
                                             ></textarea>
