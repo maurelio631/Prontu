@@ -31,9 +31,9 @@ export function PanelConfig() {
 
     return (
         <Wrapper>
-            <div className="w-screen">
+            <div className="w-screen bg-white dark:bg-dark-900 text-black dark:text-white">
                 <Header />
-                <main className="flex justify-between w-full">
+                <main className=" flex justify-between w-full ">
                     <Sidebar/>
                     <div className="w-full h-[calc(100vh-116px)] overflow-hidden mt-4 mr-4 rounded-3xl shadow p-8">
                         <div className="flex gap-4 mb-8">

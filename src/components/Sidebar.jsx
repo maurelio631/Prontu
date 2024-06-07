@@ -23,7 +23,7 @@ export default function Sidebar() {
   const linkClasses = (path) => (
     `${pathname === path 
       ? 'bg-azul-900 border-azul-900 text-white' 
-      : 'bg-white text-black/70 dark:bg-dark-900 dark:text-white/70 dark border-cinza-900/20  hover:border-azul-900/50'} 
+      : 'bg-white text-black/70 dark:bg-dark-900 dark:text-white/70  border-cinza-900/20  hover:border-azul-900/50'} 
       border-2 w-14 h-14 rounded-full flex items-center justify-center`
   );
 

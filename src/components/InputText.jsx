@@ -20,7 +20,7 @@ export function InputText({ InputId, labelName, required, password, onChange }) 
     };
 
     return (
-        <label htmlFor={InputId} className="relative font-medium w-full">
+        <label htmlFor={InputId} className="text-black dark:text-white relative font-medium w-full">
             {required && <b className="text-vermelho-900">*</b>} {labelName}
             <input
                 type={password ? type : "text"}
@@ -30,8 +30,8 @@ export function InputText({ InputId, labelName, required, password, onChange }) 
                 className="w-full custom-input mt-2"
             />
             {password && (
-                <button type="button" className="absolute right-4 bottom-3 text-black/70" onClick={handleToggle}>
-                    {iconPass ? <FaEye /> : <FaEyeSlash />}
+                <button type="button" className="absolute right-4 bottom-3.5 " onClick={handleToggle}>
+                    {iconPass ? <FaEye className="textSwitch" /> : <FaEyeSlash className="textSwitch"/>}
                 </button>
             )}
         </label>

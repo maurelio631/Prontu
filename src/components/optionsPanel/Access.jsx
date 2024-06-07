@@ -33,7 +33,7 @@ export function Access() {
 
             <div className="flex flex-col gap-5 max-w-4xl">
                 {access.map(pessoa => (
-                    <div key={pessoa.id} className="rounded-lg py-3 px-5 shadow-[0px_1px_6px_0px_#00000040]">
+                    <div key={pessoa.id} className="rounded-lg py-3 px-5 shadow-[0px_1px_6px_0px_#00000040] dark:shadow-[0px_1px_6px_0px_#4e474790]">
                         <h3 className="text-lg font-bold mb-3">{pessoa.nome}</h3>
                         <div className="flex justify-between items-center">
                             <div className="flex items-center gap-8">
@@ -65,14 +65,14 @@ export function Access() {
                             id="cargo"
                             name="cargo"
                             onChange={handleSelectChange}
-                            className="max-h-[42px] h-full w-full bg-azul-800 border border-cinza-700 rounded-lg p-2 outline-none hover:border-azul-900 mt-2"
+                            className="max-h-[42px] h-full w-full custom-input mt-2"
                         >
                             <option value="secretaria">Secretaria</option>
                             <option value="quiropraxista">Quiropraxista</option>
                         </select>
                     </label>
                 </div>
-                <button className="bg-azul-900 flex items-center text-white rounded-lg p-3 w-52 justify-center" onClick={addAccess}>
+                <button className="bg-azul-900 font-medium flex items-center text-white rounded-lg p-3 w-52 justify-center" onClick={addAccess}>
                     <FaPlus className="mr-2" /> Criar mais acessos
                 </button>
             </div>

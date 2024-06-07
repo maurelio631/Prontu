@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { GoUpload } from "react-icons/go";
 import { InputText } from "../../components/InputText";
+import { ToggleMode } from "../ToggleMode";
 
 export function Conta() {
     const [inputFileData, setInputFileData] = useState("");
@@ -25,14 +26,17 @@ export function Conta() {
 
     return (
         <section className="overflow-y-auto max-h-full px-1 pb-14">
-            <h2 className="text-2xl font-semibold mb-3">Conta</h2>
+            <div className="flex justify-between items-center">
+                <h2 className="text-black dark:text-white text-2xl font-semibold mb-2">Conta</h2>
+                <ToggleMode/>
+            </div>
 
             <form>
-                <label htmlFor="fotoPerfil" className="font-medium block w-60">
+                <label htmlFor="fotoPerfil" className="text-black dark:text-white font-medium block w-60">
                     Foto de Perfil:
                     <label
                         htmlFor="fotoPerfil"
-                        className="flex items-center justify-center text-gray-500 bg-azul-800 border-dashed border-2 border-cinza-950 rounded-lg p-2 mt-2 cursor-pointer"
+                        className="file-prontuario"
                     >
                         <GoUpload className="size-5 stroke-1 mr-3" />
                         {inputFileData.length === 0 ? 'Subir Imagem' : inputFileData[0].name}
@@ -52,7 +56,7 @@ export function Conta() {
                     <InputText InputId="email" labelName="E-mail:" onChange={changeDataProfile} />
                 </div>
 
-                <h2 className="text-2xl font-semibold my-5">Redefinição de senha</h2>
+                <h2 className="text-black dark:text-white text-2xl font-semibold my-5">Redefinição de senha</h2>
 
                 <div className="flex gap-5 w-full">
                     <InputText InputId="novaSenha" labelName="Nova senha:" password onChange={changeDataProfile} />
@@ -60,7 +64,7 @@ export function Conta() {
                 </div>
 
                 <div className="w-full flex justify-end mt-5">
-                    <button className="bg-azul-900 text-white px-4 py-3 rounded-lg">
+                    <button className="bg-azul-900 text-white px-4 font-medium py-3 rounded-lg">
                         Salvar alterações
                     </button>
                 </div>
