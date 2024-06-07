@@ -4,7 +4,7 @@ export function FormPersonalDetails({ data, onDataChange }) {
     const [localData, setLocalData] = useState(data);
 
     const optionComoConheceu = [
-        { id: 'eedesSociais', name: 'Redes sociais'},
+        { id: 'RedesSociais', name: 'Redes sociais'},
         { id: 'google', name:'Google'},
         { id: 'indicacao', name: 'Indicação' },
         { id: 'outros', name: 'Outros' }
@@ -112,9 +112,8 @@ export function FormPersonalDetails({ data, onDataChange }) {
                 />
             </label>
 
-            <p>Como você nos conheceu?</p>
+            <p className="textSwitch">Como você nos conheceu?</p>
             <div className='flex  w-full gap-2 flex-col min-[710px]:flex-row'>
-                
                 {optionComoConheceu.map((option) => (
                     <div key={option.id} >
                         <input
