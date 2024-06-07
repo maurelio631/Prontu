@@ -3,9 +3,11 @@ import  logoLogin  from "../assets/logoLogin.svg";
 import logo from "../assets/logo.svg";
 
 import { InputText } from "../components/InputText";
+import { useDarkMode } from "../utils/DarkModeContext";
 
 export function Login(){
 
+    const { darkMode } = useDarkMode();
     const [statusLogin, setStatusLogin] = useState(false);
 
     const [loginData, setDataLogin] = useState({})
@@ -26,14 +28,14 @@ export function Login(){
     };
 
     return (
-        <main className="flex w-full flex-col sm:flex-row h-screen">
+        <main className={`flex w-full flex-col sm:flex-row h-screen ${darkMode && 'dark'}`}>
 
             <div className="w-full py-10 sm:bg-azul-900 sm:p-0  sm:w-1/2 flex items-center justify-center">
                 <img src={logoLogin} alt="logo" className="hidden sm:block" />
                 <img src={logo} alt="logo" className="block sm:hidden" />
             </div>
 
-            <div className="w-full sm:w-1/2 flex items-center justify-center">
+            <div className="w-full bg-white dark:bg-dark-900 sm:w-1/2 flex items-center justify-center textSwitch">
                 {statusLogin == false ? (
                     <form className="w-full max-w-[440px] flex flex-col gap-5 px-5">
                         <div className="mb-5">
@@ -46,7 +48,7 @@ export function Login(){
                         <InputText InputId={"senha"} labelName={'Senha:'} password={true} onChange={changeLoginData} />
 
                         <div className="flex flex-col gap-3 items-center  sm:gap-0 sm:flex-row sm:justify-between">
-                            <button type="button" onClick={() => setStatusLogin(true)} className="border-2 border-azul-900 text-azul-900 rounded-lg py-2 px-4  hover:bg-azul-900 hover:text-white">
+                            <button type="button" onClick={() => setStatusLogin(true)} className="border-2 border-azul-900 text-azul-900 rounded-lg py-2 px-4 ">
                                 Esqueci minha senha
                             </button>
 
@@ -68,7 +70,7 @@ export function Login(){
                         <InputText InputId={"codFuncionario"} labelName={'Código do funcionário:'} onChange={changeForgotData} />
 
                         <div className="flex flex-col-reverse gap-3 items-center  sm:gap-0 sm:flex-row sm:justify-between">
-                            <button type="button" onClick={() => setStatusLogin(false)} className="border-2 border-azul-900 text-azul-900 rounded-lg py-2 px-4 hover:bg-azul-900 hover:text-white">
+                            <button type="button" onClick={() => setStatusLogin(false)} className="border-2 border-azul-900 text-azul-900 rounded-lg py-2 px-4">
                                 Voltar
                             </button>
 
