@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { useUser } from "../utils/UserContext";
 
 import { ArrayPacientes } from "../data/fakes";
-import '../assets/styles/table.css';
 
 import { LuPencil } from "react-icons/lu";
 import { FaExternalLinkAlt } from "react-icons/fa";

@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import '../assets/styles/prontuario.css';
 import corpo  from "../assets/corpohumano.png";
 
 //components

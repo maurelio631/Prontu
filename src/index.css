@@ -5,7 +5,7 @@
 
 
 @layer components{
-/*INPUTS*/
+/*INPUTS-FORM*/
     .custom-label{
         @apply flex;
     }
@@ -37,6 +37,26 @@
     }
     .input-escada:nth-of-type(4) label{
         @apply h-32
+    }
+
+/*PRONTUARIO*/
+    .bSpace span b, .bSpace p b{
+        @apply pr-2;
+    }
+    .bSpacexl span b, .bSpacexl p b{
+        @apply pr-4;
+    }
+    .options-input {
+        @apply hidden;
+    }
+    .options-label {
+        @apply flex items-center justify-center p-[5px] cursor-pointer font-bold;
+    }
+    .options-input:checked + .options-label {
+        @apply bg-azul-700;
+    }
+    .options-input:not(:checked) + .options-label {
+        @apply bg-white;
     }
     
     
