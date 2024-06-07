@@ -8,10 +8,10 @@ export function Calendar() {
 
     return (
         <Wrapper>
-            <div className="w-screen">
+            <div className="w-screen  bg-white dark:bg-dark-900">
                 <Header />
 
-                <main className="flex justify-between w-full">
+                <main className="flex justify-between w-full bg-white dark:bg-dark-900">
                     <Sidebar/>
                     <CalendarComponent />
                 </main>

@@ -157,7 +157,7 @@ export function CalendarComponent() {
     return (
         <section className='w-full'>
             <div className="container mx-auto px-4 m-4">
-                <div className="bg-white rounded-lg shadow overflow-hidden">
+                <div className="rounded-lg text-gray-600 dark:text-zinc-100 shadow overflow-hidden">
 
                     <div className="flex items-center justify-between py-2 px-6">
                         <div className='flex gap-5'>
@@ -194,13 +194,13 @@ export function CalendarComponent() {
                         </div> */}
                     </div>
 
-                    <div className="-mx-1 -mb-1">
+                    <div className="-mx-1 -mb-1 dark:-mx-0 dark:-mb-0">
                         <div className="flex">
                             {/* Coluna dos Horários */}
                             <div className="w-[10%] flex flex-col">
                                 <div className="h-12"></div>
                                 {HOURS_COLUMN.map((hour, hourIndex) => (
-                                    <p key={hourIndex} className="h-20 font-semibold flex items-center justify-center text-gray-600">
+                                    <p key={hourIndex} className="h-20 font-semibold flex items-center justify-center ">
                                         {hour}
                                     </p>
                                 ))}
@@ -208,25 +208,25 @@ export function CalendarComponent() {
 
                             {/* Coluna dos Dias */}
                             {week.map((date, dateIndex) => (
-                                <div key={dateIndex} className="w-[12.85%] relative pr">
+                                <div key={dateIndex} className="w-[12.85%] relative ">
                                     <div className="flex flex-col h-full">
 
 
-                                        <div className={`text-gray-600 text-sm tracking-wide font-normal text-center`}>
+                                        <div className={`text-sm tracking-wide font-normal text-center`}>
                                             {DAYS[date.getDay()]}
                                         </div>
                                         <div className="flex justify-center items-center mt-1 mb-4">
-                                            <span className={`${isToday(date) ? 'text-azul-900' : 'text-gray-600'} text-3xl tracking-wide font-normal`}>{date.getDate()}</span>
+                                            <span className={`${isToday(date) ? 'text-azul-900' : 'text-gray-600 dark:text-zinc-50'} text-3xl tracking-wide font-normal`}>{date.getDate()}</span>
                                         </div>
 
 
 
                                         {HOURS.map((hour, hourIndex) => (
-                                            <div key={hourIndex} className="border h-20 relative mr" onClick={() => showEventModal(date, hour)}>
+                                            <div key={hourIndex} className="border dark:border-dark-600 h-20 relative " onClick={() => showEventModal(date, hour)}>
                                                 {events.filter(e => new Date(e.event_dateForListing).toDateString() === date.toDateString() && e.event_hourConsult === hour).map((event, eventIndex) => (
                                                     <div
                                                         key={event.event_id}
-                                                        className={`px-2 py-1 rounded-lg mt-1 overflow-hidden border text-white
+                                                        className={`px-2 py-1 rounded-lg mt-1 overflow-hidden border dark:border-dark-100 text-white cursor-pointer
                                                         ${event.event_consultType === '1° Consulta' ? 'bg-[#A95ADA]' : ''}
                                                         ${event.event_consultType === '1° Retorno' ? 'bg-[#DA5AB6]' : ''}
                                                         ${event.event_consultType === 'Retorno' ? 'bg-[#5A9CDA]' : ''}
@@ -234,25 +234,25 @@ export function CalendarComponent() {
                                                         onClick={() => handleEventClick(event.event_id)}
                                                     >
                                                         <h3 className="text-base font-semibold truncate leading-tight">{event.event_patientName}</h3>
-                                                        <p className='text-xs bg-white/30 px-1 rounded inline-block'>{event.event_consultType}</p>
-                                                        <p className='text-xs'>{event.event_hourConsult}</p>
+                                                        <p className='text-xs bg-white/30 font-medium px-1 rounded inline-block'>{event.event_consultType}</p>
+                                                        <p className='text-xs font-medium '>{event.event_hourConsult}</p>
 
                                                         {selectedEventIndex === event.event_id && (
-                                                            <div className="bottom-0- w-44 -left-2 bg-white rounded-lg p-2 shadow-[0px_3px_10px_0px_#000000b2] absolute z-10 flex flex-col gap-2" key={event.event_id}>
+                                                            <div className="bottom-0- w-44 -left-2 bg-white dark:bg-dark-600 rounded-lg p-2 shadow-[0px_3px_10px_0px_#000000b2] absolute z-10 flex flex-col gap-2" key={event.event_id}>
                                                                 <button
-                                                                    className="bg-vermelho-900 text-white px-2 py-2 rounded"
+                                                                    className="bg-vermelho-900 font-medium text-white px-1 py-2 rounded"
                                                                     onClick={() => handleRemoveEvent(event.event_id)}
                                                                 >
                                                                     Remover da agenda
                                                                 </button>
                                                                 <button
-                                                                    className="bg-verde-900 text-white px-2 py-2 rounded"
+                                                                    className="bg-verde-900 font-medium text-white px-1 py-2 rounded"
                                                                     onClick={() => handleStartAppointment(event.event_id)}
                                                                 >
                                                                     Iniciar atendimento
                                                                 </button>
                                                                 <button
-                                                                    className="bg-yellow-500 text-white px-2 py-2 rounded"
+                                                                    className="bg-yellow-500 font-medium text-white px-1 py-2 rounded"
                                                                     onClick={() => handleUnmarkEvent(event.event_id)}
                                                                 >
                                                                     Desmarcar
@@ -273,13 +273,14 @@ export function CalendarComponent() {
                 {openEventModal && (
                     <div className="bg-[#000000cc] fixed z-40 top-0 right-0 left-0 bottom-0 h-full w-full">
                         <div className="p-4 max-w-xl mx-auto relative left-0 right-0 overflow-hidden mt-24">
-                            <div className="shadow w-full rounded-lg bg-white overflow-hidden block p-8">
+
+                            <div className="bg-white text-black dark:bg-dark-800 dark:text-white shadow w-full rounded-lg  overflow-hidden block p-8">
                                 <label htmlFor="patientName" className='w-full pb-2'>
                                     <input
                                         type="text"
                                         id='patientName'
                                         name='patientName'
-                                        className='w-full border-b border-black pb-2 mb-6 text-xl'
+                                        className='bg-transparent border-b border-black dark:border-gray-500 pb-2 mb-6 text-xl w-full outline-none'
                                         placeholder='Nome do paciente'
                                         value={newEvent.patientName}
                                         onChange={(e) => setNewEvent({ ...newEvent, patientName: e.target.value })}
@@ -347,7 +348,7 @@ export function CalendarComponent() {
                                 <div className="flex justify-between mt-10">
                                     <button
                                         type="button"
-                                        className="bg-white hover:bg-gray-100 text-azul-900 font-semibold py-2 px-4 border border-azul-900 rounded-lg shadow-sm mr-2"
+                                        className="bg-transparent  text-azul-900 font-semibold py-2 px-4 border border-azul-900 rounded-lg shadow-sm mr-2"
                                         onClick={() => setOpenEventModal(false)}
                                     >
                                         Cancelar
