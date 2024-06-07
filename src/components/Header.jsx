@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useUser } from "../utils/UserContext";
 import { DefaultUser } from "./DefaultUser";
+import { ToggleMode } from "./ToggleMode";
 
 export function Header({ subtitle }) {
     const pathname = location.pathname;
@@ -22,7 +23,8 @@ export function Header({ subtitle }) {
                     </span>
                 </div>
 
-                {pathname !== `/${nomeClinica}` && (
+                {pathname !== `/${nomeClinica}` 
+                ? (
                     <div className="flex items-center flex-row-reverse pr-4">
                         {
                             user.imgProfile 
@@ -30,6 +32,10 @@ export function Header({ subtitle }) {
                             : <DefaultUser user/>    
                         }
                         <span className="text-black dark:text-white text-sm pr-2 sm:text-base font-medium capitalize sm:pr-4">Olá, {user.name}</span>
+                    </div>
+                ) : (
+                    <div className="h-full flex items-center justify-between px-5">
+                        <ToggleMode/>
                     </div>
                 )}
             </nav>

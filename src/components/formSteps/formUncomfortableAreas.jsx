@@ -158,11 +158,11 @@ export function FormUncomfortableAreas({ setFormData }) {
 
     return (
         <div className="m-auto">
-            <h2 className='text-center font-medium mb-4 text-xl md:text-2xl '>Marque as áreas de desconforto na imagem abaixo</h2>
+            <h2 className='text-center font-medium mb-4 text-xl md:text-2xl textSwitch'>Marque as áreas de desconforto na imagem abaixo</h2>
 
             <div className="flex flex-col items-center">
 
-                <canvas ref={tela} className='w-full h-full max-w-[500px] max-h-[400px]'></canvas>
+                <canvas ref={tela} className='w-full h-full max-w-[500px] max-h-[400px] dark:invert'></canvas>
 
                 <div className='flex gap-10 md:gap-48'>
                     <button className="text-white font-semibold  hover:bg-vermelho-900/60 bg-vermelho-900 p-2 rounded-md flex items-center  w-full gap-2 min-w-28 justify-center" onClick={limparCanvas} ref={buttonClear}>

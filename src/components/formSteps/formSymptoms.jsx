@@ -31,7 +31,7 @@ export function FormSymptoms({ data, onDataChange }) {
 
     return (
         <div className='text-base font-medium'>
-            <h2 className='text-2xl text-center font-bold mb-5'>Descreva seus sintomas abaixo</h2>
+            <h2 className='text-2xl text-center font-bold mb-5 textSwitch'>Descreva seus sintomas abaixo</h2>
             <label htmlFor="txt-sintoma" className='flex flex-col gap-2 custom-label'>
                 Sintomas:
                 <textarea
@@ -44,7 +44,7 @@ export function FormSymptoms({ data, onDataChange }) {
                 ></textarea>
             </label>
 
-            <h3 className='text-center font-medium my-5 text-lg md:text-xl'>Como começaram os sintomas?</h3>
+            <h3 className='text-center font-medium my-5 text-lg md:text-xl textSwitch'>Como começaram os sintomas?</h3>
             <div className='flex  w-full justify-center gap-2 flex-col min-[710px]:flex-row'>
                 {sintomas.map((sintoma) => (
                     <div key={sintoma.id}>
@@ -62,7 +62,7 @@ export function FormSymptoms({ data, onDataChange }) {
                 ))}
             </div>
 
-            <h3 className='text-center font-medium my-5 text-lg md:text-xl'>Qual o tipo de desconforto? (selecione todas as opções compatíveis)</h3>
+            <h3 className='text-center font-medium my-5 text-lg md:text-xl textSwitch'>Qual o tipo de desconforto? (selecione todas as opções compatíveis)</h3>
             <div className='flex flex-wrap gap-1 m-auto justify-center max-w-[700px] w-full flex-col min-[520px]:flex-row'>
                 {desconfortos.map((desconforto) => (
                     <div className='w-full min-[520px]:w-[24%]' key={desconforto.id}>
@@ -80,7 +80,7 @@ export function FormSymptoms({ data, onDataChange }) {
                 ))}
             </div>
 
-            <h3 className='text-center font-medium my-5 text-lg md:text-xl'>Qual a frequência dos sintomas?</h3>
+            <h3 className='text-center font-medium my-5 text-lg md:text-xl textSwitch'>Qual a frequência dos sintomas?</h3>
 
 
             {/* className='flex gap-2 items-center  flex-col sm:flex-row  sm:justify-center sm:items-baseline' */}

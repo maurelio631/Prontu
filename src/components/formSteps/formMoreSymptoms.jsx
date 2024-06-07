@@ -29,10 +29,10 @@ export function FormMoreSymptoms({ data, onDataChange }) {
     };  
 
     return (
-        <div className="text-base font-medium">
+        <div className="text-base font-medium textSwitch">
             <div className="flex flex-col items-center lg:flex-row lg:justify-between">
                 <div className="w-full  lg:w-[47%]">
-                    <h3 className="font-medium my-5 text-xl text-center ">
+                    <h3 className="font-medium my-5 text-xl text-center textSwitch">
                         O desconforto aumenta com:<br />
                         (selecione todas as opções compatíveis)
                     </h3>
@@ -55,7 +55,7 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                 </div>
 
                 <div className="w-full lg:w-[47%]">
-                    <h3 className="font-medium my-5 text-xl text-center">
+                    <h3 className="font-medium my-5 text-xl text-center textSwitch">
                         O desconforto diminui com:<br />
                         (selecione todas as opções compatíveis)
                     </h3>
@@ -78,12 +78,12 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                 </div>
             </div>
 
-            <h2 className='text-center font-medium mt-9 text-xl md:text-2xl '>Selecione as informações sobre sua saúde em geral e qualidade de vida:</h2>
+            <h2 className='text-center font-medium mt-9 text-xl md:text-2xl textSwitch'>Selecione as informações sobre sua saúde em geral e qualidade de vida:</h2>
 
             <div className='flex flex-col items-center min-[860px]:items-stretch min-[860px]:flex-row min-[860px]:justify-between'>
                 
                 <div className='w-full min-[860px]:w-[19%]'>
-                    <h3 className='text-base text-center font-medium mt-9'>Estado Geral</h3>
+                    <h3 className='text-base text-center font-medium mt-9 textSwitch'>Estado Geral</h3>
                     {estadoGeral.map((estado) => (
                         <div key={estado.id} className='text-sm text-center mb-2'>
                             <input
@@ -101,7 +101,7 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                 </div>
 
                 <div className='w-full min-[860px]:w-[19%]'>
-                    <h3 className='text-base text-center font-medium mt-9'>Cabeça e Pescoço</h3>
+                    <h3 className='text-base text-center font-medium mt-9 textSwitch'>Cabeça e Pescoço</h3>
                     {cabecaPescoco.map((estado) => (
                         <div key={estado.id} className='text-sm text-center mb-2'>
                             <input
@@ -119,7 +119,7 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                 </div>
 
                 <div className='w-full min-[860px]:w-[19%]'>
-                    <h3 className='text-base text-center font-medium mt-9'>Tórax/Respiratório</h3>
+                    <h3 className='text-base text-center font-medium mt-9 textSwitch'>Tórax/Respiratório</h3>
                     {toraxRespiratorio.map((estado) => (
                         <div key={estado.id} className='text-sm text-center mb-2'>
                             <input
@@ -137,7 +137,7 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                 </div>
 
                 <div className='w-full min-[860px]:w-[19%]'>
-                    <h3 className='text-base text-center font-medium mt-9'>Cardio-Vascular</h3>
+                    <h3 className='text-base text-center font-medium mt-9 textSwitch'>Cardio-Vascular</h3>
                     {cardioVascular.map((estado) => (
                         <div key={estado.id} className='text-sm text-center mb-2'>
                             <input
@@ -154,7 +154,7 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                     ))}
 
                     <div>
-                        <h3 className='text-base text-center font-medium mt-9'>Gastro-Intestinal</h3>
+                        <h3 className='text-base text-center font-medium mt-9 textSwitch'>Gastro-Intestinal</h3>
                         {gastroIntestinal.map((estado) => (
                             <div key={estado.id} className='text-sm text-center mb-2'>
                                 <input
@@ -173,7 +173,7 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                 </div>
 
                 <div className='w-full min-[860px]:w-[19%]'>
-                    <h3 className='text-base text-center font-medium mt-9'>Gênito-Urinário</h3>
+                    <h3 className='text-base text-center font-medium mt-9 textSwitch'>Gênito-Urinário</h3>
                     {genitoUrinário.map((estado) => (
                         <div key={estado.id} className='text-sm text-center mb-2'>
                             <input

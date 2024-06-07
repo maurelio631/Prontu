@@ -7,7 +7,7 @@ export function SelfEvaluation() {
 
   return (
     <Wrapper>
-      <div className="w-screen">
+      <div className="w-screen bg-white dark:bg-dark-900">
         <Header subtitle={`Autoavaliação Prontuário de Atendimento de Quiropraxia`}/>
         <Form/>
       </div>
