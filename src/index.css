@@ -58,12 +58,26 @@
     .options-input:not(:checked) + .options-label {
         @apply bg-white;
     }
-    
-    
-
-
-    
 }
+
+    #ajusteInput33 {
+        width: 100%!important;
+    }
+    @media (min-width:640px) {
+        #ajusteInput33 {
+            width: 73%!important;
+        }
+    }
+    @media (max-width:460px) {
+        .input-escada label{
+            font-size: 12px!important;
+        }
+    }
+    @media (max-width:380px) {
+        .input-escada label{
+            font-size: 10px!important;
+        }
+    }
 
 
 

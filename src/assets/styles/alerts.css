@@ -1,17 +1,14 @@
 .swal2-actions{
     flex-direction: row-reverse!important;   
 }
-
 .swal2-deny {
-    background-color: #E4E4E4!important;
-    color: rgb(39, 39, 39)!important;
-    border: none!important;
-    outline: 0!important;
+    background-color: transparent!important;
+    color: #5A9CDA!important;
+    border: 1px solid #5A9CDA!important;
+    box-shadow: none!important;
 }
-
-
 .swal2-confirm {
     background-color: #46DB5E!important;
     outline: 0!important;
+    box-shadow: none!important;
 }
-

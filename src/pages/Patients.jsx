@@ -18,20 +18,20 @@ export function Patients(){
 
     return(
         <Wrapper>
-            <div className="w-screen">
+            <div className="w-screen bg-white dark:bg-dark-900">
                 <Header/>
                 <main className="flex justify-between w-full">
                     <Sidebar/>
                     
                     <div className="w-full px-4 md:w-11/12 ">
                         <div className="flex justify-between py-4"> 
-                            <label className="px-3 py-1.5 w-full max-w-80 bg-azul-800  border-2 border-cinza-900/20 rounded-full  flex items-center gap-3" htmlFor="inputBusca" >
+                            <label className="bg-azul-800 border-cinza-900/20 dark:bg-dark-800 dark:border-dark-100 px-3 py-1.5 w-full max-w-80  border-2 rounded-full  flex items-center gap-3" htmlFor="inputBusca" >
                                 <IoIosSearch className="size-7 text-cinza-900" />
                                 <input
                                     id="inputBusca"
                                     value={searchValue}
                                     onChange={funcBusca}
-                                    className="bg-transparent outline-none  border-0 p-0 text-sm focus:ring-0 w-full"
+                                    className="bg-transparent text-black dark:text-white outline-none  border-0 p-0 text-sm focus:ring-0 w-full"
                                     type="search"
                                     placeholder="Nome ou telefone"
                                 />

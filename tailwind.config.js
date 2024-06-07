@@ -6,6 +6,7 @@ export default {
   content: [
     "./index.html", "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'selector',
   theme: {
     extend: {
       colors:{
@@ -25,7 +26,20 @@ export default {
         },
         vermelho: {
           900: '#DA1C1C'
+        },
+
+
+        dark:{
+          900: '#121212',
+          800: '#1d2022',
+          700: '#1b2226',
+
+          600: '#383b40',
+
+          100: '#272a2b'
         }
+
+
       },
       fontFamily:{
         'sans':["'Montserrat'", ...defaultTheme.fontFamily.sans]

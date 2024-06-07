@@ -29,9 +29,9 @@ export function PatientListing({ valorBusca }) {
     const goToPreviousPage = () => setPage(page - 1);
 
     return (
-        <table className="w-full bg-azul-700">
+        <table className="w-full bg-azul-700 text-black dark:bg-dark-700 dark:text-white">
             <thead>
-                <tr className="bg-white text-base min-[790px]:text-xl">
+                <tr className="bg-white dark:bg-dark-900  text-base min-[790px]:text-xl">
                     <th className="py-3 font-medium">ID</th>
                     <th className="py-3 font-medium">Nome</th>
                     <th className="py-3 font-medium">CPF</th>
@@ -44,7 +44,7 @@ export function PatientListing({ valorBusca }) {
             <tbody>
                 {paginatedPacientes.length > 0 ? (
                     paginatedPacientes.map(paciente => (
-                        <tr key={paciente.id} className="even:bg-white text-sm min-[790px]:text-base">
+                        <tr key={paciente.id} className="even:bg-white dark:even:bg-dark-900 text-sm min-[790px]:text-base">
                             <td className="text-center h-11">{paciente.id}</td>
                             <td className="text-center h-11">
                                 <span className="m-auto truncate max-w-[120px] block">
@@ -54,7 +54,7 @@ export function PatientListing({ valorBusca }) {
                             <td className="text-center h-11">{paciente.cpf}</td>
                             <td className="text-center h-11">{paciente.telefone}</td>
                             <td className="text-center h-11">{paciente.nascimento}</td>
-                            <td className="bg-white flex gap-1 justify-center h-11">
+                            <td className="bg-white dark:bg-dark-900 flex gap-1 justify-center h-11">
                                 {user.role === 'secretaria' && 
                                     <button className="bg-azul-900 text-white h-full px-2.5 rounded-lg">
                                         <LuPencil />
@@ -88,7 +88,7 @@ export function PatientListing({ valorBusca }) {
             </tbody>
 
             <tfoot>
-                <tr className="bg-white">
+                <tr className="bg-white dark:bg-dark-900">
                     <td colSpan={3} className="py-2 pl-6 font-semibold">
                         {filteredPacientes.length} itens
                     </td>

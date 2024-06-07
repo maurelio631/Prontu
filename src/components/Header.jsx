@@ -1,7 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useUser } from "../utils/UserContext";
 import { DefaultUser } from "./DefaultUser";
-import { FaHospital } from "react-icons/fa";
 
 export function Header({ subtitle }) {
     const pathname = location.pathname;
@@ -12,9 +11,9 @@ export function Header({ subtitle }) {
 
     return (
         <header>
-            <nav className="w-full h-20 flex justify-between bg-azul-800 border-b-2 border-cinza-900/20">
+            <nav className="bg-azul-800 border-cinza-900/20 dark:bg-dark-800 dark:border-dark-100 w-full h-20 flex justify-between  border-b-2 ">
                 <div className="flex items-center">
-                    <div className="h-full w-24 flex justify-center items-center border-r-2 border-cinza-900/20">
+                    <div className="border-cinza-900/20 dark:border-dark-100 h-full w-24 flex justify-center items-center border-r-2 ">
                         <DefaultUser /> 
                     </div>
 
@@ -30,7 +29,7 @@ export function Header({ subtitle }) {
                             ? <img className="w-12 h-12 rounded-full" src={user.imgProfile} alt="Foto de perfil" />
                             : <DefaultUser user/>    
                         }
-                        <span className="text-sm pr-2 sm:text-base font-medium capitalize sm:pr-4">Olá, {user.name}</span>
+                        <span className="text-black dark:text-white text-sm pr-2 sm:text-base font-medium capitalize sm:pr-4">Olá, {user.name}</span>
                     </div>
                 )}
             </nav>
