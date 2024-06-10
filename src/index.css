@@ -5,6 +5,9 @@
 
 
 @layer components{
+    body{
+        @apply bg-white dark:bg-dark-900
+    }
     *:not(svg, a) {
         @apply transition-colors duration-200;
     }

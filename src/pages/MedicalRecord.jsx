@@ -182,7 +182,7 @@ export function MedicalRecord() {
             <div className="w-screen bg-white dark:bg-dark-900 overflow-y-scroll">
                 <Header subtitle={'Prontuário de Atendimento de Quiropraxia'} />
 
-                <main className="container m-auto flex flex-col px-4 lg:px-0">
+                <main className="container m-auto flex flex-col px-4 lg:px-2">
                     <Link to={'/home/pacientes'} className="mb-10 textSwitch outline-none w-14 h-14 rounded-full border-2 border-cinza-900/20 flex items-center justify-center hover:bg-black/10">
                         <TbChevronLeft className="size-8" />
                     </Link>
