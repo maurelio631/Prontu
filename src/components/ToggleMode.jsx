@@ -10,7 +10,7 @@ export function ToggleMode (){
     
     return(
         <label className="ui-switch" >
-            <input type="checkbox" checked={darkMode} onClick={handleToggleMode} />
+            <input type="checkbox" checked={darkMode} onChange={handleToggleMode} />
                 <div className="slider">
                 <div className="circle"></div>
                 </div>

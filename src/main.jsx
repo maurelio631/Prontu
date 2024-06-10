@@ -2,6 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import "./assets/styles/alerts.css";
+import "./assets/styles/toggle.css";
+
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UserProvider } from "./utils/UserContext";

@@ -179,7 +179,7 @@ export function MedicalRecord() {
 
     return (
         <Wrapper>
-            <div className="w-screen bg-white dark:bg-dark-900 overflow-y-scroll">
+            <div className="w-screen">
                 <Header subtitle={'Prontuário de Atendimento de Quiropraxia'} />
 
                 <main className="container m-auto flex flex-col px-4 lg:px-2">
