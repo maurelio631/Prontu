@@ -11,7 +11,7 @@ export function Calendar() {
             <div className="w-screen  bg-white dark:bg-dark-900">
                 <Header />
 
-                <main className="flex justify-between w-full bg-white dark:bg-dark-900">
+                <main className="flex justify-between w-full overflow-hidden max-h-[calc(100vh-80px)]">
                     <Sidebar/>
                     <CalendarComponent />
                 </main>

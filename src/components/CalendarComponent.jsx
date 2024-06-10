@@ -155,7 +155,7 @@ export function CalendarComponent() {
 
 
     return (
-        <section className='w-full'>
+        <section className='w-full  overflow-y-auto'>
             <div className="container mx-auto px-4 m-4">
                 <div className="rounded-lg text-gray-600 dark:text-zinc-100 shadow overflow-hidden">
 
@@ -213,7 +213,7 @@ export function CalendarComponent() {
 
 
                                         <div className={`text-sm tracking-wide font-normal text-center`}>
-                                            {DAYS[date.getDay()]}
+                                            <span className={`${isToday(date) ? 'text-azul-900' : 'text-gray-600 dark:text-zinc-50'}`}>{DAYS[date.getDay()]}</span>
                                         </div>
                                         <div className="flex justify-center items-center mt-1 mb-4">
                                             <span className={`${isToday(date) ? 'text-azul-900' : 'text-gray-600 dark:text-zinc-50'} text-3xl tracking-wide font-normal`}>{date.getDate()}</span>

@@ -19,11 +19,7 @@ import { ClinicRegistration } from "./pages/ClinicRegistration";
 import { PanelConfig } from "./pages/PanelConfig";
 import { ProtectedRoutes } from "./utils/ProtectedRoutes";
 import { Page403 } from "./pages/Page403";
-import { PreRegistration } from "./pages/PreRegsitration";
-
-
-
-
+import { PreRegistration } from "./pages/PreRegistration";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
