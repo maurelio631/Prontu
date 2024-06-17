@@ -56,8 +56,8 @@ export function ClinicRegistration() {
                     </div>
 
                     <div className="flex justify-between  gap-10">
-                        <InputText InputId={"password"} labelName={'Senha:'} required={true} onChange={changeRegister} />
-                        <InputText InputId={"passwordConfirm"} labelName={'Confirme sua senha:'} required={true} onChange={changeRegister} />
+                        <InputText InputId={"password"} password labelName={'Senha:'} required={true} onChange={changeRegister} />
+                        <InputText InputId={"passwordConfirm"} password labelName={'Confirme sua senha:'} required={true} onChange={changeRegister} />
                     </div>
 
                     <hr className="my-3  border-black/40 dark:border-zinc-50/40"/>
