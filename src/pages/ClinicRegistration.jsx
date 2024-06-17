@@ -45,17 +45,19 @@ export function ClinicRegistration() {
 
                     <InputText InputId={"nome"} labelName={'Nome completo:'} required={true} onChange={changeRegister} />
 
-
                     <div className="flex justify-between gap-10">
-                        <InputText InputId={"dataNascimento"} labelName={'Data de Nascimento:'} required={true} onChange={changeRegister} />
                         <InputText InputId={"CNPJ"} labelName={'CPF/CNPJ:'} required={true} onChange={changeRegister} />
+                        <InputText InputId={"endereco"} labelName={'Endereço:'} required={true} onChange={changeRegister} />
                     </div>
-
-                    <InputText InputId={"endereco"} labelName={'Endereço:'} required={true} onChange={changeRegister} />
 
                     <div className="flex justify-between gap-10">
                         <InputText InputId={"email"} labelName={'E-mail:'} required={true} onChange={changeRegister} />
                         <InputText InputId={"tel"} labelName={'Telefone:'} required={true} onChange={changeRegister} />
+                    </div>
+
+                    <div className="flex justify-between  gap-10">
+                        <InputText InputId={"password"} labelName={'Senha:'} required={true} onChange={changeRegister} />
+                        <InputText InputId={"passwordConfirm"} labelName={'Confirme sua senha:'} required={true} onChange={changeRegister} />
                     </div>
 
                     <hr className="my-3  border-black/40 dark:border-zinc-50/40"/>
