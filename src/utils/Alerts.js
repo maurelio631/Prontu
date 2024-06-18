@@ -1,11 +1,11 @@
 import Swal from "sweetalert2";
 
-export const errorAlert = (msg) => {
+export const toastErrorAlert = (msg) => {
     const Toast = Swal.mixin({
         toast: true,
         position: "top-end",
         showConfirmButton: false,
-        timer: 1900,
+        timer: 2500,
         timerProgressBar: true,
         didOpen: (toast) => {
             toast.onmouseenter = Swal.stopTimer;
@@ -17,8 +17,7 @@ export const errorAlert = (msg) => {
         title: msg
     });
 }
-
-export const successAlert = (msg) => {
+export const toastSuccessAlert = (msg) => {
     const Toast = Swal.mixin({
         toast: true,
         position: "top-end",

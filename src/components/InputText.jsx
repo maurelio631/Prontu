@@ -23,6 +23,7 @@ export function InputText({ InputId, labelName, required, password, onChange }) 
         <label htmlFor={InputId} className="text-black dark:text-white relative font-medium w-full">
             {required && <b className="text-vermelho-900">*</b>} {labelName}
             <input
+                autoComplete='off'
                 type={password ? type : "text"}
                 name={InputId}
                 id={InputId}

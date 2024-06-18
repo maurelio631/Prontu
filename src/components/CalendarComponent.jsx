@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { errorAlert } from '../utils/Alerts';
+import { toastErrorAlert } from '../utils/Alerts';
 
 const DAYS = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
 const HOURS = Array.from({ length: 10 }, (_, i) => `${i + 8}:00 - ${i + 9}:00`);
@@ -118,7 +118,7 @@ export function CalendarComponent() {
         if (newEvent.patientName === '' || newEvent.consultType === '') {
             const msgError = `Preencha os campos:
             ${newEvent.patientName === '' ? 'Nome,' : ''}${newEvent.consultType === '' ? ' Tipo de consulta' : ''}`
-            errorAlert(msgError)
+            toastErrorAlert(msgError)
             return;
         }
 
@@ -128,7 +128,7 @@ export function CalendarComponent() {
         );
 
         if (eventExists) {
-            errorAlert('Já existe um evento agendado para este horário.');
+            toastErrorAlert('Já existe um evento agendado para este horário.');
             return;
         }
 

@@ -2,10 +2,10 @@
   @apply flex-row-reverse;
 }
 .swal2-popup{
-  @apply bg-white text-black dark:text-white dark:bg-dark-900;
+  @apply bg-white text-black dark:text-white dark:bg-zinc-800;
 }
 .swal2-popup.swal2-toast{
-  @apply !bg-white text-black dark:text-white dark:!bg-dark-900;
+  @apply !bg-white text-black dark:text-white dark:!bg-zinc-800;
 }
 .swal2-timer-progress-bar {
   @apply !bg-dark-900/30  dark:!bg-verde-900/30;
