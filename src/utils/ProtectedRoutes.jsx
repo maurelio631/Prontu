@@ -1,6 +1,6 @@
-import React from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { useUser } from './UserContext'; // Importa o contexto do usuário
+import { useUser } from './UserContext'; 
+import { Loading } from '../components/Loading';
 
 const checkPermissions = (userRole, path) => {
     const permissions = {
@@ -13,8 +13,12 @@ const checkPermissions = (userRole, path) => {
 };
 
 export const ProtectedRoutes = () => {
-    const { user } = useUser();
+    const { user, loading } = useUser();
     const location = useLocation();
+
+    if (loading) {
+        return <Loading/>
+    }
 
     if (!user) {
         return <Navigate to="/login" />;
