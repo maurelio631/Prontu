@@ -1,17 +1,18 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Importar useNavigate
+import { useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import logoLogin from "../assets/logoLogin.svg";
 import { GoUpload } from "react-icons/go";
 import { InputText } from "../components/InputText";
 import axios from "axios";
-import { toastErrorAlert} from "../utils/Alerts";
+import { toastErrorAlert } from "../utils/Alerts";
 import Swal from "sweetalert2";
 
 export function ClinicRegistration() {
     const [inputFileData, setInputFileData] = useState("");
     const [register, setRegister] = useState({});
-    const navigate = useNavigate(); 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const navigate = useNavigate();
 
     const handleFileName = (event) => {
         const files = Array.from(event.target.files);
@@ -52,24 +53,28 @@ export function ClinicRegistration() {
     };
 
     const formSubmit = (data) => {
+        setIsSubmitting(true);
         axios.post('http://localhost:3000/signup', data)
-            .then(function (res) {
-                let clinic = res.data.codeClinic;
-                let msg = res.data.msg;
+        .then(function (res) {
+            let clinic = res.data.codeClinic;
+            let msg = res.data.msg;
 
-                Swal.fire({
-                    title: `${msg}`,
-                    text: `O código da sua clinica é ${clinic}`,
-                    icon: "success",
-                    showConfirmButton: false,
-                    timer: 1500
-                }).then(() => {
-                    navigate('/login'); 
-                });
-            })
-            .catch(function (err) {
-                toastErrorAlert(err.response.data.error);
+            Swal.fire({
+                title: `${msg}`,
+                text: `O código da sua clínica é ${clinic}`,
+                icon: "success",
+                showConfirmButton: false,
+                timer: 1500
+            }).then(() => {
+                navigate('/login');
             });
+        })
+        .catch(function (err) {
+            toastErrorAlert(err.response.data.error);
+        })
+        .finally(() => {
+            setIsSubmitting(false); 
+        });
     };
 
     return (
@@ -128,8 +133,13 @@ export function ClinicRegistration() {
                     </div>
 
                     <div className="flex flex-col gap-3 items-center  sm:gap-0 sm:flex-row sm:justify-end">
-                        <button onClick={formValidation} type="button" className="bg-azul-900 text-white min-w-20 rounded-lg py-2.5 px-5 hover:bg-azul-900/70 font-medium">
-                            Cadastrar
+                        <button
+                            onClick={formValidation}
+                            type="button"
+                            className={`bg-azul-900 text-white min-w-20 rounded-lg py-2.5 px-5 font-medium ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-azul-900/70'}`}
+                            disabled={isSubmitting}
+                        >
+                            {isSubmitting ? 'Cadastrando...' : 'Cadastrar'}
                         </button>
                     </div>
                 </form>

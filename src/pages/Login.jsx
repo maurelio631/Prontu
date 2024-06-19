@@ -1,36 +1,84 @@
 import { useState } from "react";
-import  logoLogin  from "../assets/logoLogin.svg";
+import logoLogin from "../assets/logoLogin.svg";
 import logo from "../assets/logo.svg";
-
 import { InputText } from "../components/InputText";
-import { useDarkMode } from "../utils/DarkModeContext";
+import { toastErrorAlert } from "../utils/Alerts";
+import axios from "axios";
+import { useUser } from "../utils/UserContext";
+import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2"; // Certifique-se de importar Swal se for usá-lo
 
-export function Login(){
+export function Login() {
 
-    const { darkMode } = useDarkMode();
     const [statusLogin, setStatusLogin] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const { setUser } = useUser();
+    const navigate = useNavigate(); // Use o hook useNavigate
+    const [accessToken, setAccessToken] = useState("");
 
-    const [loginData, setDataLogin] = useState({})
-    const [forgotPasswordData, setForgotPasswordData] = useState({})
+    const [loginData, setDataLogin] = useState({});
 
     const changeLoginData = (id, value) => {
-        setDataLogin(prevData => ({
+        setDataLogin((prevData) => ({
             ...prevData,
             [id]: value,
         }));
     };
 
-    const changeForgotData = (id, value) => {
-        setForgotPasswordData(prevData => ({
-            ...prevData,
-            [id]: value,
-        }));
+    const formValidationLogin = () => {
+        if (!loginData.codeClinic || !loginData.email || !loginData.password) {
+            toastErrorAlert("Por favor, preencha todos os campos.");
+            return;
+        }
+        formSubmitLogin(loginData);
+    };
+
+    const formSubmitLogin = (data) => {
+        setIsSubmitting(true);
+        axios.post("http://localhost:3000/auth", data)
+        .then((res) => {
+            const token = res.data.accessToken;
+            setAccessToken(token); // Armazenar o token JWT
+            alert("sucesso");
+            return signInWithToken(token); // Enviar uma solicitação para /signin com o token JWT
+        })
+        .catch((err) => {
+            toastErrorAlert(err.response.data.error);
+        })
+        .finally(() => {
+            setIsSubmitting(false);
+        });
+    };
+
+    const signInWithToken = (token) => {
+        axios.get("http://localhost:3000/signin", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        .then((res) => {
+            const userData = res.data;
+            console.log(userData);
+            setUser(userData); // Atualizar o contexto do usuário
+
+            Swal.fire({
+                title: `Bem-vindo(a) ${userData.name}`,
+                text: `O código da sua clínica é ${userData.idClinic}`,
+                icon: "success",
+                showConfirmButton: false,
+                timer: 1500,
+            }).then(() => {
+                navigate('/home/agenda'); // Redirecionar para a página de agenda
+            });
+        })
+        .catch((err) => {
+            toastErrorAlert(err.response.data.error);
+        });
     };
 
     return (
-        <main className={`flex w-full flex-col sm:flex-row h-screen ${darkMode && 'dark'}`}>
-
-            <div className="w-full py-10 sm:bg-azul-900 sm:p-0  sm:w-1/2 flex items-center justify-center">
+        <main className={`flex w-full flex-col sm:flex-row h-screen`}>
+            <div className="w-full py-10 sm:bg-azul-900 sm:p-0 sm:w-1/2 flex items-center justify-center">
                 <img src={logoLogin} alt="logo" className="hidden sm:block" />
                 <img src={logo} alt="logo" className="block sm:hidden" />
             </div>
@@ -43,44 +91,42 @@ export function Login(){
                             <p className="text-center sm:text-left">Informe seus dados para acessar a plataforma.</p>
                         </div>
 
-                        <InputText InputId={"codClinica"} labelName={'Código da clínica:'} onChange={changeLoginData} />
-                        <InputText InputId={"codFuncionario"} labelName={'Código do funcionário:'} onChange={changeLoginData}/>
-                        <InputText InputId={"senha"} labelName={'Senha:'} password={true} onChange={changeLoginData} />
+                        <InputText InputId={"codeClinic"} labelName={'Código da clínica:'} onChange={changeLoginData} />
+                        <InputText InputId={"email"} labelName={'Email:'} onChange={changeLoginData} />
+                        <InputText InputId={"password"} labelName={'Senha:'} password={true} onChange={changeLoginData} />
 
-                        <div className="flex flex-col gap-3 items-center  sm:gap-0 sm:flex-row sm:justify-between">
+                        <div className="flex flex-col gap-3 items-center sm:gap-0 sm:flex-row sm:justify-between">
                             <button type="button" onClick={() => setStatusLogin(true)} className="border-2 border-azul-900 text-azul-900 rounded-lg py-2 px-4 ">
                                 Esqueci minha senha
                             </button>
 
-                            <button type="button" className="bg-azul-900 text-white w-20 rounded-lg py-2  hover:bg-azul-900/70">
+                            <button onClick={formValidationLogin} disabled={isSubmitting} type="button" className="bg-azul-900 text-white w-20 rounded-lg py-2 hover:bg-azul-900/70">
                                 Entrar
                             </button>
                         </div>
                     </form>
-                )
-                    :
-                (
+                ) : (
                     <form className="w-full max-w-[440px] flex flex-col gap-5 px-5">
                         <div className="mb-5">
                             <h2 className="text-xl sm:text-4xl font-semibold text-center sm:text-left">Recuperação de senha</h2>
                             <p className="text-center sm:text-left">Informe os dados necessários para recuperar sua senha</p>
                         </div>
 
-                        <InputText InputId={"codClinica"} labelName={'Código da clínica:'} onChange={changeForgotData} />
-                        <InputText InputId={"codFuncionario"} labelName={'Código do funcionário:'} onChange={changeForgotData} />
+                        <InputText InputId={"codClinica"} labelName={'Código da clínica:'} onChange={changeLoginData} />
+                        <InputText InputId={"codFuncionario"} labelName={'Código do funcionário:'} onChange={changeLoginData} />
 
-                        <div className="flex flex-col-reverse gap-3 items-center  sm:gap-0 sm:flex-row sm:justify-between">
+                        <div className="flex flex-col-reverse gap-3 items-center sm:gap-0 sm:flex-row sm:justify-between">
                             <button type="button" onClick={() => setStatusLogin(false)} className="border-2 border-azul-900 text-azul-900 rounded-lg py-2 px-4">
                                 Voltar
                             </button>
 
-                            <button type="button" className="bg-azul-900 text-white  rounded-lg py-2 px-4 hover:bg-azul-900/70">
+                            <button type="button" className="bg-azul-900 text-white rounded-lg py-2 px-4 hover:bg-azul-900/70">
                                 Enviar recuperação de senha
                             </button>
                         </div>
                     </form>
-                )}           
-            </div>      
+                )}
+            </div>
         </main>
-    )
+    );
 }
