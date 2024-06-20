@@ -8,9 +8,9 @@ export function Page404() {
             <img src={erroSvg} alt="" className="w-full max-w-60" />
 
             <h1 className="text-6xl font-bold text-azul-900 mb-5">Opa!</h1>
-            <spam className="text-cinza-950 dark:text-cinza-700 text-3xl font-normal text-center">
+            <span className="text-cinza-950 dark:text-cinza-700 text-3xl font-normal text-center">
                 Não encontramos a página que você tentou acessar
-            </spam>
+            </span>
 
             <div className="flex gap-5 pt-4 w-full justify-center flex-wrap">
                 <Link className="bg-azul-900 p-2 text-white rounded-xl font-semibold" to={'/Aquiro'}>Form</Link>

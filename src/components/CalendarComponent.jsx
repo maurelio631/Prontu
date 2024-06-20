@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { toastErrorAlert } from '../utils/Alerts';
+import { InputText } from './InputText';
 
 const DAYS = ['DOM', 'SEG', 'TER', 'QUA', 'QUI', 'SEX', 'SÁB'];
 const HOURS = Array.from({ length: 10 }, (_, i) => `${i + 8}:00 - ${i + 9}:00`);
@@ -19,14 +20,14 @@ export function CalendarComponent() {
     const [openEventModal, setOpenEventModal] = useState(false);
     const [selectedEventIndex, setSelectedEventIndex] = useState(null);
     const [events, setEvents] = useState([{
-        event_id: 1,
-        event_consultType: "1° Retorno",
-        event_dateForListing: "Wed Jun 05 2024",
-        event_dayConsult: "qua., 5 de junho",
-        event_hourConsult: "11:00 - 12:00",
-        event_notes: "nota",
-        event_patientName: "Rafael Melo",
-        event_phone: "11999339613"
+        // event_id: 1,
+        // event_consultType: "1° Retorno",
+        // event_dateForListing: "Wed Jun 05 2024",
+        // event_dayConsult: "qua., 5 de junho",
+        // event_hourConsult: "11:00 - 12:00",
+        // event_notes: "nota",
+        // event_patientName: "Rafael Melo",
+        // event_phone: "11999339613"
     }]);
 
     const [newEvent, setNewEvent] = useState({
@@ -44,6 +45,7 @@ export function CalendarComponent() {
         updateWeek();
     }, [currentDate]);
 
+    //functions to manipulate the time
     const updateWeek = () => {
         const startOfWeek = new Date(currentDate);
         startOfWeek.setDate(currentDate.getDate() - currentDate.getDay());
@@ -76,17 +78,10 @@ export function CalendarComponent() {
         const newDate = new Date();
         setCurrentDate(newDate);
     };
+    
 
+    //function to show the modal
     const showEventModal = (date, hour) => {
-        const eventExists = events.some(event =>
-            new Date(event.event_dateForListing).toDateString() === date.toDateString() &&
-            event.event_hourConsult === hour
-        );
-
-        if (eventExists) {
-            return;
-        }
-
         setNewEvent({
             ...newEvent,
             dateForListing: date.toDateString(),
@@ -95,6 +90,9 @@ export function CalendarComponent() {
         });
         setOpenEventModal(true);
     };
+
+
+    //options for the events
     const handleEventClick = (eventIndex) => {
         setSelectedEventIndex(selectedEventIndex === eventIndex ? null : eventIndex);
     };
@@ -110,28 +108,22 @@ export function CalendarComponent() {
 
     const handleUnmarkEvent = (eventIndex) => {
         console.log(week)
-
     };
 
 
+    //functions to get and set values 
+    const handleChange = (InputId, value) => {
+        const updatedData = { ...newEvent, [InputId]: value };
+        setNewEvent(updatedData);
+    };
+    
     const addEvent = () => {
-        if (newEvent.patientName === '' || newEvent.consultType === '') {
+        if (!newEvent.patientName || !newEvent.consultType) {
             const msgError = `Preencha os campos:
-            ${newEvent.patientName === '' ? 'Nome,' : ''}${newEvent.consultType === '' ? ' Tipo de consulta' : ''}`
+            ${!newEvent.patientName ? 'Nome,' : ''}${!newEvent.consultType  ? ' Tipo de consulta' : ''}`
             toastErrorAlert(msgError)
             return;
         }
-
-        const eventExists = events.some(event =>
-            new Date(event.event_dateForListing).toDateString() === newEvent.dateForListing &&
-            event.event_hourConsult === newEvent.hourConsult
-        );
-
-        if (eventExists) {
-            toastErrorAlert('Já existe um evento agendado para este horário.');
-            return;
-        }
-
         setEvents([...events, {
             event_id: Math.floor(Math.random() * 10) + 1,
             event_patientName: newEvent.patientName,
@@ -189,9 +181,6 @@ export function CalendarComponent() {
                                 </div>
                             )}
                         </div>
-                        {/* <div>
-                            adicionar botão
-                        </div> */}
                     </div>
 
                     <div className="-mx-1 -mb-1 dark:-mx-0 dark:-mb-0">
@@ -277,6 +266,7 @@ export function CalendarComponent() {
                             <div className="bg-white text-black dark:bg-dark-800 dark:text-white shadow w-full rounded-lg  overflow-hidden block p-8">
                                 <label htmlFor="patientName" className='w-full pb-2'>
                                     <input
+                                        autoComplete='off'
                                         type="text"
                                         id='patientName'
                                         name='patientName'
@@ -288,22 +278,20 @@ export function CalendarComponent() {
                                 </label>
 
                                 <div className='flex gap-5'>
-                                    <input
-                                        type="text"
-                                        id='dayConsult'
-                                        name='patientName'
-                                        className="w-full custom-input text-center cursor-not-allowed"
-                                        value={newEvent.dayConsult}
-                                        readOnly
+                                    <InputText
+                                        InputId={"dayConsult"}
+                                        onChange={handleChange}
+                                        val={newEvent.dayConsult}
+                                        classInput={'cursor-not-allowed text-center'}
+                                        readonly={true}
                                     />
 
-                                    <input
-                                        type="text"
-                                        id='hourConsult'
-                                        name='hourConsult'
-                                        className="w-full custom-input text-center cursor-not-allowed"
-                                        value={newEvent.hourConsult}
-                                        readOnly
+                                    <InputText
+                                        InputId={"hourConsult"}
+                                        onChange={handleChange}
+                                        val={newEvent.hourConsult}
+                                        classInput={'cursor-not-allowed  text-center'}
+                                        readonly={true}
                                     />
                                 </div>
 
@@ -325,23 +313,22 @@ export function CalendarComponent() {
 
                                 <label htmlFor="tel" className='flex items-center mb-5'>
                                     <p className='w-full max-w-24'>Tel. Contato</p>
-                                    <input
-                                        type="text"
-                                        id='tel'
-                                        name='tel'
-                                        className="w-full custom-input mt-2"
-                                        onChange={(e) => setNewEvent({ ...newEvent, phone: e.target.value })}
+                                    <InputText
+                                        InputId={"phone"}
+                                        onChange={handleChange}
+                                        mask={'general'}
+                                        maskOptions={{ delimiters: [' ',], blocks: [2, 9] }}
+                                        val={newEvent.phone}   
                                     />
                                 </label>
 
                                 <label htmlFor="notes" className='flex items-center '>
                                     <p className='w-full max-w-24'>Anotações</p>
-                                    <input
-                                        type="text"
-                                        id='notes'
-                                        name='notes'
-                                        className="w-full custom-input mt-2"
-                                        onChange={(e) => setNewEvent({ ...newEvent, notes: e.target.value })}
+                                    
+                                    <InputText
+                                        InputId={"notes"}
+                                        onChange={handleChange}
+                                        val={newEvent.notes}
                                     />
                                 </label>
 

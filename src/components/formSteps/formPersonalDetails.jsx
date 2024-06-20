@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { InputText } from "../InputText";
 
 export function FormPersonalDetails({ data, onDataChange }) {
     const [localData, setLocalData] = useState(data);
@@ -14,103 +15,89 @@ export function FormPersonalDetails({ data, onDataChange }) {
         setLocalData(data);
     }, [data]);
 
-    const handleChange = (event) => {
+    const handleChange = (InputId, value) => {
+        const updatedData = { ...localData, [InputId]: value };
+        setLocalData(updatedData);
+        onDataChange(updatedData);
+    };
+
+    const handleChangeRadio = (event) => {
         const { name, value } = event.target;
         const updatedData = { ...localData, [name]: value };
         setLocalData(updatedData);
         onDataChange(updatedData);
     };
 
-
     return (
         <div className="flex max-w-[1040px] m-auto flex-col gap-5 text-base font-medium">
-            <label htmlFor="txt-nome" className="flex flex-col gap-2 custom-label">
-                Nome:
-                <input
-                    id="txt-nome"
-                    type="text"
-                    name="nome"
-                    className="custom-input"
-                    value={localData.nome || ""}
-                    onChange={handleChange}
-                />
-            </label>
+
+            <InputText 
+                InputId={'name'} 
+                labelName={'Nome:'} 
+                onChange={handleChange} 
+                val={localData.name || ""}
+                max={50} 
+            />
 
             <div className="flex gap-5 flex-col md:flex-row">
-                <label htmlFor="nasc" className="flex flex-col gap-2 w-full md:w-1/3 custom-label">
-                    Nascimento:
-                    <input
-                        id="nasc"
-                        type="text"
-                        name="nasc"
-                        className="custom-input"
-                        value={localData.nasc || ""}
-                        onChange={handleChange}
-                    />
-                </label>
+                <InputText 
+                    InputId={'birth_date'} 
+                    labelName={'Nascimento:'} 
+                    onChange={handleChange} 
+                    val={localData.birth_date || ""} 
+                    classLabel={'md:w-1/3'}
+                    mask="date"
+                    maskOptions={{ delimiter: '/', datePattern: ['d', 'm', 'Y'] }} 
+                />
 
-                <label htmlFor="txt-tel" className="flex flex-col gap-2 w-full md:w-1/3 custom-label">
-                    Telefone de Contato:
-                    <input
-                        id="txt-tel"
-                        type="text"
-                        name="txt-tel"
-                        className="custom-input"
-                        value={localData["txt-tel"] || ""}
-                        onChange={handleChange}
-                    />
-                </label>
+                <InputText 
+                    InputId={'phone'} 
+                    labelName={'Telefone de Contato:'} 
+                    onChange={handleChange} 
+                    val={localData.phone || ""} 
+                    classLabel={'md:w-1/3'} 
+                    mask="general"
+                    maskOptions={{ delimiters: [' ',], blocks: [2, 9]}}
+                />
 
-                <label htmlFor="txt-cpf" className="flex flex-col gap-2 w-full md:w-1/3 custom-label">
-                    CPF:
-                    <input
-                        id="txt-cpf"
-                        type="text"
-                        name="txt-cpf"
-                        className="custom-input"
-                        value={localData["txt-cpf"] || ""}
-                        onChange={handleChange}
-                    />
-                </label>
+                <InputText 
+                    InputId={'cpf'} 
+                    labelName={'CPF:'} 
+                    onChange={handleChange} 
+                    val={localData.cpf || ""} 
+                    classLabel={'md:w-1/3'} 
+                    mask="general"
+                    maskOptions={{ delimiters: ['.', '.', '-'], blocks: [3, 3, 3, 2]}}
+                />
             </div>
 
             <div className="flex gap-5 flex-col md:flex-row">
-                <label htmlFor="txt-profi" className="flex flex-col gap-2 w-full md:w-1/4 custom-label">
-                    Profissão:
-                    <input
-                        id="txt-profi"
-                        type="text"
-                        name="txt-profi"
-                        className="custom-input"
-                        value={localData["txt-profi"] || ""}
-                        onChange={handleChange}
-                    />
-                </label>
-
-                <label htmlFor="txt-email" className="flex flex-col gap-2 w-full md:w-1/2 custom-label">
-                    E-mail:
-                    <input
-                        id="txt-email"
-                        type="text"
-                        name="txt-email"
-                        className="custom-input"
-                        value={localData["txt-email"] || ""}
-                        onChange={handleChange}
-                    />
-                </label>
-            </div>
-
-            <label htmlFor="txt-endr" className="flex flex-col gap-2 w-full custom-label">
-                Endereço:
-                <input
-                    id="txt-endr"
-                    type="text"
-                    name="txt-endr"
-                    className="custom-input"
-                    value={localData["txt-endr"] || ""}
-                    onChange={handleChange}
+                <InputText 
+                    InputId={'profession'} 
+                    labelName={'Profissão:'} 
+                    onChange={handleChange} 
+                    val={localData.profession || ""} 
+                    classLabel={'md:w-1/4'} 
+                    max={30} 
                 />
-            </label>
+                <InputText 
+                    InputId={'email'} 
+                    labelName={'E-mail:'} 
+                    onChange={handleChange} 
+                    val={localData.email || ""} 
+                    classLabel={'md:w-1/2'} 
+                    max={60}
+                />
+            </div>
+            
+            <InputText 
+                InputId={'address'} 
+                labelName={'Endereço:'} 
+                onChange={handleChange} 
+                val={localData.address || ""} 
+                max={40}
+            />
+
 
             <p className="textSwitch">Como você nos conheceu?</p>
             <div className='flex  w-full gap-2 flex-col min-[710px]:flex-row'>
@@ -119,17 +106,16 @@ export function FormPersonalDetails({ data, onDataChange }) {
                         <input
                             type="radio"
                             id={option.id}
-                            name='comoDescobriu'
+                            name='how_know_us'
                             value={option.name}
                             className="radio-input"
-                            checked={localData.comoDescobriu === option.name}
-                            onChange={handleChange}
+                            checked={localData.how_know_us === option.name}
+                            onChange={handleChangeRadio}
                         />
                         <label htmlFor={option.id} className="radio-label">{option.name}</label>
                     </div>
                 ))}
             </div>
-
         </div>
     );
 }

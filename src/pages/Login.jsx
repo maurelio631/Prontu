@@ -11,6 +11,7 @@ export function Login() {
     const [statusLogin, setStatusLogin] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [loginData, setDataLogin] = useState({});
+
     const { login } = useUser();
     const navigate = useNavigate();
 
@@ -20,26 +21,33 @@ export function Login() {
             [id]: value,
         }));
     };
+    
 
     const formValidationLogin = () => {
         if (!loginData.codeClinic || !loginData.email || !loginData.password) {
             toastErrorAlert("Por favor, preencha todos os campos.");
             return;
         }
-        formSubmitLogin(loginData);
+        const formateData = {
+            ...loginData,
+            codeClinic: loginData.codeClinic.toUpperCase(),
+        };
+        formSubmitLogin(formateData);
     };
 
     const formSubmitLogin = async (data) => {
-            setIsSubmitting(true);
+        setIsSubmitting(true);
         try {
             await login(data);
             navigate('/home/agenda');
         } catch (err) {
-            toastErrorAlert("Erro ao fazer login.");
+            const errorMessage = err.response?.data?.error || 'Erro desconhecido durante o login';
+            toastErrorAlert(errorMessage);
         } finally {
             setIsSubmitting(false);
-        }s
+        }
     };
+
 
     return (
         <main className={`flex w-full flex-col sm:flex-row h-screen`}>
@@ -56,9 +64,26 @@ export function Login() {
                             <p className="text-center sm:text-left">Informe seus dados para acessar a plataforma.</p>
                         </div>
 
-                        <InputText InputId={"codeClinic"} onChange={changeLoginData} labelName={'Código da clínica:'} />
-                        <InputText InputId={"email"}    onChange={changeLoginData} labelName={'Email:'} />
-                        <InputText InputId={"password"} onChange={changeLoginData} labelName={'Senha:'} password={true} />
+                        <InputText 
+                            InputId={"codeClinic"} 
+                            onChange={changeLoginData} 
+                            labelName={'Código da clínica:'} 
+                            classInput={'uppercase'} 
+                            val={loginData.codeClinic}
+                        />
+                        <InputText 
+                            InputId={"email"}      
+                            onChange={changeLoginData} 
+                            labelName={'Email:'} 
+                            val={loginData.email}
+                        />
+                        <InputText 
+                            InputId={"password"}   
+                            onChange={changeLoginData} 
+                            labelName={'Senha:'} 
+                            password={true} 
+                            val={loginData.password}
+                        />
 
                         <div className="flex flex-col gap-3 items-center sm:gap-0 sm:flex-row sm:justify-between">
                             <button type="button" onClick={() => setStatusLogin(true)} className="border-2 border-azul-900 text-azul-900 rounded-lg py-2 px-4 ">
@@ -77,8 +102,19 @@ export function Login() {
                             <p className="text-center sm:text-left">Informe os dados necessários para recuperar sua senha</p>
                         </div>
 
-                        <InputText InputId={"codClinica"} labelName={'Código da clínica:'} onChange={changeLoginData} />
-                        <InputText InputId={"codFuncionario"} labelName={'Código do funcionário:'} onChange={changeLoginData} />
+                        <InputText
+                            InputId={"codeClinic"}
+                            onChange={changeLoginData}
+                            labelName={'Código da clínica:'}
+                            classInput={'uppercase'}
+                            val={loginData.codeClinic}
+                        />
+                        <InputText
+                            InputId={"email"}
+                            onChange={changeLoginData}
+                            labelName={'Email:'}
+                            val={loginData.email}
+                        />
 
                         <div className="flex flex-col-reverse gap-3 items-center sm:gap-0 sm:flex-row sm:justify-between">
                             <button type="button" onClick={() => setStatusLogin(false)} className="border-2 border-azul-900 text-azul-900 rounded-lg py-2 px-4">

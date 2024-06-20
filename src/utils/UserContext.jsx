@@ -8,7 +8,7 @@ export const useUser = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [token, setToken] = useState(null);
-    const [loading, setLoading] = useState(true); // Adiciona estado de loading
+    const [loading, setLoading] = useState(true);
 
     const login = async (data) => {
         try {
@@ -19,7 +19,7 @@ export const UserProvider = ({ children }) => {
             await fetchUserData(token);
         } catch (err) {
             console.error('Login error', err);
-            throw new Error('Login failed');
+            throw err;
         }
     };
 
@@ -35,7 +35,7 @@ export const UserProvider = ({ children }) => {
             console.error('Error fetching user data', err);
             logout(); // Logout if token is invalid
         } finally {
-            setLoading(false); // Finaliza o estado de loading
+            setLoading(false);
         }
     };
 
@@ -45,7 +45,7 @@ export const UserProvider = ({ children }) => {
             setToken(storedToken);
             fetchUserData(storedToken);
         } else {
-            setLoading(false); // Finaliza o estado de loading se não houver token
+            setLoading(false);
         }
     }, []);
 
@@ -53,7 +53,7 @@ export const UserProvider = ({ children }) => {
         setUser(null);
         setToken(null);
         localStorage.removeItem('token');
-        setLoading(false); // Finaliza o estado de loading no logout
+        setLoading(false);
     };
 
     return (
