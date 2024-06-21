@@ -6,7 +6,7 @@ import { FormPersonalDetails } from "../components/formSteps/formPersonalDetails
 import { FormUncomfortableAreas } from "../components/formSteps/formUncomfortableAreas";
 import { FormSymptoms } from "../components/formSteps/formSymptoms";
 import { FormMoreSymptoms } from "../components/formSteps/formMoreSymptoms";
-import Swal from "sweetalert2";
+import { confirmAlert, toastErrorAlert } from "../utils/Alerts";
 
 
 export function SelfEvaluation() {
@@ -42,35 +42,59 @@ export function SelfEvaluation() {
     }
   };
 
+
+  const scrollToTop = () => {
+    if (sectionScroll.current) {
+      sectionScroll.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
   const concluiStep = () => {
     if (step !== 4) {
       setStep(step + 1);
-      if (sectionScroll.current) {
-        sectionScroll.current.scrollTo({ top: 0, behavior: 'smooth' });
-      }
+      scrollToTop();
     } else {
-      Swal.fire({
-        title: "Auto-avaliação preenchida com sucesso!",
-        confirmButtonText: "Concluir",
-        showDenyButton: true,
-        denyButtonText: "Editar auto-avaliação"
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire("Salvo com sucesso!", "", "success");
-          console.log(formData);
-        } else if (result.isDenied) {
-          setStep(1);
-        }
-      });
+      validationForm();
     }
   };
 
   const retornaStep = () => {
     setStep(step - 1);
-    if (sectionScroll.current) {
-      sectionScroll.current.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    scrollToTop();
   };
+
+  const validationForm = () => {
+    if (  
+        !formData.personalDetails.name || 
+        !formData.personalDetails.birth_date  || 
+        !formData.personalDetails.phone ||
+        !formData.personalDetails.cpf ||
+        !formData.personalDetails.profession ||
+        !formData.personalDetails.email ||
+        !formData.personalDetails.how_know_us ||
+
+        !formData.uncomfortableAreas.uncomfortableAreas ||
+
+        !formData.symptoms.description ||
+        !formData.symptoms.cause ||
+        !formData.symptoms.discomforts.length ||
+        !formData.symptoms.frequency  ||
+
+        !formData.moreSymptoms.discomfortIncreases.length ||
+        !formData.moreSymptoms.discomfortDecreases.length    
+      ) {
+        console.log(formData);
+      toastErrorAlert('Preencha todos os campos do formulário!');
+    }else {
+      confirmAlert("Auto-avaliação preenchida com sucesso!", "Concluir", "Editar auto-avaliação", submitForm, () => setStep(1));
+    }
+
+    
+  }
+
+  const submitForm = () => {
+    console.log(formData);
+  }
 
   return (
     <Wrapper>

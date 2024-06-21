@@ -1,11 +1,11 @@
-export const sintomas = [
-        { id: 1, name: 'Queda ou trauma' },
-        { id: 2, name: 'Sem causa aparente' },
-        { id: 3, name: 'Má postura ou atividades diárias' },
-        { id: 4, name: 'Outros' }
-    ];
+export const causes = [
+    { id: 1, name: 'Queda ou trauma' },
+    { id: 2, name: 'Sem causa aparente' },
+    { id: 3, name: 'Má postura ou atividades diárias' },
+    { id: 4, name: 'Outros' }
+];
 
-export const desconfortos = [
+export const discomforts = [
     { id: 5, name: 'Pontada' },
     { id: 6, name: 'Queimação' },
     { id: 7, name: 'Peso' },
@@ -16,14 +16,14 @@ export const desconfortos = [
     { id: 12, name: 'Inflamação' }
 ];
 
-export const frequencias = [
+export const frequencies = [
     { id: 13, name: '1% a 25%' },
     { id: 14, name: '25% a 50%' },
     { id: 15, name: '50% a 75%' },
     { id: 16, name: '75% a 100%' }
 ];
 
-export const desconfortoAumenta = [
+export const discomfortIncreases = [
     { id: 17, name: 'Movimento' },
     { id: 18, name: 'Repouso' },
     { id: 19, name: 'De pé' },
@@ -34,7 +34,7 @@ export const desconfortoAumenta = [
     { id: 24, name: 'Outros' },
 ];
 
-export const desconfortoDiminui = [
+export const discomfortDecreases = [
     { id: 25, name: 'Movimento' },
     { id: 26, name: 'Repouso' },
     { id: 27, name: 'Medicamento' },
@@ -47,7 +47,7 @@ export const desconfortoDiminui = [
     { id: 34, name: 'Outros' },
 ];
 
-export const estadoGeral = [
+export const geralState = [
     { id: 35, name: 'Modificações de peso' },
     { id: 36, name: 'Feridas/nódulos na pele' },
     { id: 37, name: 'Anemia' },
@@ -57,7 +57,7 @@ export const estadoGeral = [
     { id: 41, name: 'Reumatismo' },
 ];
 
-export const cabecaPescoco = [
+export const headNeck = [
     { id: 42, name: 'Dor de cabeça' },
     { id: 43, name: 'Ranger os dentes' },
     { id: 44, name: 'Tonturas' },
@@ -69,7 +69,7 @@ export const cabecaPescoco = [
     { id: 50, name: 'Caroços no pescoço' },
 ];
 
-export const toraxRespiratorio = [
+export const thoraxRespiratory = [
     { id: 51, name: 'Nódulo/secreção mama' },
     { id: 52, name: 'Tosse frequente' },
     { id: 53, name: 'Catarro frequente' },
@@ -89,7 +89,7 @@ export const gastroIntestinal = [
     { id: 61, name: 'Fezes com sangue' }
 ];
 
-export const genitoUrinário = [
+export const genitoUrinary = [
     { id: 62, name: 'Dor para urinar' },
     { id: 63, name: 'Problemas de próstata' },
     { id: 64, name: 'Disfunção sexual' },

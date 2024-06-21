@@ -58,7 +58,7 @@ export function InputText({ InputId, labelName, required, password, onChange, va
 
     return (
         <label htmlFor={InputId} className={twMerge("text-black dark:text-white relative font-medium w-full", classLabel)}>
-            {required && <b className="text-vermelho-900">*</b>} {labelName}
+            {labelName} {required && <span className="text-vermelho-900">*</span>}
             <input
                 readOnly={readonly}
                 autoComplete='off'

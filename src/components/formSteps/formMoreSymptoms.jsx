@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { cabecaPescoco, cardioVascular, desconfortoAumenta, desconfortoDiminui, estadoGeral, gastroIntestinal, genitoUrinário, toraxRespiratorio } from '../../data/arraySintomas';
+import { discomfortIncreases, discomfortDecreases, geralState, headNeck, thoraxRespiratory, cardioVascular, gastroIntestinal, genitoUrinary } from '../../data/arraySintomas';
 
 export function FormMoreSymptoms({ data, onDataChange }) {
     const [localData, setLocalData] = useState(data);
@@ -34,21 +34,21 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                 <div className="w-full  lg:w-[47%]">
                     <h3 className="font-medium my-5 text-xl text-center textSwitch">
                         O desconforto aumenta com:<br />
-                        (selecione todas as opções compatíveis)
+                        (selecione todas as opções compatíveis) <span className="text-vermelho-900 font-bold">*</span> 
                     </h3>
                     <div className="flex flex-col items-center gap-1 sm:flex-row sm:justify-center sm:flex-wrap">
-                        {desconfortoAumenta.map((desconforto) => (
-                            <div key={desconforto.id} className='w-full sm:w-[24%] text-sm'>
+                        {discomfortIncreases.map((discomfort) => (
+                            <div key={discomfort.id} className='w-full sm:w-[24%] text-sm'>
                                 <input
                                     type="checkbox"
-                                    id={desconforto.id}
-                                    name='desconfortoAumenta'
-                                    value={desconforto.name}
+                                    id={discomfort.id}
+                                    name='discomfortIncreases'
+                                    value={discomfort.name}
                                     className="radio-input"
-                                    checked={(localData.desconfortoAumenta || []).includes(desconforto.name)}
+                                    checked={(localData.discomfortIncreases || []).includes(discomfort.name)}
                                     onChange={handleChange}
                                 />
-                                <label htmlFor={desconforto.id} className="radio-label">{desconforto.name}</label>
+                                <label htmlFor={discomfort.id} className="radio-label">{discomfort.name}</label>
                             </div>
                         ))}
                     </div>
@@ -57,21 +57,21 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                 <div className="w-full lg:w-[47%]">
                     <h3 className="font-medium my-5 text-xl text-center textSwitch">
                         O desconforto diminui com:<br />
-                        (selecione todas as opções compatíveis)
+                        (selecione todas as opções compatíveis) <span className="text-vermelho-900 font-bold">*</span>
                     </h3>
                     <div className="flex flex-col items-center gap-1 sm:flex-row sm:justify-center sm:flex-wrap">
-                        {desconfortoDiminui.map((desconforto) => (
-                            <div key={desconforto.id} id={`ajusteInput${desconforto.id}`} className='w-full sm:w-[24%] text-sm'>
+                        {discomfortDecreases.map((discomfort) => (
+                            <div key={discomfort.id} id={`ajusteInput${discomfort.id}`} className='w-full sm:w-[24%] text-sm'>
                                 <input
                                     type="checkbox"
-                                    id={desconforto.id}
-                                    name='desconfortoDiminui'
-                                    value={desconforto.name}
+                                    id={discomfort.id}
+                                    name='discomfortDecreases'
+                                    value={discomfort.name}
                                     className="radio-input"
-                                    checked={(localData.desconfortoDiminui || []).includes(desconforto.name)}
+                                    checked={(localData.discomfortDecreases || []).includes(discomfort.name)}
                                     onChange={handleChange}
                                 />
-                                <label htmlFor={desconforto.id} className="radio-label">{desconforto.name}</label>
+                                <label htmlFor={discomfort.id} className="radio-label">{discomfort.name}</label>
                             </div>
                         ))}
                     </div>
@@ -84,89 +84,89 @@ export function FormMoreSymptoms({ data, onDataChange }) {
                 
                 <div className='w-full min-[860px]:w-[19%]'>
                     <h3 className='text-base text-center font-medium mt-9 textSwitch'>Estado Geral</h3>
-                    {estadoGeral.map((estado) => (
-                        <div key={estado.id} className='text-sm text-center mb-2'>
+                    {geralState.map((state) => (
+                        <div key={state.id} className='text-sm text-center mb-2'>
                             <input
                                 type="checkbox"
-                                id={estado.id}
-                                name='estadoGeral'
-                                value={estado.name}
+                                id={state.id}
+                                name='geralState'
+                                value={state.name}
                                 className="radio-input"
-                                checked={(localData.estadoGeral || []).includes(estado.name)}
+                                checked={(localData.geralState || []).includes(state.name)}
                                 onChange={handleChange}
                             />
-                            <label htmlFor={estado.id} className="radio-label">{estado.name}</label>
+                            <label htmlFor={state.id} className="radio-label">{state.name}</label>
                         </div>
                     ))}
                 </div>
 
                 <div className='w-full min-[860px]:w-[19%]'>
                     <h3 className='text-base text-center font-medium mt-9 textSwitch'>Cabeça e Pescoço</h3>
-                    {cabecaPescoco.map((estado) => (
-                        <div key={estado.id} className='text-sm text-center mb-2'>
+                    {headNeck.map((state) => (
+                        <div key={state.id} className='text-sm text-center mb-2'>
                             <input
                                 type="checkbox"
-                                id={estado.id}
-                                name='cabecaPescoco'
-                                value={estado.name}
+                                id={state.id}
+                                name='headNeck'
+                                value={state.name}
                                 className="radio-input"
-                                checked={(localData.cabecaPescoco || []).includes(estado.name)}
+                                checked={(localData.headNeck || []).includes(state.name)}
                                 onChange={handleChange}
                             />
-                            <label htmlFor={estado.id} className="radio-label">{estado.name}</label>
+                            <label htmlFor={state.id} className="radio-label">{state.name}</label>
                         </div>
                     ))}
                 </div>
 
                 <div className='w-full min-[860px]:w-[19%]'>
                     <h3 className='text-base text-center font-medium mt-9 textSwitch'>Tórax/Respiratório</h3>
-                    {toraxRespiratorio.map((estado) => (
-                        <div key={estado.id} className='text-sm text-center mb-2'>
+                    {thoraxRespiratory.map((state) => (
+                        <div key={state.id} className='text-sm text-center mb-2'>
                             <input
                                 type="checkbox"
-                                id={estado.id}
-                                name='toraxRespiratorio'
-                                value={estado.name}
+                                id={state.id}
+                                name='thoraxRespiratory'
+                                value={state.name}
                                 className="radio-input"
-                                checked={(localData.toraxRespiratorio || []).includes(estado.name)}
+                                checked={(localData.thoraxRespiratory || []).includes(state.name)}
                                 onChange={handleChange}
                             />
-                            <label htmlFor={estado.id} className="radio-label">{estado.name}</label>
+                            <label htmlFor={state.id} className="radio-label">{state.name}</label>
                         </div>
                     ))}
                 </div>
 
                 <div className='w-full min-[860px]:w-[19%]'>
                     <h3 className='text-base text-center font-medium mt-9 textSwitch'>Cardio-Vascular</h3>
-                    {cardioVascular.map((estado) => (
-                        <div key={estado.id} className='text-sm text-center mb-2'>
+                    {cardioVascular.map((state) => (
+                        <div key={state.id} className='text-sm text-center mb-2'>
                             <input
                                 type="checkbox"
-                                id={estado.id}
+                                id={state.id}
                                 name='cardioVascular'
-                                value={estado.name}
+                                value={state.name}
                                 className="radio-input"
-                                checked={(localData.cardioVascular || []).includes(estado.name)}
+                                checked={(localData.cardioVascular || []).includes(state.name)}
                                 onChange={handleChange}
                             />
-                            <label htmlFor={estado.id} className="radio-label">{estado.name}</label>
+                            <label htmlFor={state.id} className="radio-label">{state.name}</label>
                         </div>
                     ))}
 
                     <div>
                         <h3 className='text-base text-center font-medium mt-9 textSwitch'>Gastro-Intestinal</h3>
-                        {gastroIntestinal.map((estado) => (
-                            <div key={estado.id} className='text-sm text-center mb-2'>
+                        {gastroIntestinal.map((state) => (
+                            <div key={state.id} className='text-sm text-center mb-2'>
                                 <input
                                     type="checkbox"
-                                    id={estado.id}
+                                    id={state.id}
                                     name='gastroIntestinal'
-                                    value={estado.name}
+                                    value={state.name}
                                     className="radio-input"
-                                    checked={(localData.gastroIntestinal || []).includes(estado.name)}
+                                    checked={(localData.gastroIntestinal || []).includes(state.name)}
                                     onChange={handleChange}
                                 />
-                                <label htmlFor={estado.id} className="radio-label">{estado.name}</label>
+                                <label htmlFor={state.id} className="radio-label">{state.name}</label>
                             </div>
                         ))}
                     </div>
@@ -174,18 +174,18 @@ export function FormMoreSymptoms({ data, onDataChange }) {
 
                 <div className='w-full min-[860px]:w-[19%]'>
                     <h3 className='text-base text-center font-medium mt-9 textSwitch'>Gênito-Urinário</h3>
-                    {genitoUrinário.map((estado) => (
-                        <div key={estado.id} className='text-sm text-center mb-2'>
+                    {genitoUrinary.map((state) => (
+                        <div key={state.id} className='text-sm text-center mb-2'>
                             <input
                                 type="checkbox"
-                                id={estado.id}
-                                name='genitoUrinário'
-                                value={estado.name}
+                                id={state.id}
+                                name='genitoUrinary'
+                                value={state.name}
                                 className="radio-input"
-                                checked={(localData.genitoUrinário || []).includes(estado.name)}
+                                checked={(localData.genitoUrinary || []).includes(state.name)}
                                 onChange={handleChange}
                             />
-                            <label htmlFor={estado.id} className="radio-label">{estado.name}</label>
+                            <label htmlFor={state.id} className="radio-label">{state.name}</label>
                         </div>
                     ))}
                 </div>

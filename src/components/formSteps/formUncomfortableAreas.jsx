@@ -144,7 +144,7 @@ export function FormUncomfortableAreas({ setFormData }) {
             setFormData(prevState => ({
                 ...prevState,
                 uncomfortableAreas: {
-                    scaledFrame: url
+                    uncomfortableAreas: url
                 }
             }));
 
@@ -158,7 +158,7 @@ export function FormUncomfortableAreas({ setFormData }) {
 
     return (
         <div className="m-auto">
-            <h2 className='text-center font-medium mb-4 text-xl md:text-2xl textSwitch'>Marque as áreas de desconforto na imagem abaixo</h2>
+            <h2 className='text-center font-medium mb-4 text-xl md:text-2xl textSwitch'>Marque as áreas de desconforto na imagem abaixo <span className="text-vermelho-900 font-bold">*</span></h2>
 
             <div className="flex flex-col items-center">
 

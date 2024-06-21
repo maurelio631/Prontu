@@ -37,6 +37,7 @@ export function FormPersonalDetails({ data, onDataChange }) {
                 onChange={handleChange} 
                 val={localData.name || ""}
                 max={50} 
+                required
             />
 
             <div className="flex gap-5 flex-col md:flex-row">
@@ -47,7 +48,8 @@ export function FormPersonalDetails({ data, onDataChange }) {
                     val={localData.birth_date || ""} 
                     classLabel={'md:w-1/3'}
                     mask="date"
-                    maskOptions={{ delimiter: '/', datePattern: ['d', 'm', 'Y'] }} 
+                    maskOptions={{ delimiter: '/', datePattern: ['d', 'm', 'Y'] }}
+                    required 
                 />
 
                 <InputText 
@@ -58,6 +60,7 @@ export function FormPersonalDetails({ data, onDataChange }) {
                     classLabel={'md:w-1/3'} 
                     mask="general"
                     maskOptions={{ delimiters: [' ',], blocks: [2, 9]}}
+                    required
                 />
 
                 <InputText 
@@ -68,6 +71,7 @@ export function FormPersonalDetails({ data, onDataChange }) {
                     classLabel={'md:w-1/3'} 
                     mask="general"
                     maskOptions={{ delimiters: ['.', '.', '-'], blocks: [3, 3, 3, 2]}}
+                    required
                 />
             </div>
 
@@ -79,6 +83,7 @@ export function FormPersonalDetails({ data, onDataChange }) {
                     val={localData.profession || ""} 
                     classLabel={'md:w-1/4'} 
                     max={30} 
+                    required
                 />
                 <InputText 
                     InputId={'email'} 
@@ -87,6 +92,7 @@ export function FormPersonalDetails({ data, onDataChange }) {
                     val={localData.email || ""} 
                     classLabel={'md:w-1/2'} 
                     max={60}
+                    required
                 />
             </div>
             
@@ -96,10 +102,11 @@ export function FormPersonalDetails({ data, onDataChange }) {
                 onChange={handleChange} 
                 val={localData.address || ""} 
                 max={40}
+                required
             />
 
 
-            <p className="textSwitch">Como você nos conheceu?</p>
+            <p className="textSwitch">Como você nos conheceu? <span className="text-vermelho-900 font-bold">*</span></p>
             <div className='flex  w-full gap-2 flex-col min-[710px]:flex-row'>
                 {optionComoConheceu.map((option) => (
                     <div key={option.id} >
