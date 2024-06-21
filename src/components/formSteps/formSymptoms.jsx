@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { causes, discomforts, frequencies } from "../../data/arraySintomas";
+import { causes, discomforts, frequencies } from "../../utils/InputsVal";
 
 export function FormSymptoms({ data, onDataChange }) {
     const [localData, setLocalData] = useState(data);

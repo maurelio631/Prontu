@@ -316,8 +316,8 @@ export function CalendarComponent() {
                                     <InputText
                                         InputId={"phone"}
                                         onChange={handleChange}
-                                        mask={'general'}
-                                        maskOptions={{ delimiters: [' ',], blocks: [2, 9] }}
+                                        mask="phone"
+                                        max={14}
                                         val={newEvent.phone}   
                                     />
                                 </label>

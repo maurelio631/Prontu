@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { discomfortIncreases, discomfortDecreases, geralState, headNeck, thoraxRespiratory, cardioVascular, gastroIntestinal, genitoUrinary } from '../../data/arraySintomas';
+import { discomfortIncreases, discomfortDecreases, geralState, headNeck, thoraxRespiratory, cardioVascular, gastroIntestinal, genitoUrinary } from '../../utils/InputsVal';
 
 export function FormMoreSymptoms({ data, onDataChange }) {
     const [localData, setLocalData] = useState(data);

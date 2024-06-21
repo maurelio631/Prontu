@@ -48,7 +48,7 @@ export function FormPersonalDetails({ data, onDataChange }) {
                     val={localData.birth_date || ""} 
                     classLabel={'md:w-1/3'}
                     mask="date"
-                    maskOptions={{ delimiter: '/', datePattern: ['d', 'm', 'Y'] }}
+                    max={10}
                     required 
                 />
 
@@ -58,8 +58,8 @@ export function FormPersonalDetails({ data, onDataChange }) {
                     onChange={handleChange} 
                     val={localData.phone || ""} 
                     classLabel={'md:w-1/3'} 
-                    mask="general"
-                    maskOptions={{ delimiters: [' ',], blocks: [2, 9]}}
+                    mask="phone"
+                    max={14}
                     required
                 />
 
@@ -69,8 +69,8 @@ export function FormPersonalDetails({ data, onDataChange }) {
                     onChange={handleChange} 
                     val={localData.cpf || ""} 
                     classLabel={'md:w-1/3'} 
-                    mask="general"
-                    maskOptions={{ delimiters: ['.', '.', '-'], blocks: [3, 3, 3, 2]}}
+                    mask="cpf"
+                    max={14}
                     required
                 />
             </div>
