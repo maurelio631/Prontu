@@ -9,6 +9,8 @@ export function Header({ subtitle, clinicSettings }) {
     const { slug } = useParams() || '';
     const { user } = useUser();
 
+    console.log(clinicSettings);
+
     return (
         <header>
             {pathname === `/${slug}`

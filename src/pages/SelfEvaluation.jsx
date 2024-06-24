@@ -115,7 +115,7 @@ export function SelfEvaluation() {
     (
       <Wrapper>
         <div className="w-screen bg-white dark:bg-dark-900">
-          <Header subtitle={`Autoavaliação Prontuário de Atendimento de Quiropraxia`} clinicSettings />
+            <Header subtitle={`Autoavaliação Prontuário de Atendimento de Quiropraxia`} clinicSettings={clinic} />
           <main className="p-9 flex flex-col justify-between relative min-h-[calc(100vh-162px)] min-[470px]:min-h-[calc(100vh-160px)]">
             <form ref={sectionScroll} className="overflow-y-auto min-[470px]:max-h-[calc(100vh-280px)]">
               {getCompStep()}
