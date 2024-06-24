@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
+import { toastErrorAlert } from './Alerts';
 
 const UserContext = createContext();
 
@@ -32,7 +33,7 @@ export const UserProvider = ({ children }) => {
             });
             setUser(res.data);
         } catch (err) {
-            console.error('Error fetching user data', err);
+            toastErrorAlert('Erro ao buscar dados do usuário');
             logout(); // Logout if token is invalid
         } finally {
             setLoading(false);

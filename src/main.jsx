@@ -4,10 +4,10 @@ import "./index.css";
 import "./assets/styles/alerts.css";
 import "./assets/styles/toggle.css";
 
-
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UserProvider } from "./utils/UserContext";
 import { DarkModeProvider } from "./utils/DarkModeContext";
+import { ClinicProvider } from "./utils/GetClinicContext";
 
 import { SelfEvaluation } from "./pages/SelfEvaluation";
 import { Patients } from "./pages/Patients";
@@ -27,7 +27,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <DarkModeProvider>
         <BrowserRouter>
           <Routes>
-            <Route index path="/:nomeClinica" element={<SelfEvaluation />} />
+              <Route index path="/:slug" element={
+                <ClinicProvider>
+                  <SelfEvaluation />
+                </ClinicProvider>
+              }/>
             <Route path="/login" element={<Login />} />
             <Route path="/cadastro" element={<ClinicRegistration />} />
 
@@ -37,7 +41,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
               <Route path="/home/agenda" element={<Calendar />} />
               <Route path="/home/ajustes" element={<PanelConfig />} />
               <Route path="/home/preregistro" element={<PreRegistration />} />
-
             </Route>
 
             <Route path="/page403" element={<Page403 />} />

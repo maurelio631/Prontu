@@ -13,7 +13,7 @@ export function Page404() {
             </span>
 
             <div className="flex gap-5 pt-4 w-full justify-center flex-wrap">
-                <Link className="bg-azul-900 p-2 text-white rounded-xl font-semibold" to={'/Aquiro'}>Form</Link>
+                <Link className="bg-azul-900 p-2 text-white rounded-xl font-semibold" to={'/clxt2tows000114ecl6hhd1vz'}>Form</Link>
                 <Link className="bg-azul-900 p-2 text-white rounded-xl font-semibold" to={'/login'}>Login</Link>
                 <Link className="bg-azul-900 p-2 text-white rounded-xl font-semibold" to={'/cadastro'}>Cadastro</Link>
                 <Link className="bg-azul-900 p-2 text-white rounded-xl font-semibold" to={'/home/pacientes'}>Pacientes</Link>
