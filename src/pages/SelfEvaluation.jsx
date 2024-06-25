@@ -6,15 +6,17 @@ import { FormPersonalDetails } from "../components/formSteps/formPersonalDetails
 import { FormUncomfortableAreas } from "../components/formSteps/formUncomfortableAreas";
 import { FormSymptoms } from "../components/formSteps/formSymptoms";
 import { FormMoreSymptoms } from "../components/formSteps/formMoreSymptoms";
-import { confirmAlert, toastErrorAlert } from "../utils/Alerts";
+import { confirmAlert, toastErrorAlert, toastSuccessAlert } from "../utils/Alerts";
 import { isValidCPF, isValidDate, isValidEmail } from "../utils/ValidateFunctions";
 import { Loading } from "../components/Loading";
 import { useClinic } from "../utils/GetClinicContext";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 
 export function SelfEvaluation() {
   const [step, setStep] = useState(1);
-  const { loading, clinic } = useClinic();
+  const { loading, setLoading, clinic } = useClinic();
   const sectionScroll = useRef(null);
 
   const [formData, setFormData] = useState({
@@ -106,8 +108,26 @@ export function SelfEvaluation() {
     }
   }
 
-  const submitForm = () => {
-    console.log(formData);
+  const submitForm = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.post(`http://localhost:3000/registerSelfEvaluation/${clinic.idClinic}`, formData);
+      Swal.fire("Salvo com sucesso!", "", "success");
+      clearFormData();
+    } catch (err) {
+      toastErrorAlert(err.response.data.error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  const clearFormData = () => {
+    setFormData({
+      personalDetails: {},
+      uncomfortableAreas: {},
+      symptoms: {},
+      moreSymptoms: {}
+    });
   }
 
   return (
@@ -129,7 +149,7 @@ export function SelfEvaluation() {
               >
                 Voltar
               </button>
-
+              
               <button
                 className={`w-full text-white rounded-md py-2 max-w-20 text-base min-[470px]:text-lg min-[470px]:max-w-32 ${step === 4 ? 'bg-verde-900' : 'bg-azul-900'}`}
                 onClick={concluiStep}

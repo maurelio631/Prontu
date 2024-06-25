@@ -9,12 +9,10 @@ export function Header({ subtitle, clinicSettings }) {
     const { slug } = useParams() || '';
     const { user } = useUser();
 
-    console.log(clinicSettings);
-
     return (
         <header>
             {pathname === `/${slug}`
-            ? 
+                ? 
             (
                 <nav className="bg-azul-800 border-cinza-900/20 dark:bg-dark-800 dark:border-dark-100 w-full h-20 flex justify-between  border-b-2 ">
                     <div className="flex items-center">
@@ -36,7 +34,7 @@ export function Header({ subtitle, clinicSettings }) {
                     </div>
                 </nav>
             )
-            : 
+                : 
             (
                 <nav className="bg-azul-800 border-cinza-900/20 dark:bg-dark-800 dark:border-dark-100 w-full h-20 flex justify-between  border-b-2 ">
                     <div className="flex items-center">

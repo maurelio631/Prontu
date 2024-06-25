@@ -8,7 +8,6 @@ export const confirmAlert = (msg, confirmButtonText, cancelButtonText, onConfirm
         denyButtonText: cancelButtonText
     }).then((result) => {
         if (result.isConfirmed) {
-            Swal.fire("Salvo com sucesso!", "", "success");
             if (typeof onConfirm === "function") {
                 onConfirm();
             }

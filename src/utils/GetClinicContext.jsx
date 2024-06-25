@@ -31,7 +31,7 @@ export const ClinicProvider = ({ children }) => {
     }, []);
     
     return (
-        <GetCLinicContext.Provider value={{ clinic, loading }}>
+        <GetCLinicContext.Provider value={{ clinic, loading, setLoading }}>
             {children}
         </GetCLinicContext.Provider>
     );
