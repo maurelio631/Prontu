@@ -1,23 +1,16 @@
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import { Link } from "react-router-dom";
-import { useUser } from "../utils/UserContext";
-
-import { ArrayPacientes } from "../data/fakes";
-
 import { LuPencil } from "react-icons/lu";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { TbChevronLeft, TbChevronRight, TbChevronsLeft, TbChevronsRight } from "react-icons/tb";
 
-
-
-export function PatientListing({ valorBusca }) {
+export function PatientListing({ valorBusca, patients, role }) {
     const [page, setPage] = useState(1);
-    const { user } = useUser();
 
-    const filteredPacientes = ArrayPacientes.filter(paciente =>
+    const filteredPacientes = patients.filter(patient =>
         valorBusca === '' ||
-        paciente.name.toLowerCase().includes(valorBusca.toLowerCase()) ||
-        paciente.telefone.toLowerCase().includes(valorBusca.toLowerCase())
+        patient.name.toLowerCase().includes(valorBusca.toLowerCase()) ||
+        patient.phone.toLowerCase().includes(valorBusca.toLowerCase())
     );
 
     const totalPages = Math.max(Math.ceil(filteredPacientes.length / 9), 1);
@@ -43,37 +36,37 @@ export function PatientListing({ valorBusca }) {
 
             <tbody>
                 {paginatedPacientes.length > 0 ? (
-                    paginatedPacientes.map(paciente => (
-                        <tr key={paciente.id} className="even:bg-white dark:even:bg-dark-900 text-sm min-[790px]:text-base">
-                            <td className="text-center h-11">{paciente.id}</td>
+                    paginatedPacientes.map(patient => (
+                        <tr key={patient.idPatient} className="even:bg-white dark:even:bg-dark-900 text-sm min-[790px]:text-base">
+                            <td className="text-center h-11">{patient.idPatient}</td>
                             <td className="text-center h-11">
                                 <span className="m-auto truncate max-w-[120px] block">
-                                    {paciente.name}
+                                    {patient.name}
                                 </span>
                             </td>
-                            <td className="text-center h-11">{paciente.cpf}</td>
-                            <td className="text-center h-11">{paciente.telefone}</td>
-                            <td className="text-center h-11">{paciente.nascimento}</td>
+                            <td className="text-center h-11">{patient.cpf}</td>
+                            <td className="text-center h-11">{patient.phone}</td>
+                            <td className="text-center h-11">{patient.birth_date}</td>
                             <td className="bg-white dark:bg-dark-900 flex gap-1 justify-center h-11">
-                                {user.role === 'secretaria' && 
+                                {role === 'secretaria' &&
                                     <button className="bg-azul-900 text-white h-full px-2.5 rounded-lg">
                                         <LuPencil />
                                     </button>
                                 }
-                                {user.role === 'quiropraxista' &&
-                                    <Link to={'/home/prontuario'} className="bg-azul-900 text-white h-full px-2.5 rounded-lg flex items-center">
+                                {role === 'quiropraxista' &&
+                                    <Link to={`/home/prontuario/${patient.idPatient}`} className="bg-azul-900 text-white h-full px-2.5 rounded-lg flex items-center">
                                         <FaExternalLinkAlt />
                                     </Link>
                                 }
-                                {user.role === 'admin' &&
+                                {role === 'admin' &&
                                     <>
                                         <button className="bg-azul-900 text-white h-full px-2.5 rounded-lg">
                                             <LuPencil />
                                         </button>
-                                        <Link to={'/home/prontuario'} className="bg-azul-900 text-white h-full px-2.5 rounded-lg flex items-center">
+                                        <Link to={`/home/prontuario/${patient.idPatient}`} className="bg-azul-900 text-white h-full px-2.5 rounded-lg flex items-center">
                                             <FaExternalLinkAlt />
                                         </Link>
-                                    </> 
+                                    </>
                                 }
                             </td>
                         </tr>

@@ -31,7 +31,7 @@ export const UserProvider = ({ children }) => {
     const fetchUserData = async (accessToken) => {
         try {
             const res = await axios.get('http://localhost:3000/signin', {
-                headers: { Authorization: `Bearer ${accessToken}` }, // Passa o accessToken no cabeçalho
+                headers: { Authorization: `Bearer ${accessToken}` },
             });
             setUser(res.data); // Armazena os dados do usuário no estado
         } catch (err) {
@@ -93,7 +93,7 @@ export const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, token, refreshToken, login, logout, loading }}>
+        <UserContext.Provider value={{ user, token, refreshToken, refreshTokenFunc, login, logout, loading }}>
             {children}
         </UserContext.Provider>
     );

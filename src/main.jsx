@@ -37,7 +37,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
             <Route element={<ProtectedRoutes />}>
               <Route path="/home/pacientes" element={<Patients />} />
-              <Route path="/home/prontuario" element={<MedicalRecord />} />
+              <Route path="/home/prontuario/:id" element={<MedicalRecord />} />
               <Route path="/home/agenda" element={<Calendar />} />
               <Route path="/home/ajustes" element={<PanelConfig />} />
               <Route path="/home/preregistro" element={<PreRegistration />} />
