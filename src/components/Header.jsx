@@ -65,7 +65,7 @@ export function Header({ subtitle, clinicSettings }) {
 
 
             {subtitle && (
-                <h3 className="text-xl md:text-3xl font-medium text-center px-4 pt-8 text-azul-900">
+                <h3 className="text-xl md:text-2xl lg:text-3xl font-medium text-center px-4 pt-8 text-azul-900">
                     {subtitle}
                 </h3>
             )}

@@ -27,7 +27,8 @@ export function isValidDate(dateString) {
   if (!dateString.match(regEx)) return false; // Invalid format
 
   const [day, month, year] = dateString.split('/').map(Number);
-  const date = new Date(`${year}-${month}-${day}`);
+  const date = new Date(year, month - 1, day); // Ajustando o mês (0-11)
+
   const today = new Date();
   const oldestDate = new Date();
   oldestDate.setFullYear(today.getFullYear() - 120);
@@ -36,7 +37,7 @@ export function isValidDate(dateString) {
     return false; // Invalid date
   }
   if (date > today || date < oldestDate) {
-    return false; // Date is in the future or more than 125 years in the past
+    return false; // Date is in the future or more than 120 years in the past
   }
   return true;
 }
