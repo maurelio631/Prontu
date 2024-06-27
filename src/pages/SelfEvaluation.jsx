@@ -17,6 +17,7 @@ import Swal from "sweetalert2";
 export function SelfEvaluation() {
   const [step, setStep] = useState(1);
   const { loading, setLoading, clinic } = useClinic();
+  const [loadingForm, setLoadingForm] = useState(false);
   const sectionScroll = useRef(null);
 
   const [formData, setFormData] = useState({
@@ -110,14 +111,14 @@ export function SelfEvaluation() {
 
   const submitForm = async () => {
     try {
-      setLoading(true);
+      setLoadingForm(true);
       const res = await axios.post(`http://localhost:3000/registerSelfEvaluation/${clinic.idClinic}`, formData);
       Swal.fire("Salvo com sucesso!", "", "success");
       clearFormData();
     } catch (err) {
       toastErrorAlert(err.response.data.error);
     } finally {
-      setLoading(false);
+      setLoadingForm(false);
     }
   }
 
@@ -131,30 +132,31 @@ export function SelfEvaluation() {
   }
 
   return (
-    <Wrapper>
-      <div className="w-screen bg-white dark:bg-dark-900">
+    loading ? <Loading /> : (
+      <Wrapper>
+        <div className="w-screen bg-white dark:bg-dark-900">
           <Header subtitle={`Autoavaliação Prontuário de Atendimento de Quiropraxia`} clinicSettings={clinic} />
-        <main className="p-9 flex flex-col justify-between relative min-h-[calc(100vh-162px)] min-[470px]:min-h-[calc(100vh-160px)]">
-          <form ref={sectionScroll} className="overflow-y-auto min-[470px]:max-h-[calc(100vh-280px)]">
-            {getCompStep()}
-          </form>
+          <main className="p-9 flex flex-col justify-between relative min-h-[calc(100vh-162px)] min-[470px]:min-h-[calc(100vh-160px)]">
+            <form ref={sectionScroll} className="overflow-y-auto min-[470px]:max-h-[calc(100vh-280px)]">
+              {getCompStep()}
+            </form>
 
-          <div className="flex w-full flex-row justify-between pt-3 gap-0">
-            <button
-              className={`w-full rounded-md py-2 max-w-20 text-base min-[470px]:text-lg min-[470px]:max-w-32 ${step === 1 ? 'bg-gray-500/20 cursor-not-allowed text-white' : 'bg-transparent text-azul-900 border border-azul-900'}`}
-              onClick={retornaStep}
-              disabled={step === 1}
-            >
-              Voltar
-            </button>
-            
-            <button
+            <div className="flex w-full flex-row justify-between pt-3 gap-0">
+              <button
+                className={`w-full rounded-md py-2 max-w-20 text-base min-[470px]:text-lg min-[470px]:max-w-32 ${step === 1 ? 'bg-gray-500/20 cursor-not-allowed text-white' : 'bg-transparent text-azul-900 border border-azul-900'}`}
+                onClick={retornaStep}
+                disabled={step === 1}
+              >
+                Voltar
+              </button>
+
+              <button
                 className={`w-full rounded-md text-white py-2 max-w-20 text-base min-[470px]:text-lg 
                 ${step === 4 ? 'bg-verde-900' : 'bg-azul-900'} 
-                ${loading ? 'min-[470px]:max-w-40 bg-verde-900/50 cursor-not-allowed' : step === 4 ? 'min-[470px]:max-w-32' : 'min-[470px]:max-w-32 bg-azul-900'}`}
+                ${loadingForm ? 'min-[470px]:max-w-40 bg-verde-900/50 cursor-not-allowed' : step === 4 ? 'min-[470px]:max-w-32' : 'min-[470px]:max-w-32 bg-azul-900'}`}
                 onClick={concluiStep}
-            >
-                {loading ? (
+              >
+                {loadingForm ? (
                   <span className="flex justify-center">
                     Cadastrando
                     <svg aria-hidden="true" className="w-6 h-6 text-gray-200 animate-spin dark:text-gray-600 fill-white ml-2" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -165,10 +167,11 @@ export function SelfEvaluation() {
                 ) : (
                   step === 4 ? 'Concluir' : 'Próximo'
                 )}
-            </button>
-          </div>
-        </main>
-      </div>
-    </Wrapper>
+              </button>
+            </div>
+          </main>
+        </div>
+      </Wrapper>
+    )
   );
 }
