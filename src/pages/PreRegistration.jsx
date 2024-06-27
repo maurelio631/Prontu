@@ -1,14 +1,16 @@
 import { useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+
+import { useUser } from "../context/UserContext";
+
 import { Header } from "../components/Header";
 import Wrapper from "../components/Wrapper";
 import { FormPersonalDetails } from "../components/formSteps/formPersonalDetails";
-import { Link } from "react-router-dom";
+
 import { confirmAlert, toastErrorAlert } from "../utils/Alerts";
-import { useUser } from "../utils/UserContext";
-import { Loading } from "../components/Loading";
-import axios from "axios";
 import { isValidCPF, isValidDate, isValidEmail } from "../utils/ValidateFunctions";
-import Swal from "sweetalert2";
 
 export function PreRegistration() {
 

@@ -1,4 +1,4 @@
-import { useDarkMode } from "../utils/DarkModeContext"
+import { useDarkMode } from "../context/DarkModeContext"
 
 export function ToggleMode (){
 

@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { useUser } from "../context/UserContext";
+
+
 import { Header } from "../components/Header";
 import Sidebar from "../components/Sidebar";
 import Wrapper from "../components/Wrapper";
@@ -6,7 +9,6 @@ import Wrapper from "../components/Wrapper";
 import { Conta } from "../components/optionsPanel/Conta";
 import { Access } from "../components/optionsPanel/Access";
 import { Payment } from "../components/optionsPanel/Payment";
-import { useUser } from "../utils/UserContext";
 
 export function PanelConfig() {
     const [controller, setController] = useState(1);

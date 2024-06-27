@@ -1,17 +1,21 @@
 import { useRef, useState } from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useClinic } from "../context/GetClinicContext";
+
 import { Header } from "../components/Header";
 import Wrapper from "../components/Wrapper";
-
+import { Loading } from "../components/Loading";
 import { FormPersonalDetails } from "../components/formSteps/formPersonalDetails";
 import { FormUncomfortableAreas } from "../components/formSteps/formUncomfortableAreas";
 import { FormSymptoms } from "../components/formSteps/formSymptoms";
 import { FormMoreSymptoms } from "../components/formSteps/formMoreSymptoms";
+
 import { confirmAlert, toastErrorAlert, toastSuccessAlert } from "../utils/Alerts";
 import { isValidCPF, isValidDate, isValidEmail } from "../utils/ValidateFunctions";
-import { Loading } from "../components/Loading";
-import { useClinic } from "../utils/GetClinicContext";
-import axios from "axios";
-import Swal from "sweetalert2";
+
+
+
 
 
 export function SelfEvaluation() {

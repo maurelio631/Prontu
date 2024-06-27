@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../utils/UserContext";
+import { useUser } from "../context/UserContext";
 import { InputText } from "../components/InputText";
 import { toastErrorAlert } from "../utils/Alerts";
 

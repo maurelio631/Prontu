@@ -6,7 +6,7 @@ import { IoIosSearch } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
 import { toastErrorAlert } from "../utils/Alerts.js";
 
-import { useUser } from "../utils/UserContext.jsx";
+import { useUser } from "../context/UserContext.jsx";
 
 import { Header } from "../components/Header";
 import Sidebar from "../components/Sidebar";

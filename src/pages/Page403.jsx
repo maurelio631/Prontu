@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import erroSvg from "../assets/erro403.svg";
-import { useUser } from "../utils/UserContext";
+import { useUser } from "../context/UserContext";
 
 export function Page403() {
     const { user } = useUser();

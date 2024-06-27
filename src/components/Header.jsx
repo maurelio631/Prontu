@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { useUser } from "../utils/UserContext";
+import { useUser } from "../context/UserContext";
 
 import { DefaultUser } from "./DefaultUser";
 import { ToggleMode } from "./ToggleMode";

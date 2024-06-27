@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import { toastErrorAlert } from './Alerts';
+import { toastErrorAlert } from '../utils/Alerts';
 
 const UserContext = createContext(); 
 

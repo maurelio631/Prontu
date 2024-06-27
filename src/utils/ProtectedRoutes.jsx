@@ -1,5 +1,5 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { useUser } from './UserContext'; 
+import { useUser } from '../context/UserContext'; 
 import { Loading } from '../components/Loading';
 
 const checkPermissions = (userRole, path) => {

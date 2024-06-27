@@ -5,9 +5,9 @@ import "./assets/styles/alerts.css";
 import "./assets/styles/toggle.css";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { UserProvider } from "./utils/UserContext";
-import { DarkModeProvider } from "./utils/DarkModeContext";
-import { ClinicProvider } from "./utils/GetClinicContext";
+import { UserProvider } from "./context/UserContext";
+import { DarkModeProvider } from "./context/DarkModeContext";
+import { ClinicProvider } from "./context/GetClinicContext";
 
 import { SelfEvaluation } from "./pages/SelfEvaluation";
 import { Patients } from "./pages/Patients";

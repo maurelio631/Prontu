@@ -1,12 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
+
+import { InputText } from "../components/InputText";
+import { toastErrorAlert } from "../utils/Alerts";
+
+
 import logo from "../assets/logo.svg";
 import logoLogin from "../assets/logoLogin.svg";
 import { GoUpload } from "react-icons/go";
-import { InputText } from "../components/InputText";
-import axios from "axios";
-import { toastErrorAlert } from "../utils/Alerts";
-import Swal from "sweetalert2";
+
+
+
 
 export function ClinicRegistration() {
     const [inputFileData, setInputFileData] = useState("");
