@@ -37,23 +37,15 @@ export const UserProvider = ({ children }) => {
 
     const refreshToken = async () => {
         try {
-            await axios.post('/refresh-token');
+            const response = await axios.post('/refresh-token');
             await fetchUserData();
         } catch (err) {
             console.error('Error refreshing token', err);
-            if (err.response && err.response.status === 401) {
-                toastErrorAlert('Sessão expirada. Faça login novamente.');
-            } else {
-                toastErrorAlert('Erro ao atualizar token');
-            }
+            toastErrorAlert('Sessão expirada. Faça login novamente.');
             logout();
         }
     };
 
-
-    useEffect(() => {
-        fetchUserData()
-    }, []);
 
     const logout = () => {
         setUser(null);
@@ -61,7 +53,7 @@ export const UserProvider = ({ children }) => {
     };
 
     return (
-        <UserContext.Provider value={{ user, login, logout, loading, refreshToken }}>
+        <UserContext.Provider value={{ user, login, logout, loading, refreshToken, fetchUserData }}>
             {children}
         </UserContext.Provider>
     );

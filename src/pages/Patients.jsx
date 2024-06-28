@@ -18,7 +18,7 @@ export function Patients() {
     const [searchValue, setSearchValue] = useState('');
     const [patients, setPatients] = useState([]);
     const [loading, setLoading] = useState(true);
-    const { user, refreshToken, token } = useUser();
+    const { user, refreshToken } = useUser();
 
     const funcBusca = (event) => {
         setSearchValue(event.target.value.toString().toLowerCase());
@@ -32,14 +32,12 @@ export function Patients() {
         try {
             const res = await axios.get('http://localhost:3000/patients')
             setPatients(res.data);
+            setLoading(false);
         } catch (err) {
             if (err.response && err.response.status === 401) {
                 await refreshToken();
-            } else {
-                toastErrorAlert('Erro ao buscar dados dos pacientes');
+                getAllPatients();
             }
-        } finally {
-            setLoading(false);
         }
     };
 

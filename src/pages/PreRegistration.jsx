@@ -60,29 +60,14 @@ export function PreRegistration() {
         } catch (err) {
             if (err.response && err.response.status === 401) {
                 await refreshToken();
+                submitForm();
             } else {
-                toastErrorAlert(err.response?.data?.error || 'Erro ao salvar os dados do paciente');
+                toastErrorAlert(err.response?.data?.error);
             }
         } finally {
-            setLoading(false);
+            setLoading(false); 
         }
     };
-
-    const fetchUserData = async () => {
-        try {
-            const res = await axios.get('/signin');
-            setUser(res.data);
-            setLoading(false);
-        } catch (err) {
-            if (err.response && err.response.status === 401) {
-                await refreshToken();
-            } else {
-                toastErrorAlert('Erro ao buscar dados do usuário');
-                logout();
-            }
-        }
-    };
-
 
     const clearFormData = () => {
         setFormData({

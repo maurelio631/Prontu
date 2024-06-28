@@ -1,6 +1,7 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useUser } from '../context/UserContext'; 
 import { Loading } from '../components/Loading';
+import { useEffect } from 'react';
 
 const checkPermissions = (userRole, path) => {
     const permissions = {
@@ -21,8 +22,12 @@ const checkPermissions = (userRole, path) => {
 
 
 export const ProtectedRoutes = () => {
-    const { user, loading } = useUser();
+    const { user, loading, fetchUserData } = useUser();
     const location = useLocation();
+
+    useEffect(() => {
+        fetchUserData();
+    }, []);
 
     if (loading) {
         return <Loading/>
