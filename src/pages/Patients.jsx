@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "./../utils/axiosConfig.js";
 
 import { IoIosSearch } from "react-icons/io";
 import { GoPlus } from "react-icons/go";
@@ -18,28 +18,23 @@ export function Patients() {
     const [searchValue, setSearchValue] = useState('');
     const [patients, setPatients] = useState([]);
     const [loading, setLoading] = useState(true);
-    const { user, refreshTokenFunc, token } = useUser();
+    const { user, refreshToken, token } = useUser();
 
     const funcBusca = (event) => {
         setSearchValue(event.target.value.toString().toLowerCase());
     }
 
     useEffect(() => {
-        getAllPatients(token);
-    }, [token]);
+        getAllPatients();
+    }, []);
 
-    const getAllPatients = async (token) => {
+    const getAllPatients = async () => {
         try {
-            const res = await axios.get('http://localhost:3000/patients', {
-                headers: { Authorization: `Bearer ${token}` },
-            });
+            const res = await axios.get('http://localhost:3000/patients')
             setPatients(res.data);
         } catch (err) {
             if (err.response && err.response.status === 401) {
-                const newAccessToken = await refreshTokenFunc();
-                if (newAccessToken) {
-                    await getAllPatients(newAccessToken);
-                }
+                await refreshToken();
             } else {
                 toastErrorAlert('Erro ao buscar dados dos pacientes');
             }
@@ -47,6 +42,7 @@ export function Patients() {
             setLoading(false);
         }
     };
+
 
     return (
         <Wrapper>

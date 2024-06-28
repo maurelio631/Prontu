@@ -1,99 +1,67 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import axios from 'axios';
+import axios from '../utils/axiosConfig';
 import { toastErrorAlert } from '../utils/Alerts';
 
-const UserContext = createContext(); 
+const UserContext = createContext();
 
 export const useUser = () => useContext(UserContext);
 
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [token, setToken] = useState(null);
-    const [refreshToken, setRefreshToken] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // Função para login
     const login = async (data) => {
         try {
-            const res = await axios.post('http://localhost:3000/auth', data); // Envia dados de login para a API
-            const accessToken = res.data.accessToken; // Pega o accessToken da resposta
-            const refreshToken = res.data.refreshToken; // Pega o refreshToken da resposta
-            setToken(accessToken); // Armazena o accessToken no estado
-            setRefreshToken(refreshToken); // Armazena o refreshToken no estado
-            localStorage.setItem('refreshToken', refreshToken); // Armazena o refreshToken no localStorage
-            await fetchUserData(accessToken); // Busca dados do usuário com o accessToken
+            await axios.post('/auth', data);
+            await fetchUserData();
         } catch (err) {
             console.error('Login error', err);
-            throw err; // Lança o erro para ser tratado onde a função for chamada
+            throw err;
         }
     };
 
-    const fetchUserData = async (accessToken) => {
+    const fetchUserData = async () => {
         try {
-            const res = await axios.get('http://localhost:3000/signin', {
-                headers: { Authorization: `Bearer ${accessToken}` },
-            });
-            setUser(res.data); // Armazena os dados do usuário no estado
+            const res = await axios.get('/signin');
+            setUser(res.data);
+            setLoading(false);
         } catch (err) {
             if (err.response && err.response.status === 401) {
-                // Se o accessToken expirar, tenta obter um novo usando o refreshToken
-                const newAccessToken = await refreshTokenFunc();
-                if (newAccessToken) {
-                    await fetchUserData(newAccessToken); // Tenta buscar os dados novamente com o novo accessToken
-                }
+                await refreshToken();
             } else {
                 toastErrorAlert('Erro ao buscar dados do usuário');
-                logout(); // Se ocorrer outro erro, faz logout
+                logout();
             }
-        } finally {
-            setLoading(false); // Define o estado de carregamento como falso
         }
     };
 
-    const refreshTokenFunc = async () => {
+    const refreshToken = async () => {
         try {
-            const storedRefreshToken = localStorage.getItem('refreshToken'); // Pega o refreshToken do localStorage
-            const res = await axios.post('http://localhost:3000/refresh-token', { refreshToken: storedRefreshToken }); // Envia o refreshToken para a API
-            const accessToken = res.data.accessToken; // Pega o novo accessToken da resposta
-            const newRefreshToken = res.data.refreshToken; // Pega o novo refreshToken da resposta
-            setToken(accessToken); // Armazena o novo accessToken no estado
-            setRefreshToken(newRefreshToken); // Armazena o novo refreshToken no estado
-            localStorage.setItem('refreshToken', newRefreshToken); // Atualiza o refreshToken no localStorage
-            return accessToken;
+            await axios.post('/refresh-token');
+            await fetchUserData();
         } catch (err) {
             console.error('Error refreshing token', err);
             if (err.response && err.response.status === 401) {
                 toastErrorAlert('Sessão expirada. Faça login novamente.');
+            } else {
+                toastErrorAlert('Erro ao atualizar token');
             }
-            logout(); // Se o refreshToken expirar, faz logout
-            return null;
+            logout();
         }
     };
 
+
     useEffect(() => {
-        const storedRefreshToken = localStorage.getItem('refreshToken'); // Pega o refreshToken do localStorage
-        if (storedRefreshToken) {
-            setRefreshToken(storedRefreshToken); // Armazena o refreshToken no estado
-            refreshTokenFunc().then((newAccessToken) => {
-                if (newAccessToken) {
-                    fetchUserData(newAccessToken); // Busca dados do usuário com o novo accessToken
-                }
-            });
-        } else {
-            setLoading(false); // Define o estado de carregamento como falso se não houver refreshToken
-        }
+        fetchUserData()
     }, []);
 
     const logout = () => {
-        setUser(null); // Reseta o estado do usuário
-        setToken(null); // Reseta o estado do accessToken
-        setRefreshToken(null); // Reseta o estado do refreshToken
-        localStorage.removeItem('refreshToken'); // Remove o refreshToken do localStorage
-        setLoading(false); // Define o estado de carregamento como falso
+        setUser(null);
+        setLoading(false);
     };
 
     return (
-        <UserContext.Provider value={{ user, token, refreshToken, refreshTokenFunc, login, logout, loading }}>
+        <UserContext.Provider value={{ user, login, logout, loading, refreshToken }}>
             {children}
         </UserContext.Provider>
     );

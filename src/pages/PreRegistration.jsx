@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import axios from "../utils/axiosConfig";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -14,7 +14,7 @@ import { isValidCPF, isValidDate, isValidEmail } from "../utils/ValidateFunction
 
 export function PreRegistration() {
 
-    const { refreshTokenFunc, token} = useUser();
+    const { refreshToken} = useUser();
     const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         personalDetails: {},
@@ -47,33 +47,39 @@ export function PreRegistration() {
         } else if (personalDetails.phone.length < 14) {
             toastErrorAlert('Telefone inválido!');
         } else {
-            submitForm(token)
+            submitForm()
         }
     }
 
-    const submitForm = async (token) => {
+    const submitForm = async () => {
         try {
             setLoading(true);
-            const res = await axios.post('http://localhost:3000/registerPatient', formData, {
-                headers: { Authorization: `Bearer ${token}` },
-            });
+            const res = await axios.post('http://localhost:3000/registerPatient', formData)
             Swal.fire("Salvo com sucesso!", "", "success");
             clearFormData();
         } catch (err) {
             if (err.response && err.response.status === 401) {
-                const newAccessToken = await refreshTokenFunc();
-                if (newAccessToken) {
-                    await submitForm(newAccessToken);
-                } else {
-                    toastErrorAlert('Erro ao renovar o token. Faça login novamente.');
-                }
-            } else if (err.response && err.response.status === 400) {
-                toastErrorAlert(err.response.data.error || 'Erro de validação');
+                await refreshToken();
             } else {
                 toastErrorAlert(err.response?.data?.error || 'Erro ao salvar os dados do paciente');
             }
         } finally {
             setLoading(false);
+        }
+    };
+
+    const fetchUserData = async () => {
+        try {
+            const res = await axios.get('/signin');
+            setUser(res.data);
+            setLoading(false);
+        } catch (err) {
+            if (err.response && err.response.status === 401) {
+                await refreshToken();
+            } else {
+                toastErrorAlert('Erro ao buscar dados do usuário');
+                logout();
+            }
         }
     };
 

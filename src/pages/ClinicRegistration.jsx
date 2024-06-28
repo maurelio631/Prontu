@@ -6,12 +6,9 @@ import Swal from "sweetalert2";
 import { InputText } from "../components/InputText";
 import { toastErrorAlert } from "../utils/Alerts";
 
-
 import logo from "../assets/logo.svg";
 import logoLogin from "../assets/logoLogin.svg";
 import { GoUpload } from "react-icons/go";
-
-
 
 
 export function ClinicRegistration() {
