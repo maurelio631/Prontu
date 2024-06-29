@@ -9,6 +9,7 @@ export const useUser = () => useContext(UserContext);
 export const UserProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [tokenRefreshAttempted, setTokenRefreshAttempted] = useState(false); // Flag de tentativa de refresh
 
     const login = async (data) => {
         try {
@@ -27,7 +28,12 @@ export const UserProvider = ({ children }) => {
             setLoading(false);
         } catch (err) {
             if (err.response && err.response.status === 401) {
-                await refreshToken();
+                if (!tokenRefreshAttempted) {
+                    await refreshToken();
+                } else {
+                    toastErrorAlert('Sessão expirada. Faça login novamente.');
+                    logout();
+                }
             } else {
                 toastErrorAlert('Erro ao buscar dados do usuário');
                 logout();
@@ -37,19 +43,20 @@ export const UserProvider = ({ children }) => {
 
     const refreshToken = async () => {
         try {
+            setTokenRefreshAttempted(true); // Marcar que a tentativa foi feita
             const response = await axios.post('/refresh-token');
+            setTokenRefreshAttempted(false); // Resetar a flag após sucesso
             await fetchUserData();
         } catch (err) {
-            console.error('Error refreshing token', err);
             toastErrorAlert('Sessão expirada. Faça login novamente.');
             logout();
         }
     };
 
-
     const logout = () => {
         setUser(null);
         setLoading(false);
+        setTokenRefreshAttempted(false); // Resetar a flag ao fazer logout
     };
 
     return (

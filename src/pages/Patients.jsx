@@ -28,15 +28,17 @@ export function Patients() {
         getAllPatients();
     }, []);
 
-    const getAllPatients = async () => {
+    const getAllPatients = async (retryCount = 0) => {
         try {
-            const res = await axios.get('http://localhost:3000/patients')
+            const res = await axios.get('http://localhost:3000/patients');
             setPatients(res.data);
             setLoading(false);
         } catch (err) {
-            if (err.response && err.response.status === 401) {
+            if (err.response && err.response.status === 401 && retryCount < 1) {
                 await refreshToken();
-                getAllPatients();
+                getAllPatients(retryCount + 1);
+            } else {
+                setLoading(false);
             }
         }
     };

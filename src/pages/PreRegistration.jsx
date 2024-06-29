@@ -51,21 +51,21 @@ export function PreRegistration() {
         }
     }
 
-    const submitForm = async () => {
+    const submitForm = async (retryCount = 0) => {
         try {
             setLoading(true);
-            const res = await axios.post('http://localhost:3000/registerPatient', formData)
+            const res = await axios.post('http://localhost:3000/registerPatient', formData);
             Swal.fire("Salvo com sucesso!", "", "success");
             clearFormData();
         } catch (err) {
-            if (err.response && err.response.status === 401) {
+            if (err.response && err.response.status === 401 && retryCount < 1) {
                 await refreshToken();
-                submitForm();
+                submitForm(retryCount + 1);
             } else {
                 toastErrorAlert(err.response?.data?.error);
             }
         } finally {
-            setLoading(false); 
+            setLoading(false);
         }
     };
 

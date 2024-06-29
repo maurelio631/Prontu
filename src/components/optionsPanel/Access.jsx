@@ -22,20 +22,22 @@ export function Access() {
         }));
     };
 
-    const getAccess =  async () => {  
+    const getAccess = async (retryCount = 0) => {
         try {
             const res = await axios.get('/getUsers');
             setAccess(res.data);
             setLoading(false);
         } catch (err) {
-            if (err.response && err.response.status === 401) {
+            if (err.response && err.response.status === 401 && retryCount < 1) {
                 await refreshToken();
-                getAccess();
-            } 
-        } 
+                getAccess(retryCount + 1);
+            } else {
+                setLoading(false);
+            }
+        }
     }
 
-    const addAccess = async () => {
+    const addAccess = async (retryCount = 0) => {
         try {
             setLoadingForm(true);
             await axios.post('/registerUsers', newAccess);
@@ -43,33 +45,27 @@ export function Access() {
             window.location.reload();
             setLoadingForm(false);
         } catch (err) {
-            if (err.response && err.response.status === 401) {
+            if (err.response && err.response.status === 401 && retryCount < 1) {
                 await refreshToken();
+                addAccess(retryCount + 1);
             } else {
-                toastErrorAlert(err.response.data.error)
+                toastErrorAlert(err.response?.data?.error);
             }
         } finally {
             setLoadingForm(false);
         }
     };
 
-
-    const confirmDel = (id) => {
-        confirmAlert('Deseja realmente deletar esse usuário?', 'Sim', 'Cancelar', () => deleteAccess(id));
-    }
-
-    const deleteAccess = async (id) => {
-        try {  
+    const deleteAccess = async (id, retryCount = 0) => {
+        try {
             await axios.delete(`/deleteUser/${id}`);
-            toastSuccessAlert('Usuário deletado com sucesso!')
+            toastSuccessAlert('Usuário deletado com sucesso!');
             window.location.reload();
         } catch (err) {
-            if (err.response && err.response.status === 401) {
+            if (err.response && err.response.status === 401 && retryCount < 1) {
                 await refreshToken();
-                deleteAccess(id);
-            } else {
-
-            }
+                deleteAccess(id, retryCount + 1);
+            } 
         }
     }
 
