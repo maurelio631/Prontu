@@ -15,6 +15,8 @@ export function Access() {
     const [loadingForm, setLoadingForm] = useState(false);
     const { refreshToken } = useUser();
     const [refreshKey, setRefreshKey] = useState(0);
+    const [editAccessStatus, setEditAccessStatus] = useState(false);
+    const [editUserId, setEditUserId] = useState(null);
 
     const changeNewAccess = (id, value) => {
         setNewAccess(prevData => ({
@@ -29,19 +31,19 @@ export function Access() {
     };
 
     const getAccess = async (retryCount = 0) => {
+        setLoading(true);
         try {
             const res = await axios.get('/getUsers');
             setAccess(res.data);
-            setLoading(false);
         } catch (err) {
             if (err.response && err.response.status === 401 && retryCount < 1) {
                 await refreshToken();
                 getAccess(retryCount + 1);
-            } else {
-                setLoading(false);
             }
+        } finally {
+            setLoading(false);
         }
-    }
+    };
 
     const addAccess = async (retryCount = 0) => {
         try {
@@ -50,7 +52,6 @@ export function Access() {
             toastSuccessAlert('Usuário criado com sucesso!');
             clearForm();
             setRefreshKey(prevKey => prevKey + 1);
-            setLoadingForm(false);
         } catch (err) {
             if (err.response && err.response.status === 401 && retryCount < 1) {
                 await refreshToken();
@@ -65,9 +66,10 @@ export function Access() {
 
     const confirmDel = (id) => {
         confirmAlert('Deseja realmente deletar esse usuário?', 'Sim', 'Cancelar', () => deleteAccess(id));
-    }
+    };
 
     const deleteAccess = async (id, retryCount = 0) => {
+        setLoading(true);
         try {
             await axios.delete(`/deleteUser/${id}`);
             toastSuccessAlert('Usuário deletado com sucesso!');
@@ -77,19 +79,54 @@ export function Access() {
                 await refreshToken();
                 deleteAccess(id, retryCount + 1);
             }
+        } finally {
+            setLoading(false);
         }
-    }
+    };
 
-    const validateForm = () => {
+    const editStatus = (id, name, email, role) => {
+        setEditAccessStatus(true);
+        setEditUserId(id);
+        setNewAccess({
+            name: name,
+            email: email,
+            role: role
+        });
+    };
+
+    const cancelEdit = () => {
+        setEditAccessStatus(false);
+        clearForm();
+    };
+
+    const editAccess = async (retryCount = 0) => {
+        try {
+            setLoadingForm(true);
+            await axios.put(`/updateUser/${editUserId}`, newAccess);
+            toastSuccessAlert('Usuário editado com sucesso!');
+            setRefreshKey(prevKey => prevKey + 1);
+            clearForm();
+            setEditAccessStatus(false);
+        } catch (err) {
+            if (err.response && err.response.status === 401 && retryCount < 1) {
+                await refreshToken();
+                editAccess(retryCount + 1);
+            }
+        } finally {
+            setLoadingForm(false);
+        }
+    };
+
+    const validateForm = (submitForm) => {
         console.log(newAccess);
         if (!newAccess.name || !newAccess.email || !newAccess.role) {
             return toastErrorAlert('Preencha todos os campos');
         } else if (newAccess.role !== 'secretaria' && newAccess.role !== 'quiropraxista') {
             return toastErrorAlert('O tipo de acesso deve ser "Secretaria" ou "Quiropraxista"');
         } else {
-            addAccess();
+            submitForm();
         }
-    }
+    };
 
     const clearForm = () => {
         setNewAccess({
@@ -97,7 +134,7 @@ export function Access() {
             email: '',
             role: ''
         });
-    }
+    };
 
     useEffect(() => {
         getAccess();
@@ -131,7 +168,7 @@ export function Access() {
                                             </div>
                                             <div className="flex gap-2">
                                                 <button onClick={() => confirmDel(pessoa.idUser)} className="text-vermelho-900 font-semibold p-2 ">Excluir</button>
-                                                <button className="text-white bg-azul-900 p-2 rounded-lg font-semibold">Editar</button>
+                                                <button onClick={() => editStatus(pessoa.idUser, pessoa.name, pessoa.email, pessoa.role)} className="text-white bg-azul-900 p-2 rounded-lg font-semibold">Editar</button>
                                             </div>
                                         </div>
                                     </div>
@@ -180,22 +217,53 @@ export function Access() {
                     </label>
                 </div>
 
-                <button
-                    className={`bg-azul-900 font-medium flex items-center text-white rounded-lg p-3 w-52 justify-center
+                {editAccessStatus && (
+                    <div className="flex gap-4">
+                        <button
+                            className={`font-medium flex items-center text-white rounded-lg p-3 justify-center
+                            ${loadingForm ? ' bg-verde-900/70 cursor-not-allowed' : ' bg-verde-900/90'}`}
+                            onClick={() => validateForm(editAccess)}
+                        >
+                            {loadingForm ? (
+                                <span className="w-full flex justify-center z-0">
+                                    Editando
+                                    <LoadingIcon />
+                                </span>
+                            ) : (
+                                <span className="w-full flex justify-center items-center">
+                                    Confirmar edição
+                                </span>
+                            )}
+                        </button>
+
+
+                        <button
+                            className={`bg-vermelho-900 font-medium flex items-center text-white rounded-lg p-3  justify-center ${loadingForm ? 'hidden' : ''}`}
+                            onClick={cancelEdit}
+                        >
+                            Cancelar edição
+                        </button>
+                    </div>
+                )}
+
+                {!editAccessStatus && (
+                    <button
+                        className={`bg-azul-900 font-medium flex items-center text-white rounded-lg p-3 w-52 justify-center
                     ${loadingForm ? ' bg-azul-900/50 cursor-not-allowed w-36' : ' bg-azul-900 w-52'}`}
-                    onClick={validateForm}
-                >
-                    {loadingForm ? (
-                        <span className="w-full flex justify-center z-0">
-                            Criando
-                            <LoadingIcon />
-                        </span>
-                    ) : (
-                        <span className="w-full flex justify-center items-center">
-                            Criar mais acessos <FaPlus className="ml-2" />
-                        </span>
-                    )}
-                </button>
+                        onClick={() => validateForm(addAccess)}
+                    >
+                        {loadingForm ? (
+                            <span className="w-full flex justify-center z-0">
+                                Criando
+                                <LoadingIcon />
+                            </span>
+                        ) : (
+                            <span className="w-full flex justify-center items-center">
+                                Criar mais acessos <FaPlus className="ml-2" />
+                            </span>
+                        )}
+                    </button>
+                )}
             </div>
         </section>
     );
